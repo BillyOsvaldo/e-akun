@@ -11,7 +11,6 @@ const hooks = require('feathers-hooks');
 const rest = require('feathers-rest');
 const socketio = require('feathers-socketio');
 
-const errors = require('feathers-errors')
 const handler = require('feathers-errors/handler');
 const notFound = require('feathers-errors/not-found');
 
