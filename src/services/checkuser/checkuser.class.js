@@ -22,7 +22,7 @@ module.exports = class checkUser {
           _user.data.push(_output)
           return _user;
         } else {
-          throw new errors.NotFound('ID Akun tidak ditemukan!');
+          throw new errors.BadRequest('ID Akun/NIP tidak ditemukan.', {username: username});
         }
       } else {
         const _user = await this.app.service('users')
@@ -63,7 +63,7 @@ module.exports = class checkUser {
             _user.data.push(_output)
             return _user;
           } else {
-            throw new errors.NotFound('ID Akun tidak ditemukan!');
+            throw new errors.BadRequest('ID Akun/NIP tidak ditemukan.', {username: username});
           }
         }
       }
