@@ -23,7 +23,7 @@ module.exports = class checkUser {
           _user.data.push(_output)
           output = _user;
         } else {
-          output = new errors.NotFound('ID Akun tidak ditemukan!');
+          output = throw new errors.NotFound('ID Akun tidak ditemukan!');
         }
       } else {
         const _user = await this.app.service('users')
@@ -64,7 +64,7 @@ module.exports = class checkUser {
             _user.data.push(_output)
             output = _user;
           } else {
-            output = new errors.NotFound('ID Akun tidak ditemukan!');
+            output = throw new errors.NotFound('ID Akun tidak ditemukan!');
           }
         }
       }
