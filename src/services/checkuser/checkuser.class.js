@@ -4,7 +4,6 @@ module.exports = class checkUser {
   async find(params) {
     const checkMail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const username = params.query.username;
-    let output = []
     if (typeof username !== 'undefined') {
       if (checkMail.test(username)) {
         const _user = await this.app.service('users')
@@ -21,9 +20,9 @@ module.exports = class checkUser {
           }
           _user.data.splice(0, 1)
           _user.data.push(_output)
-          output = _user;
+          return _user;
         } else {
-          output = throw new errors.NotFound('ID Akun tidak ditemukan!');
+          throw new errors.NotFound('ID Akun tidak ditemukan!');
         }
       } else {
         const _user = await this.app.service('users')
@@ -40,7 +39,7 @@ module.exports = class checkUser {
           }
           _user.data.splice(0, 1)
           _user.data.push(_output)
-          output = _user;
+          return _user;
         } else {
           const _profile = await this.app.service('profiles')
             .find({
@@ -62,14 +61,13 @@ module.exports = class checkUser {
             }
             _user.data.splice(0, 1)
             _user.data.push(_output)
-            output = _user;
+            return _user;
           } else {
-            output = throw new errors.NotFound('ID Akun tidak ditemukan!');
+            throw new errors.NotFound('ID Akun tidak ditemukan!');
           }
         }
       }
     }
-    return output
   }
 
   setup(app) {
