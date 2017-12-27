@@ -1,3 +1,5 @@
+import errors from '@feathersjs/errors';
+
 module.exports = class checkUser {
   async find(params) {
     const checkMail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -19,8 +21,10 @@ module.exports = class checkUser {
           }
           _user.data.splice(0, 1)
           _user.data.push(_output)
+          output = _user;
+        } else {
+          output = new errors.BadRequest('Invalid username', {username: username});
         }
-        output = _user;
       } else {
         const _user = await this.app.service('users')
           .find({
@@ -60,7 +64,7 @@ module.exports = class checkUser {
             _user.data.push(_output)
             output = _user;
           } else {
-            output = _profile;
+            output = new errors.BadRequest('Invalid username', {username: username});
           }
         }
       }
