@@ -15,6 +15,12 @@
     ],
     "path": "/authentication",
     "service": "users",
+    "cookie": {
+      "enabled": true,
+      "name": "feathers-jwt",
+      "httpOnly": false,
+      "secure": false
+    },
     "jwt": {
       "header": {
         "typ": "access"
