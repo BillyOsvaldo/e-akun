@@ -18,7 +18,7 @@
     "cookie": {
       "enabled": true,
       "name": "feathers-jwt",
-      "httpOnly": false,
+      "httpOnly": true,
       "secure": false
     },
     "jwt": {
