@@ -1,11 +1,6 @@
 module.exports = class userApp {
-  async get (params) {
-    console.log(params)
-  }
-
-  async find (params) {
+  async get (userid) {
     const app = this.app.get('appid')
-    const userid = params.query.userid
     let _output = []
     if (typeof app !== 'undefined' && typeof userid !== 'undefined') {
       const _userperm = await this.app.service('userpermissions')
