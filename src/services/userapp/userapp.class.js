@@ -24,6 +24,7 @@ module.exports = class userApp {
         _userperm.data = _userperm.data.filter(item => item.permission !== null)
         _userperm.data[0].user.permission = _userperm.data[0].permission
         let user = _userperm.data[0].user
+        delete user.password
         _userperm.data.splice(0, 1)
         _userperm.data.push(user)
 
