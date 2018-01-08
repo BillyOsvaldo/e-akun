@@ -10,7 +10,7 @@ module.exports = class userApp {
       const _user = await this.app.service('users')
         .find({
           query: {
-            id: userid,
+            _id: userid,
             $populate: 'permissions'
           }
         })
