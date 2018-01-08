@@ -23,8 +23,10 @@ module.exports = class userApp {
 
         _userperm.data = _userperm.data.filter(item => item.permission !== null)
         _userperm.data[0].user.permission = _userperm.data[0].permission
-        _userperm.data.push(_userperm.data[0].user)
-        _user.data.splice(0, 1)
+        let user = _userperm.data[0].user
+        _userperm.data.splice(0, 1)
+        _userperm.data.push(user)
+
       return _userperm
     }
   }
