@@ -18,8 +18,16 @@ module.exports = class menuApp {
           }
         })
 
-      console.log(_menuperm)
-      console.log(_menurole)
+      let menu = []
+      _menuperm.data.forEach((item) => {
+        menu.push(item.menu)
+      })
+
+      _menurole.data.forEach((item) => {
+        menu.push(item.menu)
+      })
+
+      console.log(menu)
 
     }
     return _output
