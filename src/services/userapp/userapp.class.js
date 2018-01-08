@@ -7,10 +7,11 @@ module.exports = class userApp {
       console.log('OK!')
       console.log('userid', userid)
       console.log('app', app)
-      const _user = await this.app.service('users')
+      const _userperm = await this.app.service('userpermissions')
         .find({
           query: {
             _id: userid,
+            $populate: 'users',
             $populate: 'permission'
           }
         })

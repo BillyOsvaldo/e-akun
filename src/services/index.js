@@ -6,6 +6,12 @@ const checkcode = require('./checkcode/checkcode.service.js');
 const menus = require('./menus/menus.service.js');
 const userapp = require('./userapp/userapp.service.js');
 const menuapp = require('./menuapp/menuapp.service.js');
+const opds = require('./opds/opds.service.js');
+const roles = require('./roles/roles.service.js');
+const permissions = require('./permissions/permissions.service.js');
+const userpermissions = require('./userpermissions/userpermissions.service.js');
+const menupermissions = require('./menupermissions/menupermissions.service.js');
+const apps = require('./apps/apps.service.js');
 module.exports = function () {
   const app = this; // eslint-disable-line no-unused-vars
   app.configure(coderegs);
@@ -16,4 +22,10 @@ module.exports = function () {
   app.configure(menus);
   app.configure(userapp);
   app.configure(menuapp);
+  app.configure(opds);
+  app.configure(roles);
+  app.configure(permissions);
+  app.configure(userpermissions);
+  app.configure(menupermissions);
+  app.configure(apps);
 };

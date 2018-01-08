@@ -21,6 +21,14 @@ module.exports = function (app) {
     profile: {
       type: mongooseClient.Schema.Types.ObjectId,
       ref: 'profiles'
+    },
+    role: {
+      type: mongooseClient.Schema.Types.ObjectId,
+      ref: 'roles'
+    },
+    opd: {
+      type: mongooseClient.Schema.Types.ObjectId,
+      ref: 'opds'
     }
   }, {
     timestamps: true
