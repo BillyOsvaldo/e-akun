@@ -14,6 +14,7 @@ module.exports = class userApp {
             $populate: ['user', 'permission']
           }
         })
+      console.log(_userperm.data)
       console.log(_userperm.data.filter(item => item.permission.app === app))
       return _userperm
     }
