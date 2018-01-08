@@ -4,10 +4,13 @@ module.exports = class userApp {
     const userid = params.query.userid
     let _output = []
     if (typeof app !== 'undefined' && typeof userid !== 'undefined') {
+      console.log('OK!')
+      console.log('userid', userid)
+      console.log('app', app)
       const _user = await this.app.service('users')
         .find({
           query: {
-            _id: userid,
+            id: userid,
             $populate: 'permissions'
           }
         })
