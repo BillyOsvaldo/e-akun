@@ -3,7 +3,7 @@ module.exports = class userApp {
     const app = params.query.app
     const userid = params.query.userid
     let _output = []
-    if (typeof app !== 'undefined' && typeof userapp !== 'undefined') {
+    if (typeof app !== 'undefined' && typeof userid !== 'undefined') {
       const _user = await this.app.service('users')
         .find({
           query: {
