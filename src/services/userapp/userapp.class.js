@@ -11,7 +11,14 @@ module.exports = class userApp {
         .find({
           query: {
             user: userid,
-            $populate: ['user', 'permission']
+            $populate: [
+              {
+                path: 'user'
+              },
+              {
+                path: 'permission'
+              }
+            ]
           }
         })
       console.log(_userperm.data)
