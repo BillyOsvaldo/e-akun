@@ -15,7 +15,7 @@ module.exports = class userApp {
             $populate: 'permission'
           }
         })
-      return _user
+      return _userperm
     }
   }
 
