@@ -11,8 +11,7 @@ module.exports = class userApp {
         .find({
           query: {
             user: userid,
-            $populate: 'users',
-            $populate: 'permission'
+            $populate: 'users'
           }
         })
       return _userperm
