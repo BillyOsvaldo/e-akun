@@ -12,6 +12,7 @@ const permissions = require('./permissions/permissions.service.js');
 const userpermissions = require('./userpermissions/userpermissions.service.js');
 const menupermissions = require('./menupermissions/menupermissions.service.js');
 const apps = require('./apps/apps.service.js');
+const menuroles = require('./menuroles/menuroles.service.js');
 module.exports = function () {
   const app = this; // eslint-disable-line no-unused-vars
   app.configure(coderegs);
@@ -28,4 +29,5 @@ module.exports = function () {
   app.configure(userpermissions);
   app.configure(menupermissions);
   app.configure(apps);
+  app.configure(menuroles);
 };
