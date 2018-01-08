@@ -25,7 +25,6 @@ module.exports = class userApp {
         _userperm.total = _userperm.data.length
         _userperm.data[0].user.permission = _userperm.data[0].permission
         let user = _userperm.data[0].user
-        delete user.password
         _userperm.data.splice(0, 1)
         _userperm.data.push(user)
 
