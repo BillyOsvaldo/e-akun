@@ -24,6 +24,7 @@ module.exports = class userApp {
             ]
           }
         })
+        _userpem.data = _userpem.data.filter(item => item.permission === null)
       return _userperm
     }
   }
