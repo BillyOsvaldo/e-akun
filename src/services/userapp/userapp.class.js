@@ -1,6 +1,6 @@
 module.exports = class userApp {
   async find (params) {
-    const app = params.query.app
+    const app = this.app.get('appid')
     const userid = params.query.userid
     let _output = []
     if (typeof app !== 'undefined' && typeof userid !== 'undefined') {
