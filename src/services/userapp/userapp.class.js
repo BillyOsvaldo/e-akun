@@ -16,13 +16,14 @@ module.exports = class userApp {
                 path: 'user'
               },
               {
-                path: 'permission'
+                path: 'permission',
+                match: {
+                  app: app
+                }
               }
             ]
           }
         })
-      console.log(_userperm.data)
-      console.log(_userperm.data.filter(item => item.permission.app === app))
       return _userperm
     }
   }
