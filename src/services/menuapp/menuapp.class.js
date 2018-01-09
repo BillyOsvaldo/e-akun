@@ -33,6 +33,12 @@ module.exports = class menuApp {
       console.log(_menu)
       console.log(menu)
 
+      _menu.data.forEach((item) => {
+        if (menu.filter(i => i === item._id)) {
+          console.log(item)
+        }
+      })
+
     }
     return _output
   }
