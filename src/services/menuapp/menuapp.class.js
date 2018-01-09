@@ -23,11 +23,11 @@ module.exports = class menuApp {
 
       let menu = []
       _menuperm.data.forEach((item) => {
-        menu.push(item.menu)
+        menu.push(item.menu.toString())
       })
 
       _menurole.data.forEach((item) => {
-        menu.push(item.menu)
+        menu.push(item.menu.toString())
       })
 
       _menu.data.forEach((item) => {
