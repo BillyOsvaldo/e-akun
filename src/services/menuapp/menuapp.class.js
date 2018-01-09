@@ -31,10 +31,9 @@ module.exports = class menuApp {
       })
 
       _menu.data.forEach((item) => {
-        console.log(item)
-        if (menu.filter(i => i === item._id)) {
+        if (menu.filter.contains(item._id)) {
+          console.log(item._id)
           _output.push(item)
-          console.log(item)
         }
       })
 
