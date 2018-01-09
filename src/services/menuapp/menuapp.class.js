@@ -18,6 +18,9 @@ module.exports = class menuApp {
           }
         })
 
+      const _menu = await this.app.service('menus')
+        .find()
+
       let menu = []
       _menuperm.data.forEach((item) => {
         menu.push(item.menu)
@@ -27,6 +30,7 @@ module.exports = class menuApp {
         menu.push(item.menu)
       })
 
+      console.log(_menu)
       console.log(menu)
 
     }
