@@ -31,8 +31,9 @@ module.exports = class menuApp {
       })
 
       _menu.data.forEach((item) => {
+        console.log(menu)
+        console.log(item._id)
         if (menu.includes(item._id)) {
-          console.log(item._id)
           _output.push(item)
         }
       })
