@@ -32,7 +32,7 @@ module.exports = class menuApp {
 
       _menu.data.forEach((item) => {
         if (menu.filter(i => i === item._id)) {
-          output.push(item)
+          _output.push(item)
         }
       })
 
