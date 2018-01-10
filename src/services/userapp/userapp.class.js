@@ -9,6 +9,15 @@ module.exports = class userApp {
             _id: userid,
             $populate: [
               {
+                path: 'profile'
+              },
+              {
+                path: 'opd'
+              },
+              {
+                path: 'role'
+              },
+              {
                 path: 'permission',
                 match: {
                   app: app
