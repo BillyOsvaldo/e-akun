@@ -2,6 +2,7 @@ module.exports = class menuApp {
   async find (params) {
     const permission = params.query.permission
     const role = params.query.role
+    let _output = []
     if (typeof permission !== 'undefined' && typeof role !== 'undefined') {
       console.log(permission)
       console.log(role)
@@ -14,9 +15,9 @@ module.exports = class menuApp {
             ]
           }
         })
-
+      _output = _menu
     }
-    return _menu
+    return _output
   }
 
   setup (app) {
