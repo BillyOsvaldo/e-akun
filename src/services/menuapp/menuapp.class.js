@@ -4,37 +4,19 @@ module.exports = class menuApp {
     const role = params.query.role
     let _output = []
     if (typeof permission !== 'undefined' && typeof role !== 'undefined') {
-      const _menuperm = await this.app.service('menupermissions')
-        .find({
-          query: {
-            permission: permission
-          }
-        })
-
-      const _menurole = await this.app.service('menuroles')
-        .find({
-          query: {
-            role: role
-          }
-        })
-
       const _menu = await this.app.service('menus')
-        .find()
+        .find({
+          query: {
+            $or: [
+              {roles: role},
+              {permissions: permission}
+            ]
+          }
+        })
 
-      let menu = []
-      _menuperm.data.forEach((item) => {
-        menu.push(item.menu.toString())
-      })
-
-      _menurole.data.forEach((item) => {
-        menu.push(item.menu.toString())
-      })
-
-      _menu.data.forEach((item) => {
-        if (menu.includes(item._id.toString())) {
-          _output.push(item)
-        }
-      })
+      if (_menu.total === 1) {
+          _output = _menu.data[0]
+      }
 
     }
     return _output
