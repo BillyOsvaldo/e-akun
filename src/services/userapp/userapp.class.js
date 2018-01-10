@@ -18,11 +18,10 @@ module.exports = class userApp {
                 path: 'role'
               },
               {
-                path: 'permission',
+                path: 'permissions',
                 match: {
                   app: app
-                },
-                populate: 'app'
+                }
               }
             ]
           }
