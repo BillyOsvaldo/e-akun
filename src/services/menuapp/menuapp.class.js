@@ -4,8 +4,6 @@ module.exports = class menuApp {
     const role = params.query.role
     let _output = []
     if (typeof permission !== 'undefined' && typeof role !== 'undefined') {
-      console.log(permission)
-      console.log(role)
       const _menu = await this.app.service('menus')
         .find({
           query: {
