@@ -27,7 +27,11 @@ module.exports = class userApp {
           }
         })
 
-      return _userperm
+      if (_userperm.total === 1) {
+        _output = _userperm.data[0]
+      }
+      
+      return _total
     }
   }
 
