@@ -30,8 +30,8 @@ module.exports = class userApp {
       if (_userperm.total === 1) {
         _output = _userperm.data[0]
       }
-      
-      return _total
+
+      return _output
     }
   }
 
