@@ -21,7 +21,8 @@ module.exports = class userApp {
                 path: 'permissions',
                 match: {
                   app: app
-                }
+                },
+                populate: ['app', 'administrator']
               }
             ]
           }
