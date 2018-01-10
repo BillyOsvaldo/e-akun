@@ -12,9 +12,9 @@ const restrict = [
 
 module.exports = {
   before: {
-    all: [],
+    all: [ authenticate('jwt') ],
     find: [],
-    get: [],
+    get: [ ...restrict ],
     create: [],
     update: [],
     patch: [],
