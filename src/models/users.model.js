@@ -26,6 +26,10 @@ module.exports = function (app) {
       type: mongooseClient.Schema.Types.ObjectId,
       ref: 'roles'
     },
+    permission: [{
+      type: mongooseClient.Schema.Types.ObjectId,
+      ref: 'permissions'
+    }],
     opd: {
       type: mongooseClient.Schema.Types.ObjectId,
       ref: 'opds'
