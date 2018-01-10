@@ -10,12 +10,9 @@ module.exports = function (app) {
       type: mongooseClient.Schema.Types.ObjectId,
       ref: 'apps'
     },
-    type: {
-      type: String
-    },
-    name: {
-      type: String,
-      required: true
+    administrator: {
+      type: mongooseClient.Schema.Types.ObjectId,
+      ref: 'administrators'
     }
   }, {
     timestamps: true

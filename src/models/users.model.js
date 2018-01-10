@@ -26,7 +26,7 @@ module.exports = function (app) {
       type: mongooseClient.Schema.Types.ObjectId,
       ref: 'roles'
     },
-    permission: [{
+    permissions: [{
       type: mongooseClient.Schema.Types.ObjectId,
       ref: 'permissions'
     }],
