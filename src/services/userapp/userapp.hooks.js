@@ -23,14 +23,14 @@ module.exports = {
   },
 
   after: {
-    all: [
+    all: [],
+    find: [],
+    get: [
       commonHooks.when(
         hook => hook.params.provider,
         commonHooks.discard('password')
       )
     ],
-    find: [],
-    get: [],
     create: [],
     update: [],
     patch: [],

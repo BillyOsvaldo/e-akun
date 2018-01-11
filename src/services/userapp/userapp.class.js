@@ -44,14 +44,12 @@ module.exports = class userApp {
     console.log(data.password)
     let check = false
     bcrypt.compare(params.user.password, data.password, (err, data1) => {
-      if (err || !data1) {
-        throw new errors.BadRequest('Kata Sandi Salah.', {});
+      if (!err || data1) {
+        check = true
       }
-      delete data.password
-      const _user = this.app.service('users')
-        .patch(id, data, params)
-      console.log(_user)
     })
+
+    console.log(check)
   }
 
   setup (app) {
