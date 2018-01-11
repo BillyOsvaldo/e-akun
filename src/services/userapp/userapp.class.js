@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs')
+
 module.exports = class userApp {
   async get (userid) {
     const app = this.app.get('appid')
@@ -37,9 +39,15 @@ module.exports = class userApp {
   }
 
   async patch (id, data, params) {
-    console.log(id)
-    console.log(data)
-    console.log(params)
+    bcrypt.compare(data.user.password, data.password, (err, data1) => {
+      if (err || !data1) {
+        throw new errors.BadRequest('Kata Sandi Salah.');
+      }
+      delete data.password
+      const _user = await this.app.service('users')
+        .patch(id, data, params)
+      return _user
+    });
   }
 
   setup (app) {
