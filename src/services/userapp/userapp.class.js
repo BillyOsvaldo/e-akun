@@ -46,6 +46,9 @@ module.exports = class userApp {
     } else {
       if (data.email) {
         delete data.password
+      } else {
+        data.password = data.newpassword
+        delete data.newpassword
       }
       const _user = await this.app.service('users')
         .patch(id, data, params)
