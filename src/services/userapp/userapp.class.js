@@ -45,7 +45,7 @@ module.exports = class userApp {
     let check = false
     await bcrypt.compare(params.user.password, data.password, (err, data1) => {
       if (err || !data1) {
-        throw new errors.BadRequest('Kata Sandi Salah.');
+        throw new errors.BadRequest('Kata Sandi Salah.', {});
       }
       check = true
     })
