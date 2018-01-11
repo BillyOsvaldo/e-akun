@@ -1,6 +1,7 @@
 const { authenticate } = require('feathers-authentication').hooks;
 const commonHooks = require('feathers-hooks-common');
 const { restrictToOwner } = require('feathers-authentication-hooks');
+const { hashPassword } = require('feathers-authentication-local').hooks;
 
 const restrict = [
   authenticate('jwt'),
@@ -17,7 +18,7 @@ module.exports = {
     get: [ ...restrict ],
     create: [],
     update: [],
-    patch: [],
+    patch: [hashPassword()],
     remove: []
   },
 

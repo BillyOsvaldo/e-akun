@@ -36,6 +36,12 @@ module.exports = class userApp {
     }
   }
 
+  async patch (id, data, params) {
+    console.log(id)
+    console.log(data)
+    console.log(params)
+  }
+
   setup (app) {
     this.app = app
   }
