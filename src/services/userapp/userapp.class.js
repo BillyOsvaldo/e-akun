@@ -43,6 +43,13 @@ module.exports = class userApp {
     let compare = await bcrypt.compareSync(data.password, params.user.password)
     if (!compare) {
       throw new errors.BadRequest('Kata Sandi Salah.', {})
+    } else {
+      if (data.email) {
+        delete data.password
+      }
+      const _user = await this.app.service('users')
+        .patch(id, data, params)
+      return _user
     }
   }
 
