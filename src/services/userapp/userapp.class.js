@@ -39,12 +39,10 @@ module.exports = class userApp {
   }
 
   async patch (id, data, params) {
-    console.log(data)
-    console.log(params)
-    console.log(data.user.password)
+    console.log(params.user.password)
     console.log(data.password)
     let check = false
-    await bcrypt.compare(data.user.password, data.password, (err, data1) => {
+    await bcrypt.compare(params.user.password, data.password, (err, data1) => {
       if (err || !data1) {
         throw new errors.BadRequest('Kata Sandi Salah.');
       }
