@@ -43,10 +43,9 @@ module.exports = class userApp {
     console.log(params.user.password)
     console.log(data.password)
     let check = false
-    bcrypt.compare(data.password, params.user.password, (err, data1) => {
-      console.log(err)
-      console.log(data1)
+    await bcrypt.compare(data.password, params.user.password, (err, data1) => {
       if (!err || data1) {
+        console.log('valid!')
         check = true
       }
     })
