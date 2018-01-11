@@ -40,14 +40,10 @@ module.exports = class userApp {
   }
 
   async patch (id, data, params) {
-    console.log(params.user.password)
-    console.log(data.password)
-    let check = false
-    bcrypt.compare(data.password, params.user.password, (err, data1) => {
-      if (!data1) {
-          return new errors.BadRequest('Kata Sandi Salah!.', {});
-      }
-    })
+    let compare = await bcrypt.compareSync(data.password, params.user.password)
+    if (!compare) {
+      throw new errors.BadRequest('Kata Sandi Salah.', {})
+    }
   }
 
   setup (app) {
