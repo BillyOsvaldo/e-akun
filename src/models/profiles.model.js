@@ -9,33 +9,27 @@ module.exports = function (app) {
     nip: {
   		type: String
   	},
-  	addfirst: {
-  		type: String
-  	},
-  	addlast: {
-  		type: String
-  	},
-  	fullname: {
-  		type: String,
-      	required: true
-  	},
-  	birthplace: {
-  		type: Date
-  	},
-  	birthday: {
-  		type: String,
-      	required: true
-  	},
+    name: {
+      first_name: String,
+      last_name: String,
+      first_title: String,
+      last_title: String
+    },
+  	birth: {
+      day: Date,
+      place: String
+    },
   	gender: {
   		type: String,
-      	required: true
+      required: true
   	},
   	address: {
-  		type: String
+  		postcode: String,
+      detail: String
   	},
   	phone: {
-  		type: String,
-      	required: true
+  		lists: [String],
+      primary_key: Number
   	}
   }, {
     timestamps: true
