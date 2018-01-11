@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs')
+const errors = require('@feathersjs/errors')
 
 module.exports = class userApp {
   async get (userid) {
