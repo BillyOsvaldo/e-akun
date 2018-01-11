@@ -39,6 +39,8 @@ module.exports = class userApp {
   }
 
   async patch (id, data, params) {
+    console.log(data)
+    console.log(params)
     console.log(data.user.password)
     console.log(data.password)
     let check = false
