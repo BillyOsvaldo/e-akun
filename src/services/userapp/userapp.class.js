@@ -39,7 +39,7 @@ module.exports = class userApp {
     }
   }
 
-  async patch (id, data) {
+  async patch (id, data, params) {
     let current = await this.app.service('users').get(id)
     let compare = await bcrypt.compareSync(data.password, current.password)
     if (!compare) {
