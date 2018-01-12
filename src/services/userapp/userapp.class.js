@@ -53,6 +53,8 @@ module.exports = class userApp {
       }
       const _user = await this.app.service('users')
         .patch(id, data, params)
+        
+      console.log(_user)
       return _user
     }
   }
