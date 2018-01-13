@@ -13,20 +13,21 @@ const restrict = [
 ];
 
 const populateSchema = {
-  include: {
-    service: 'profiles',
-    nameAs: 'profiles',
-    parentField: '_id',
-    childField: 'profile',
-    asArray: false
-  }
+  include: [
+    {
+      service: 'profiles',
+      nameAs: 'profile',
+      parentField: 'id',
+      childField: 'profile'
+    }
+  ]
 }
 
 module.exports = {
   before: {
     all: [],
     find: [ authenticate('jwt') ],
-    get: [populate({ schema: populateSchema })],
+    get: [],
     create: [ hashPassword() ],
     update: [ ...restrict, hashPassword() ],
     patch: [ ...restrict, hashPassword() ],
@@ -41,7 +42,7 @@ module.exports = {
       )
     ],
     find: [],
-    get: [],
+    get: [ populate({ schema: populateSchema }) ],
     create: [],
     update: [],
     patch: [],
