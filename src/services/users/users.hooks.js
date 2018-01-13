@@ -15,7 +15,11 @@ const restrict = [
 const profileResolvers = {
   joins: {
     data_profile: $select => async user => {
-      user.data_profile = (await this.profiles.get(user.profile))
+      user.data_profile = (await this.profiles.find({
+        query: {
+          id: user.profile
+        }
+      }))
     }
   }
 }
