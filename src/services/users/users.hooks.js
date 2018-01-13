@@ -4,7 +4,7 @@ const { restrictToOwner } = require('feathers-authentication-hooks');
 const { hashPassword } = require('feathers-authentication-local').hooks;
 const { fastJoin, populate } = require('feathers-hooks-common');
 
-const app = null
+let app = null
 
 const setApp = function (context) {
   app = context
