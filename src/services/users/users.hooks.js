@@ -47,9 +47,7 @@ const populateSchema = {
       nameAs: 'permissions',
       parentField: 'permissions',
       childField: '_id',
-      query: {
-        app: app
-      },
+      select: (hook) => ({ app: hook.params.query.app }),
       include: [
         {
           service: 'apps',
