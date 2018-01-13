@@ -54,7 +54,7 @@ const populateSchema = {
           parentField: 'app',
           childField: '_id',
           query: {
-            app: x.params.query.app
+            app: app
           }
         },
         {
