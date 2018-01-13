@@ -4,6 +4,13 @@ const { restrictToOwner } = require('feathers-authentication-hooks');
 const { hashPassword } = require('feathers-authentication-local').hooks;
 const { populate } = require('feathers-hooks-common');
 
+let app = ''
+const setApp = function (hook) {
+  if (typeof hook.params.query.app !== 'undefined') {
+    app = hook.params.query.app
+  }
+}
+
 const restrict = [
   authenticate('jwt'),
   restrictToOwner({
@@ -38,7 +45,7 @@ const populateSchema = {
       parentField: 'permissions',
       childField: '_id',
       query: {
-        '_id': context.params.query.app
+        '_id': app
       },
       include: [
         {
@@ -62,7 +69,7 @@ module.exports = {
   before: {
     all: [],
     find: [ authenticate('jwt') ],
-    get: [],
+    get: [setApp],
     create: [ hashPassword() ],
     update: [ ...restrict, hashPassword() ],
     patch: [ ...restrict, hashPassword() ],
