@@ -13,14 +13,13 @@ const restrict = [
 ];
 
 const populateSchema = {
-  include: [
-    {
-      service: 'profiles',
-      nameAs: 'profile',
-      parentField: 'id',
-      childField: 'profile'
-    }
-  ]
+  include:
+  {
+    service: 'profiles',
+    nameAs: 'profile',
+    parentField: 'id',
+    childField: 'profile'
+  }
 }
 
 module.exports = {
