@@ -17,7 +17,7 @@ const populateSchema = {
     {
       service: 'profiles',
       nameAs: 'profile',
-      parentField: 'id',
+      parentField: '_id',
       childField: 'profile'
     }
   ]
@@ -42,7 +42,7 @@ module.exports = {
       )
     ],
     find: [],
-    get: populate({ schema: populateSchema }),
+    get: [ populate({ schema: populateSchema }) ],
     create: [],
     update: [],
     patch: [],
