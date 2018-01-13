@@ -16,8 +16,26 @@ const populateSchema = {
   include: [
     {
       service: 'profiles',
-      nameAs: 'profiles',
+      nameAs: 'profile',
       parentField: 'profile',
+      childField: '_id'
+    },
+    {
+      service: 'opds',
+      nameAs: 'opd',
+      parentField: 'opd',
+      childField: '_id'
+    },
+    {
+      service: 'roles',
+      nameAs: 'role',
+      parentField: 'role',
+      childField: '_id'
+    },
+    {
+      service: 'permissions',
+      nameAs: 'permissions',
+      parentField: 'permissions',
       childField: '_id'
     }
   ]
