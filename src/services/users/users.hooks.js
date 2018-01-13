@@ -2,6 +2,7 @@ const { authenticate } = require('feathers-authentication').hooks;
 const commonHooks = require('feathers-hooks-common');
 const { restrictToOwner } = require('feathers-authentication-hooks');
 const { hashPassword } = require('feathers-authentication-local').hooks;
+const { fastJoin } = require('feathers-hooks-common');
 const restrict = [
   authenticate('jwt'),
   restrictToOwner({
@@ -10,11 +11,19 @@ const restrict = [
   })
 ];
 
+const profileResolvers = {
+  joins: {
+    data_profile: $select => async user => {
+      user.data_profile = (await profiles.get(user.profile))
+    }
+  }
+}
+
 module.exports = {
   before: {
     all: [],
     find: [ authenticate('jwt') ],
-    get: [],
+    get: [ fastJoin(profileResolvers) ],
     create: [ hashPassword() ],
     update: [ ...restrict, hashPassword() ],
     patch: [ ...restrict, hashPassword() ],
