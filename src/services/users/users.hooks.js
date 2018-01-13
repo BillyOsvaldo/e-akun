@@ -27,7 +27,7 @@ module.exports = {
   before: {
     all: [],
     find: [ authenticate('jwt') ],
-    get: [ populate({ schema: populateSchema }) ],
+    get: populate({ schema: populateSchema }),
     create: [ hashPassword() ],
     update: [ ...restrict, hashPassword() ],
     patch: [ ...restrict, hashPassword() ],
