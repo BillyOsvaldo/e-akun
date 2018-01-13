@@ -52,7 +52,10 @@ const populateSchema = {
           service: 'apps',
           nameAs: 'app',
           parentField: 'app',
-          childField: '_id'
+          childField: '_id',
+          query: {
+            app: x.params.query.app
+          }
         },
         {
           service: 'administrators',
@@ -108,7 +111,7 @@ module.exports = {
       )
     ],
     find: [],
-    get: [fastJoin(testResolvers)],
+    get: [populate({ schema: populateSchema })],
     create: [],
     update: [],
     patch: [],
