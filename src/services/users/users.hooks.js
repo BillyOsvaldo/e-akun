@@ -5,13 +5,9 @@ const { hashPassword } = require('feathers-authentication-local').hooks;
 const { fastJoin, populate } = require('feathers-hooks-common');
 
 let x = this
-let app = null
 
 const setApp = function (context) {
   x = context
-  if (typeof context.params.query.app !== 'undefined') {
-    app = context.params.query.app
-  }
 }
 
 const restrict = [
