@@ -2,11 +2,12 @@ const { authenticate } = require('feathers-authentication').hooks;
 const commonHooks = require('feathers-hooks-common');
 const { restrictToOwner } = require('feathers-authentication-hooks');
 const { hashPassword } = require('feathers-authentication-local').hooks;
-const { populate } = require('feathers-hooks-common');
+const { fastJoin, populate } = require('feathers-hooks-common');
 
-let app = ''
+const app = null
+
 const setApp = function (context) {
-  console.log(context)
+  app = context
 }
 
 const restrict = [
@@ -42,9 +43,6 @@ const populateSchema = {
       nameAs: 'permissions',
       parentField: 'permissions',
       childField: '_id',
-      query: {
-        '_id': app
-      },
       include: [
         {
           service: 'apps',
@@ -63,11 +61,19 @@ const populateSchema = {
   ]
 }
 
+const testResolvers = {
+  joins: {
+    profile: () => async users => {
+      users.profile = (await app.service('profiles').get(users.profile))
+    }
+  }
+};
+
 module.exports = {
   before: {
-    all: [],
+    all: [setApp],
     find: [ authenticate('jwt') ],
-    get: [setApp],
+    get: [],
     create: [ hashPassword() ],
     update: [ ...restrict, hashPassword() ],
     patch: [ ...restrict, hashPassword() ],
@@ -82,7 +88,7 @@ module.exports = {
       )
     ],
     find: [],
-    get: [ populate({ schema: populateSchema }) ],
+    get: [fastJoin(testResolvers)],
     create: [],
     update: [],
     patch: [],
