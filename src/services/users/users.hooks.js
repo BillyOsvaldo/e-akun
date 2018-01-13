@@ -79,7 +79,12 @@ const testResolvers = {
     permissions: () => async users => {
       console.log(x.params)
       console.log(app)
-      users.permission = (await x.app.service('permissions').get(app))
+      users.permission = (await x.app.service('permissions')
+        .find({
+          query: {
+            app: x.params.query.app
+          }
+        }))
     }
   }
 };
