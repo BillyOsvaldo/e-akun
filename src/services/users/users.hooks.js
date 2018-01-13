@@ -2,13 +2,7 @@ const { authenticate } = require('feathers-authentication').hooks;
 const commonHooks = require('feathers-hooks-common');
 const { restrictToOwner } = require('feathers-authentication-hooks');
 const { hashPassword } = require('feathers-authentication-local').hooks;
-const { fastJoin, populate } = require('feathers-hooks-common');
-
-let x = this
-
-const setApp = function (context) {
-  x = context
-}
+const { populate } = require('feathers-hooks-common');
 
 const restrict = [
   authenticate('jwt'),
@@ -62,35 +56,11 @@ const populateSchema = {
   ]
 }
 
-const testResolvers = {
-  joins: {
-    profile: () => async users => {
-      users.profile = (await x.app.service('profiles').get(users.profile))
-    },
-    opd: () => async users => {
-      users.opd = (await x.app.service('opds').get(users.opd))
-    },
-    role: () => async users => {
-      users.role = (await x.app.service('roles').get(users.role))
-    },
-    permissions: () => async users => {
-      console.log(x.params)
-      console.log(app)
-      users.permission = (await x.app.service('permissions')
-        .find({
-          query: {
-            app: x.params.query.app
-          }
-        }))
-    }
-  }
-};
-
 module.exports = {
   before: {
     all: [setApp],
     find: [ authenticate('jwt') ],
-    get: [],
+    get: [ ...restrict ],
     create: [ hashPassword() ],
     update: [ ...restrict, hashPassword() ],
     patch: [ ...restrict, hashPassword() ],
@@ -105,7 +75,12 @@ module.exports = {
       )
     ],
     find: [],
-    get: [populate({ schema: populateSchema })],
+    get: [
+      commonHooks.when(
+        hook => hook.params.query.app,
+        populate({ schema: populateSchema })
+      )
+    ],
     create: [],
     update: [],
     patch: [],
