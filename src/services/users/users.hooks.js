@@ -5,9 +5,13 @@ const { hashPassword } = require('feathers-authentication-local').hooks;
 const { fastJoin, populate } = require('feathers-hooks-common');
 
 let x = this
+let app = null
 
 const setApp = function (context) {
   x = context
+  if (typeof context.params.query.app !== 'undefined') {
+    app = context.params.query.app
+  }
 }
 
 const restrict = [
@@ -73,7 +77,9 @@ const testResolvers = {
       users.role = (await x.app.service('roles').get(users.role))
     },
     permissions: () => async users => {
-      users.permission = (await x.app.service('permissions').get(x.params.query.app))
+      console.log(x.params)
+      console.log(app)
+      users.permission = (await x.app.service('permissions').get(app))
     }
   }
 };
