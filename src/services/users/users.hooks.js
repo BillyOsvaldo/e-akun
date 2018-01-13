@@ -36,7 +36,21 @@ const populateSchema = {
       service: 'permissions',
       nameAs: 'permissions',
       parentField: 'permissions',
-      childField: '_id'
+      childField: '_id',
+      include: [
+        {
+          service: 'apps',
+          nameAs: 'app',
+          parentField: 'app',
+          childField: '_id'
+        },
+        {
+          service: 'administrators',
+          nameAs: 'administrator',
+          parentField: 'administrator',
+          childField: '_id',
+        }
+      ]
     }
   ]
 }
