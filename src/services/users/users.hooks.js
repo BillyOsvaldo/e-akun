@@ -17,7 +17,7 @@ const profileResolvers = {
   joins: {
     data_profile: $select => async user => {
       console.log(app)
-      user.data_profile = (await this.app.service('profiles').get(user.profile))
+      user.data_profile = (await app.service('profiles').get(user.profile))
     }
   }
 }
