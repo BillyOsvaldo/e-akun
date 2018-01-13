@@ -4,10 +4,10 @@ const { restrictToOwner } = require('feathers-authentication-hooks');
 const { hashPassword } = require('feathers-authentication-local').hooks;
 const { fastJoin, populate } = require('feathers-hooks-common');
 
-let app = null
+let this = null
 
 const setApp = function (context) {
-  app = context
+  this = context
 }
 
 const restrict = [
@@ -64,8 +64,8 @@ const populateSchema = {
 const testResolvers = {
   joins: {
     profile: () => async users => {
-      console.log(app)
-      users.profile = (await app.service('profiles').get(users.profile))
+      console.log(this)
+      users.profile = (await this.app.service('profiles').get(users.profile))
     }
   }
 };
