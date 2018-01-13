@@ -42,7 +42,7 @@ module.exports = {
       )
     ],
     find: [],
-    get: [ populate({ schema: populateSchema }) ],
+    get: populate({ schema: populateSchema }),
     create: [],
     update: [],
     patch: [],
