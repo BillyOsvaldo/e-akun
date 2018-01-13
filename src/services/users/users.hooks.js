@@ -58,7 +58,7 @@ const populateSchema = {
 
 module.exports = {
   before: {
-    all: [setApp],
+    all: [],
     find: [ authenticate('jwt') ],
     get: [ ...restrict ],
     create: [ hashPassword() ],
