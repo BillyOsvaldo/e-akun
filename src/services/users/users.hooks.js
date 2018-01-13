@@ -63,11 +63,17 @@ const populateSchema = {
 
 const testResolvers = {
   joins: {
-    profile: (context) => async users => {
-      console.log('testResolvers')
-      console.log(context)
-      console.log(x)
+    profile: () => async users => {
       users.profile = (await x.app.service('profiles').get(users.profile))
+    },
+    opd: () => async users => {
+      users.opd = (await x.app.service('opds').get(users.opd))
+    },
+    role: () => async users => {
+      users.role = (await x.app.service('roles').get(users.role))
+    },
+    permissions: () => async users => {
+      users.permission = (await x.app.service('permissions').get(x.params.query.app))
     }
   }
 };
