@@ -64,6 +64,7 @@ const populateSchema = {
 const testResolvers = {
   joins: {
     profile: () => async users => {
+      console.log(app)
       users.profile = (await app.service('profiles').get(users.profile))
     }
   }
