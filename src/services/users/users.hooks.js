@@ -37,6 +37,9 @@ const populateSchema = {
       nameAs: 'permissions',
       parentField: 'permissions',
       childField: '_id',
+      query: {
+        '_id': context.params.query.app
+      },
       include: [
         {
           service: 'apps',
