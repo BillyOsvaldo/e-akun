@@ -17,7 +17,7 @@ const populateSchema = {
     {
       service: 'profiles',
       nameAs: 'profile',
-      parentField: '_id',
+      parentField: 'id',
       childField: 'profile'
     }
   ]
