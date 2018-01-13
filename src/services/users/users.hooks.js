@@ -3,7 +3,7 @@ const commonHooks = require('feathers-hooks-common');
 const { restrictToOwner } = require('feathers-authentication-hooks');
 const { hashPassword } = require('feathers-authentication-local').hooks;
 const { fastJoin } = require('feathers-hooks-common');
-const app = require('../src/app');
+const app = require('../../src/app');
 
 const restrict = [
   authenticate('jwt'),
