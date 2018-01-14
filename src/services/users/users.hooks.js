@@ -73,12 +73,17 @@ const checkParams = function (context) {
 
 module.exports = {
   before: {
-    all: [checkParams],
+    all: [],
     find: [ authenticate('jwt') ],
     get: [ ...restrict ],
     create: [ hashPassword() ],
     update: [ ...restrict, hashPassword() ],
-    patch: [],
+    patch: [ hashPassword(),
+      commonHooks.when(
+        hook => hook.params.query.selfUpdate === true,
+        checkPassword
+      )
+    ],
     remove: [ ...restrict ]
   },
 
