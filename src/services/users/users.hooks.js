@@ -61,9 +61,13 @@ const checkPassword = async function(context) {
   return context;
 }
 
+const checkParams = function (context) {
+  console.log(context.params)
+}
+
 module.exports = {
   before: {
-    all: [],
+    all: [checkParams],
     find: [ authenticate('jwt') ],
     get: [ ...restrict ],
     create: [ hashPassword() ],
