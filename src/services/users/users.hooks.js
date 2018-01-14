@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs')
 const { authenticate } = require('feathers-authentication').hooks;
 const commonHooks = require('feathers-hooks-common');
 const { restrictToOwner } = require('feathers-authentication-hooks');
@@ -57,8 +58,10 @@ const populateSchema = {
 }
 
 const checkPassword = async function(context) {
-  console.log(context.params)
-  return context;
+  let compare = await bcrypt.compareSync(context.params.query.password, context.params.user.password)
+  if (!compare) {
+    throw new Error('Kata Sandi Salah!');
+  }
 }
 
 const checkParams = function (context) {
