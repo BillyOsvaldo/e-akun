@@ -78,7 +78,7 @@ module.exports = {
     get: [ ...restrict ],
     create: [ hashPassword() ],
     update: [ ...restrict, hashPassword() ],
-    patch: [ hashPassword() ],
+    patch: [],
     remove: [ ...restrict ]
   },
 
