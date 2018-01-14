@@ -59,7 +59,7 @@ const populateSchema = {
 }
 
 const checkPassword = async function(context) {
-  let current = await this.app.service('users').get(id)
+  let current = await context.app.service('users').get(context.id)
   let compare = await bcrypt.compareSync(context.params.query.password, current.password)
   if (!compare) {
     throw new errors.BadRequest('Kata Sandi Salah.', {})
