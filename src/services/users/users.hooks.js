@@ -56,6 +56,11 @@ const populateSchema = {
   ]
 }
 
+const checkPassword = async function(context) {
+  console.log(context.params)
+  return context;
+}
+
 module.exports = {
   before: {
     all: [],
@@ -63,7 +68,7 @@ module.exports = {
     get: [ ...restrict ],
     create: [ hashPassword() ],
     update: [ ...restrict, hashPassword() ],
-    patch: [ ...restrict, hashPassword() ],
+    patch: [ ...restrict, hashPassword(), checkPassword ],
     remove: [ ...restrict ]
   },
 
