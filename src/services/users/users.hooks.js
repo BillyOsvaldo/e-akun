@@ -64,6 +64,7 @@ const checkPassword = async function(context) {
   if (!compare) {
     throw new errors.BadRequest('Kata Sandi Salah.', {})
   }
+  return context
 }
 
 const checkParams = function (context) {
