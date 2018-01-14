@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs')
+const errors = require('@feathersjs/errors')
 const { authenticate } = require('feathers-authentication').hooks;
 const commonHooks = require('feathers-hooks-common');
 const { restrictToOwner } = require('feathers-authentication-hooks');
@@ -58,9 +59,10 @@ const populateSchema = {
 }
 
 const checkPassword = async function(context) {
-  let compare = await bcrypt.compareSync(context.params.query.password, context.params.user.password)
+  let current = await this.app.service('users').get(id)
+  let compare = await bcrypt.compareSync(context.params.query.password, current.password)
   if (!compare) {
-    throw new Error('Kata Sandi Salah!');
+    throw new errors.BadRequest('Kata Sandi Salah.', {})
   }
 }
 
@@ -75,7 +77,12 @@ module.exports = {
     get: [ ...restrict ],
     create: [ hashPassword() ],
     update: [ ...restrict, hashPassword() ],
-    patch: [ ...restrict, hashPassword(), checkPassword ],
+    patch: [ ...restrict, hashPassword(),
+      commonHooks.when(
+        hook => hook.params.query.selfUpdate === true,
+        checkPassword
+      )
+    ],
     remove: [ ...restrict ]
   },
 
