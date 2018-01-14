@@ -67,7 +67,7 @@ const checkPassword = async function(context) {
 }
 
 const checkParams = function (context) {
-  console.log(context.params)
+  console.log(context)
 }
 
 module.exports = {
