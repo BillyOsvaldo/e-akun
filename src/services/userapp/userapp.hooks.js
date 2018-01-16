@@ -37,7 +37,7 @@ const populateSchema = {
       nameAs: 'permissions',
       parentField: 'permissions',
       childField: '_id',
-      select: (hook) => ({ app: hook.params.query.app }),
+      select: (hook) => ({ app: hook.app.get('appid') }),
       include: [
         {
           service: 'apps',
@@ -78,12 +78,7 @@ module.exports = {
       )
     ],
     find: [],
-    get: [
-      commonHooks.when(
-        hook => hook.params.query.app,
-        populate({ schema: populateSchema })
-      )
-    ],
+    get: [ populate({ schema: populateSchema }) ],
     create: [],
     update: [],
     patch: [ populate({ schema: populateSchema }) ],

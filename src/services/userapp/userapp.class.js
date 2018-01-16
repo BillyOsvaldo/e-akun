@@ -20,7 +20,6 @@ module.exports = class userApp {
         throw new errors.BadRequest('Kata Sandi Salah.', {})
       } else {
         delete data.comparepassword
-        params.query.app = this.app.get('appid')
         const _user = await this.app.service('users')
           .patch(id, data, params)
         return _user
