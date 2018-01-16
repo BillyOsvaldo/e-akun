@@ -71,7 +71,10 @@ module.exports = {
     all: [
       commonHooks.when(
         hook => hook.params.provider,
-        commonHooks.discard('password')
+        commonHooks.when(
+          hook => hook.params.user.password,
+          commonHooks.discard('password')
+        )
       )
     ],
     find: [],
