@@ -13,6 +13,7 @@ module.exports = class userApp {
 
   async patch (id, data, params) {
     if (data.update === 'account') {
+      console.log('account')
       let current = await this.app.service('users').get(id)
       let compare = await bcrypt.compareSync(data.comparepassword, current.password)
       if (!compare) {
@@ -24,7 +25,8 @@ module.exports = class userApp {
           .patch(id, data, params)
         return _user
       }
-    } if (data.update === 'profile') {
+    } else if (data.update === 'profile') {
+      console.log('profile')
       let profile_id = data.id
       delete data.id
       delete data.update
