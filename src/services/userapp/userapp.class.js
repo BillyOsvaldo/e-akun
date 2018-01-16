@@ -23,6 +23,15 @@ module.exports = class userApp {
           .patch(id, data, params)
         return _user
       }
+    } if (data.update === 'profile') {
+      await this.app.service('profiles').patch(id, data, params)
+      const _user = await this.app.service('users')
+        .find({
+          query: {
+            profile: id
+          }
+        })
+      return _user.data[0]
     }
   }
 
