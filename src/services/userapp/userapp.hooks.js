@@ -56,6 +56,11 @@ const populateSchema = {
   ]
 }
 
+const test = function (context) {
+  console.log(context)
+  return context
+}
+
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
@@ -63,12 +68,19 @@ module.exports = {
     get: [ ...restrict ],
     create: [],
     update: [],
-    patch: [],
+    patch: [
+      ...restrict,
+      commonHooks.when(
+        hook => typeof hook.data.password !== 'undefined',
+        hashPassword()
+      )
+    ],
     remove: []
   },
 
   after: {
     all: [
+      test,
       commonHooks.when(
         hook => hook.params.provider,
         commonHooks.when(
