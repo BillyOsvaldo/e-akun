@@ -63,7 +63,13 @@ module.exports = {
     get: [ ...restrict ],
     create: [],
     update: [],
-    patch: [...restrict, hashPassword()],
+    patch: [
+      ...restrict,
+      commonHooks.when(
+        hook => typeof hook.data.password !== 'undefined',
+        hashPassword()
+      )
+    ],
     remove: []
   },
 
