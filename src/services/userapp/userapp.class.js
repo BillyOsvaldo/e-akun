@@ -4,7 +4,7 @@ const errors = require('@feathersjs/errors')
 module.exports = class userApp {
   async get (userid) {
     let _output = []
-    if (typeof app !== 'undefined' && typeof userid !== 'undefined') {
+    if (typeof userid !== 'undefined') {
       const _user = await this.app.service('users')
         .get(userid)
       console.log(_user)
