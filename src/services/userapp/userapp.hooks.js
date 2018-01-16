@@ -68,9 +68,7 @@ module.exports = {
     get: [ ...restrict ],
     create: [],
     update: [],
-    patch: [
-      ...restrict
-    ],
+    patch: [],
     remove: []
   },
 
