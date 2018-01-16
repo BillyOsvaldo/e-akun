@@ -25,15 +25,12 @@ module.exports = class userApp {
         return _user
       }
     } if (data.update === 'profile') {
+      id = data.id
+      delete data.id
       delete data.update
       await this.app.service('profiles').patch(id, data, params)
-      const _user = await this.app.service('users')
-        .find({
-          query: {
-            profile: id
-          }
-        })
-      return _user.data[0]
+      const _user = await this.app.service('users').get(id)
+      return _user
     }
   }
 
