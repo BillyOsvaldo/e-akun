@@ -13,7 +13,7 @@ module.exports = class userApp {
   }
 
   async patch (id, data, params) {
-    if (typeof data.comparepassword !== 'undefined') {
+    if (data.update === 'account') {
       let current = await this.app.service('users').get(id)
       let compare = await bcrypt.compareSync(data.comparepassword, current.password)
       if (!compare) {
