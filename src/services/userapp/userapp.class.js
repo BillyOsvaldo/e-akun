@@ -7,7 +7,6 @@ module.exports = class userApp {
     if (typeof userid !== 'undefined') {
       const _user = await this.app.service('users')
         .get(userid)
-      console.log(_user)
       return _user
     }
   }
