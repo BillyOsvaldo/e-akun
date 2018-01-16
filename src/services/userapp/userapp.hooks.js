@@ -78,7 +78,7 @@ module.exports = {
       commonHooks.when(
         hook => hook.params.provider,
         commonHooks.when(
-          hook => typeof hook.params.user.password !== 'undefined',
+          hook => typeof hook.result.data.password !== 'undefined',
           commonHooks.discard('password')
         )
       )
