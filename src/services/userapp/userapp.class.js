@@ -13,9 +13,8 @@ module.exports = class userApp {
   }
 
   async patch (id, data, params) {
-    if (typeof data.comparepassword === 'undefined') {
+    if (typeof data.comparepassword !== 'undefined') {
       let current = await this.app.service('users').get(id)
-      console.log(current)
       let compare = await bcrypt.compareSync(data.comparepassword, current.password)
       if (!compare) {
         throw new errors.BadRequest('Kata Sandi Salah.', {})
@@ -24,7 +23,6 @@ module.exports = class userApp {
         params.query.app = this.app.get('appid')
         const _user = await this.app.service('users')
           .patch(id, data, params)
-        console.log(_user)
         return _user
       }
     }
