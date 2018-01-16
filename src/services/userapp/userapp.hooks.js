@@ -80,7 +80,6 @@ module.exports = {
 
   after: {
     all: [
-      test,
       commonHooks.when(
         hook => hook.params.provider,
         commonHooks.when(
