@@ -3,39 +3,11 @@ const errors = require('@feathersjs/errors')
 
 module.exports = class userApp {
   async get (userid) {
-    const app = this.app.get('appid')
     let _output = []
     if (typeof app !== 'undefined' && typeof userid !== 'undefined') {
-      const _userperm = await this.app.service('users')
-        .find({
-          query: {
-            _id: userid,
-            $populate: [
-              {
-                path: 'profile'
-              },
-              {
-                path: 'opd'
-              },
-              {
-                path: 'role'
-              },
-              {
-                path: 'permissions',
-                match: {
-                  app: app
-                },
-                populate: ['app', 'administrator']
-              }
-            ]
-          }
-        })
-
-      if (_userperm.total === 1) {
-        _output = _userperm.data[0]
-      }
-
-      return _output
+      const _user = await this.app.service('users')
+        .get(userid)
+      return _user
     }
   }
 
@@ -53,8 +25,6 @@ module.exports = class userApp {
       }
       const _user = await this.app.service('users')
         .patch(id, data, params)
-        
-      console.log(_user)
       return _user
     }
   }
