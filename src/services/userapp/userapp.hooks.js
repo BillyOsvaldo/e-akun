@@ -83,7 +83,12 @@ module.exports = {
     ],
     create: [],
     update: [],
-    patch: [],
+    patch: [
+      commonHooks.when(
+        hook => hook.params.query.app,
+        populate({ schema: populateSchema })
+      )
+    ],
     remove: []
   },
 
