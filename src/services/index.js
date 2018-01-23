@@ -11,6 +11,7 @@ const roles = require('./roles/roles.service.js');
 const permissions = require('./permissions/permissions.service.js');
 const apps = require('./apps/apps.service.js');
 const administrators = require('./administrators/administrators.service.js');
+const postcodes = require('./postcodes/postcodes.service.js');
 module.exports = function () {
   const app = this; // eslint-disable-line no-unused-vars
   app.configure(coderegs);
@@ -26,4 +27,5 @@ module.exports = function () {
   app.configure(permissions);
   app.configure(apps);
   app.configure(administrators);
+  app.configure(postcodes);
 };
