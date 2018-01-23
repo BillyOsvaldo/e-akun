@@ -7,7 +7,8 @@ module.exports = class addresses {
         const _prop = await this.app.service('postcodes')
           .find({
             query: {
-              $select: ['_id', 'propinsi']
+              $select: ['propinsi'],
+              $limit: -1
             }
           })
         return _prop
