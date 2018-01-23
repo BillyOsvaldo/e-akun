@@ -4,14 +4,8 @@ module.exports = class addresses {
     let _output = []
     if (typeof action !== 'undefined') {
       if (action === 'propinsi') {
-        console.log(this.app.service('postcodes').Model)
         const _prop = await this.app.service('postcodes')
-          .find({
-            query: {
-              $select: ['propinsi'],
-              $limit: 0
-            }
-          })
+          .Model.distinct('propinsi')
         return _prop
       }
     }
