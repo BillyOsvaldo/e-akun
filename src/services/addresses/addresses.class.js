@@ -22,7 +22,7 @@ module.exports = class addresses {
       } else if (action === 'kelurahan') {
         if (typeof params.query.kecamatan !== 'undefined') {
           const _kelurahan = await this.app.service('postcodes')
-            .Model.distinct('kelurahan', {'kecamatan': params.query.kecamatan})
+            .Model.distinct(['kelurahan', 'kodepos'], {'kecamatan': params.query.kecamatan})
           return _kelurahan
         }
       }
