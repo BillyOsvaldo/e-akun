@@ -13,6 +13,18 @@ module.exports = class addresses {
             .Model.distinct('kotakab', {'propinsi': params.query.provinsi})
           return _kotakab
         }
+      } else if (action === 'kecamatan') {
+        if (typeof params.query.kotakab !== 'undefined') {
+          const _kecamatan = await this.app.service('postcodes')
+            .Model.distinct('kecamatan', {'kotakab': params.query.kotakab})
+          return _kecamatan
+        }
+      } else if (action === 'kelurahan') {
+        if (typeof params.query.kecamatan !== 'undefined') {
+          const _kelurahan = await this.app.service('postcodes')
+            .Model.distinct('kelurahan', {'kecamatan': params.query.kecamatan})
+          return _kelurahan
+        }
       }
     }
   }
