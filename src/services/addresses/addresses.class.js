@@ -4,9 +4,7 @@ module.exports = class addresses {
     let _output = []
     if (typeof action !== 'undefined') {
       if (action === 'propinsi') {
-        const _prop = await this.app.service('postcodes')
-          .find().distinct('propinsi')
-        return _prop
+        console.log(this)
       }
     }
   }
