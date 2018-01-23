@@ -8,7 +8,7 @@ module.exports = class addresses {
           .find({
             query: {
               $select: ['propinsi'],
-              $limit: -1
+              $distinct: 'propinsi'
             }
           })
         return _prop
