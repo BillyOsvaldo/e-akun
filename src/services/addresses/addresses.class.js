@@ -4,7 +4,16 @@ module.exports = class addresses {
     let _output = []
     if (typeof action !== 'undefined') {
       if (action === 'propinsi') {
-        console.log(this)
+        const _prop = await this.app.service('postcodes')
+          .find({
+            query: {
+              $select: {
+                _id: 0,
+                'propinsi': 0
+              }
+            }
+          })
+        return _prop
       }
     }
   }
