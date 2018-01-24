@@ -31,11 +31,11 @@ module.exports = class addresses {
             const _detail = await this.app.service('postcodes')
               .find({
                 query: {
-                  kotakab: params.query.kotakab,
                   kecamatan: params.query.kecamatan,
                   kelurahan: params.query.kelurahan
                 }
               })
+            console.log(_detail)
             if (_detail.total > 0) {
               _output.id = _detail.data._id
               _output.kodepos = _detail.data.kodepos
