@@ -34,6 +34,7 @@ module.exports = class addresses {
                   kelurahan: params.query.kelurahan
                 }
               })
+            console.log(_detail)  
             _output.id = _detail._id
             _output.kodepos = _detail.kodepos
           } else {
