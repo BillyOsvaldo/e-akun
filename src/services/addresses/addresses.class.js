@@ -1,6 +1,6 @@
 module.exports = class addresses {
   async find (params) {
-    let _output = {
+    /*let _output = {
       provinsi: [],
       kotakab: [],
       kecamatan: [],
@@ -36,7 +36,6 @@ module.exports = class addresses {
                   kelurahan: params.query.kelurahan
                 }
               })
-            console.log(_detail)
             if (_detail.total === 1) {
               _output.id = _detail.data[0]._id
               _output.kodepos = _detail.data[0].kodepos
@@ -57,9 +56,22 @@ module.exports = class addresses {
       }
     } else {
       _output.kotakab = []
-    }
+    }*/
 
-    return _output
+    let output = []
+
+    const q = new RegExp(query.params.q, "i")
+    const _result = await this.app.service('postcodes')
+      .find({
+        query: {
+          $or: {
+            kotakab: q,
+            kecamatan: q,
+            kelurahan: q
+          }
+        }
+      })
+    return _result
   }
 
   setup (app) {
