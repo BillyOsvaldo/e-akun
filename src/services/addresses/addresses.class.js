@@ -8,7 +8,10 @@ module.exports = class addresses {
             {kotakab: q},
             {kecamatan: q}
           ],
-          $skip: params.query.$skip
+          $skip: params.query.$skip,
+          $limit: params.query.$limit,
+          $select: params.query.$select,
+          $sort: params.query.$sort
         }
       })
     return _result
