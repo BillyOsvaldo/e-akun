@@ -6,7 +6,7 @@ module.exports = class addresses {
       kecamatan: [],
       kelurahan: [],
       id: null,
-      postcode: null
+      kodepos: null
     }
     const _prop = await this.app.service('postcodes')
       .Model.distinct('propinsi')
@@ -25,9 +25,29 @@ module.exports = class addresses {
         if (typeof params.query.kecamatan !== 'undefined') {
           const _kelurahan = await this.app.service('postcodes')
             .Model.distinct('kelurahan', {'kecamatan': params.query.kecamatan})
-          _ouput.kelurahan = _kelurahan
+          _output.kelurahan = _kelurahan
+
+          if (typeof params.query.kelurahan !== 'undefined') {
+            const _detail = await this.app.service('postcodes')
+              .find({
+                query: {
+                  kelurahan: params.query.kelurahan
+                }
+              })
+            _output.id = _detail._id
+            _output.kodepos = _detail.kodepos
+          } else {
+            _output.id = null
+            _output.kodepos = null
+          }
+        } else {
+          _output.kelurahan = []
         }
+      } else {
+        _output.kecamatan = []
       }
+    } else {
+      _output.kotakab = []
     }
 
     return _output
