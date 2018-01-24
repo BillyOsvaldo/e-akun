@@ -7,7 +7,8 @@ module.exports = class addresses {
           $or: [
             {kotakab: q},
             {kecamatan: q}
-          ]
+          ],
+          $skip: params.query.$skip
         }
       })
     return _result
