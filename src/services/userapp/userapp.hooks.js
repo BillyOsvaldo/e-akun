@@ -22,7 +22,7 @@ const populateSchema = {
       include: [
         {
           service: 'postcodes',
-          nameAs: 'postcode',
+          nameAs: 'address.postcode',
           parentField: 'address.postcode',
           childField: '_id'
         }
