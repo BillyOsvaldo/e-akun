@@ -24,7 +24,10 @@ module.exports = function (app) {
       required: true
   	},
   	address: {
-  		postcode: String,
+  		postcode: {
+        type: mongooseClient.Schema.Types.ObjectId,
+        ref: 'postcodes'
+      },
       detail: String
   	},
   	phone: {

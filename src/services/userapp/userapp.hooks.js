@@ -18,7 +18,15 @@ const populateSchema = {
       service: 'profiles',
       nameAs: 'profile',
       parentField: 'profile',
-      childField: '_id'
+      childField: '_id',
+      include: [
+        {
+          service: 'postcodes',
+          nameAs: 'postcode',
+          parentField: 'address.postcode',
+          childField: '_id'
+        }
+      ]
     },
     {
       service: 'opds',
