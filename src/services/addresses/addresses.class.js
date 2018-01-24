@@ -60,7 +60,7 @@ module.exports = class addresses {
 
     let output = []
 
-    const q = new RegExp(query.params.q, "i")
+    const q = new RegExp(params.query.q, "i")
     const _result = await this.app.service('postcodes')
       .find({
         query: {
