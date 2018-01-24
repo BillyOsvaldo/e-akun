@@ -64,11 +64,11 @@ module.exports = class addresses {
     const _result = await this.app.service('postcodes')
       .find({
         query: {
-          $or: {
-            kotakab: q,
-            kecamatan: q,
-            kelurahan: q
-          }
+          $or: [
+            {kotakab: q},
+            {kecamatan: q},
+            {kelurahan: q}
+          ]
         }
       })
     return _result
