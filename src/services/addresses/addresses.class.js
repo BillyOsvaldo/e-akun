@@ -6,7 +6,8 @@ module.exports = class addresses {
         query: {
           $or: [
             {kotakab: q},
-            {kecamatan: q}
+            {kecamatan: q},
+            {kelurahan: q}
           ],
           $skip: params.query.$skip,
           $limit: params.query.$limit,
