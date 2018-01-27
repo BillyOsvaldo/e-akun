@@ -5,7 +5,6 @@ module.exports = class addresses {
       .find({
         query: {
           $or: [
-            {kotakab: q},
             {kecamatan: q},
             {kelurahan: q}
           ],
