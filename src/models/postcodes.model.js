@@ -9,6 +9,7 @@ module.exports = function (app) {
     provinsi: { type: String, required: true },
     kotakab: { type: String, required: true },
     kecamatan: { type: String, required: true },
+    kelurahan: { type: String, required: true },
     kodepos: { type: String, required: true }
   }, {
     timestamps: true
