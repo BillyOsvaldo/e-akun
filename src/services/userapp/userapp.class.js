@@ -2,6 +2,61 @@ const bcrypt = require('bcryptjs')
 const errors = require('@feathersjs/errors')
 
 module.exports = class userApp {
+  async create(data, params) {
+    const validate = async () => {
+      const users = this.app.service('users')
+      const profiles = this.app.service('profiles')
+      const checkUser = new users.Model(data)
+      const checkProfile = new profiles.Model(data)
+      await checkUser.validate()
+      await checkProfile.validate()
+    }
+
+    const getCodeReg = async () => {
+      const coderegs = this.app.service('coderegs')
+      const filter = {
+        code: data.codereg,
+        status: false,
+      }
+      const doc = await coderegs.Model.findOne(filter)
+      if(doc === null) {
+        throw new errors.BadRequest('code not found')
+      }
+
+      const ret = { _id: doc._id, opd: doc.opd }
+      return ret
+    }
+
+    const useCodeReg = (id) => {
+      const coderegs = this.app.service('coderegs')
+      return coderegs.patch(id, { status: true })
+    }
+
+    const insertProfile = async () => {
+      const profiles = this.app.service('profiles')
+      const newProfile = await profiles.create(data)
+      data.profile = newProfile._id
+    }
+
+    const insertUser = async () => {
+      const users = await this.app.service('users')
+      const newUser = await users.create(data)
+      return newUser
+    }
+
+    // try to check insert user and profile, if there is error, revert all inserted data
+    await validate()
+
+    const { codeRegId, opd } = await getCodeReg()
+    data.opd = opd // used for insertUser
+
+    //await useCodeReg(codeRegId)
+    await insertProfile()
+    await insertUser()
+
+    return data
+  }
+
   async get (userid) {
     let _output = []
     if (typeof userid !== 'undefined') {
@@ -34,6 +89,16 @@ module.exports = class userApp {
       const _user = await this.app.service('users').get(id)
       return _user
     }
+  }
+
+  async remove(id, params) {
+    const users = this.app.service('users')
+    const profiles = this.app.service('profiles')
+
+    const docUser = await users.get(id)
+
+    users.remove(id)
+    profiles.remove(docUser.profile)
   }
 
   setup (app) {

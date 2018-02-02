@@ -1,72 +1,73 @@
 const errors = require('@feathersjs/errors')
+const validator = require('validator')
+
+/*
+
+Usage:
+
+checkuser.username:
+get user name and name by email or username
+/checkuser?email=example@gmail.com
+
+checkuser.checkemail:
+to check if email is already registered
+/checkuser?email=example@gmail.com
+
+
+*/
 
 module.exports = class checkUser {
   async find(params) {
-    const checkMail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const username = params.query.username;
-    if (typeof username !== 'undefined') {
-      if (checkMail.test(username)) {
-        const _user = await this.app.service('users')
-          .find({
-            query: {
-              email: username,
-              $populate: 'profile'
-            }
-          });
-        if (_user.total > 0) {
-          let _output = {
-            username: _user.data[0].username,
-            fullname: _user.data[0].profile.fullname
-          }
-          _user.data.splice(0, 1)
-          _user.data.push(_output)
-          return _user;
-        } else {
-          throw new errors.BadRequest('ID Akun/NIP tidak ditemukan.', {username: username});
-        }
+    const queryUsername = params.query.username
+    const queryEmail = params.query.email
+
+    const checkUsername = async () => {
+      var queryBy
+      if(validator.isEmail(queryUsername)) {
+        queryBy = 'email'
       } else {
-        const _user = await this.app.service('users')
-          .find({
-            query: {
-              username: username,
-              $populate: 'profile'
-            }
-          });
-        if (_user.total > 0) {
-          let _output = {
-            username: _user.data[0].username,
-            fullname: _user.data[0].profile.fullname
-          }
-          _user.data.splice(0, 1)
-          _user.data.push(_output)
-          return _user;
-        } else {
-          const _profile = await this.app.service('profiles')
-            .find({
-              query: {
-                nip: username
-              }
-            });
-          if (_profile.total > 0) {
-            const _idProfile = _profile.data[0]._id
-            const _user = await this.app.service('users')
-              .find({
-                query: {
-                  profile: _idProfile
-                }
-              });
-            let _output = {
-              username: _user.data[0].username,
-              fullname: _profile.data[0].fullname
-            }
-            _user.data.splice(0, 1)
-            _user.data.push(_output)
-            return _user;
-          } else {
-            throw new errors.BadRequest('ID Akun/NIP tidak ditemukan.', {username: username});
-          }
-        }
+        queryBy = 'username'
       }
+
+      const getUser = async () => {
+        const filter = {}
+        filter[queryBy] = queryUsername
+        const usersModel = this.app.service('users').Model
+        const doc = await usersModel.findOne(filter).populate('profile')
+        if(doc === null) {
+          throw new errors.BadRequest('ID Akun/NIP tidak ditemukan.', {username: queryUsername})
+        }
+        console.log('doc', doc)
+
+        return [ doc.username, doc.name ]
+      }
+
+      const [ username, name ] = await getUser()
+
+      return {
+        username: username,
+        name: name
+      }
+    }
+
+    const checkEmail = async () => {
+        const filter = { query: { email: queryEmail } }
+
+        const docs = await this.app.service('users').find(filter)
+
+        if(docs.total > 0) {
+          throw new errors.BadRequest('Email sudah digunakan')
+        }
+
+        return { status: 'success' }
+    }
+
+    if(queryUsername) {
+      return await checkUsername()
+    } else if (queryEmail) {
+      return await checkEmail()
+    } else {
+      throw new BadRequest('unknown query')
     }
   }
 

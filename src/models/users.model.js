@@ -1,3 +1,5 @@
+var validator = require('validator')
+
 // users-model.js - A mongoose model
 //
 // See http://mongoosejs.com/docs/models.html
@@ -13,7 +15,8 @@ module.exports = function (app) {
     email: {
         type: String,
         unique: true,
-        required: true
+        required: true,
+        validate: email => validator.isEmail(email)
     },
     password: {
         type: String
