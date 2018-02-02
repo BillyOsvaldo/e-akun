@@ -37,6 +37,11 @@ module.exports = class checkUser {
           throw new errors.BadRequest('ID Akun/NIP tidak ditemukan.', {username: queryUsername})
         }
 
+        const firstData = docs.data[0]
+        docs.data = {
+            username: firstData.username,
+            name: firstData.profile.name
+        }
         return docs
       }
 
