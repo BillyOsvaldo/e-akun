@@ -30,24 +30,18 @@ module.exports = class checkUser {
       }
 
       const getUser = async () => {
-        const filter = {}
-        filter[queryBy] = queryUsername
-        const usersModel = this.app.service('users').Model
-        const doc = await usersModel.findOne(filter).populate('profile')
-        if(doc === null) {
+        const filter = { query: { $populate: 'profile' } }
+        filter.query[queryBy] = queryUsername
+        const docs = await this.app.service('users').find(filter)
+        if(docs.total === 0) {
           throw new errors.BadRequest('ID Akun/NIP tidak ditemukan.', {username: queryUsername})
         }
-        console.log('doc', doc)
 
-        return [ doc.username, doc.name ]
+        return docs
       }
 
-      const [ username, name ] = await getUser()
-
-      return {
-        username: username,
-        name: name
-      }
+      const ret = await getUser()
+      return ret
     }
 
     const checkEmail = async () => {
@@ -67,7 +61,7 @@ module.exports = class checkUser {
     } else if (queryEmail) {
       return await checkEmail()
     } else {
-      throw new BadRequest('unknown query')
+      throw new errors.BadRequest('unknown query')
     }
   }
 
