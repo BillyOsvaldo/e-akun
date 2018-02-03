@@ -23,7 +23,7 @@ module.exports = class userApp {
         throw new errors.BadRequest('code not found')
       }
 
-      const ret = { _id: doc._id, opd: doc.opd }
+      const ret = { codeRegId: doc._id, opd: doc.opd }
       return ret
     }
 
@@ -50,7 +50,7 @@ module.exports = class userApp {
     const { codeRegId, opd } = await getCodeReg()
     data.opd = opd // used for insertUser
 
-    //await useCodeReg(codeRegId)
+    await useCodeReg(codeRegId)
     await insertProfile()
     await insertUser()
 
