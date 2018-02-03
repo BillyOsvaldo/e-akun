@@ -1,6 +1,6 @@
 # e-akun
 
-## Resources
+## API Resources
 
 ### Show Userdata
 
@@ -55,7 +55,7 @@ Get user data (username and name), search by email or username
         "errors": {}
     }```
 
-###Check Is Email Available
+### Check Is Email Available
 
 Return 200 if email is available, return 404 if email is not valid or email is already registered
 
