@@ -2,7 +2,7 @@
 
 ## Resources
 
-###Show Userdata
+### Show Userdata
 
 Get user data (username and name), search by email or username
 
