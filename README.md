@@ -99,4 +99,5 @@ Return 200 if email is available, return 404 if email is not valid or email is a
         "code": 400,
         "className": "bad-request",
         "errors": {}
-    }```
+    }
+    ```
