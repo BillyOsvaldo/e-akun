@@ -12,7 +12,7 @@ Get user data (username and name), search by email or username
 
 * METHOD
 
-    POST
+    GET
 
 * URL Params
 
@@ -65,7 +65,7 @@ Return 200 if email is available, return 404 if email is not valid or email is a
 
 * METHOD
 
-    POST
+    GET
 
 * URL Params
 
@@ -99,5 +99,42 @@ Return 200 if email is available, return 404 if email is not valid or email is a
         "code": 400,
         "className": "bad-request",
         "errors": {}
+    }
+    ```
+
+### Create Code Reg
+
+Code reg is used for creating user, code reg can be used only once.
+
+* URL
+
+    /coderegs
+
+* METHOD
+
+    POST
+
+* URL Params
+
+    required:
+        email=[String email]
+        code=[String]
+        opd=[ObjectID]
+
+    optional:
+        status=[boolean], default:false
+
+* Success Response:
+
+    Code: 200 
+
+    Content:
+    ```
+    {
+        "_id": ObjectID,
+        "email": String,
+        "status": Boolean,
+        "code": String,
+        "opd": ObjectID
     }
     ```
