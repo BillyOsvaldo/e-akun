@@ -40,7 +40,8 @@ module.exports = class checkUser {
         const firstData = docs.data[0]
         docs.data = [{
             username: firstData.username,
-            name: firstData.profile.name
+            name: firstData.profile.name,
+            status: "success"
         }]
         return docs
       }
