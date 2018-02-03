@@ -12,7 +12,7 @@ const restrict = [
 
 module.exports = {
   before: {
-    all: [ commonHooks.disallow('external') ],
+    all: [ authenticate('jwt') ],
     find: [],
     get: [ ...restrict ],
     create: [ hashPassword() ],
