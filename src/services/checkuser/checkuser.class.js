@@ -50,15 +50,24 @@ module.exports = class checkUser {
     }
 
     const checkEmail = async () => {
-        const filter = { query: { email: queryEmail } }
+      if(!validator.isEmail(queryEmail)) {
+        throw new errors.BadRequest('Email tidak valid')
+      }
 
-        const docs = await this.app.service('users').find(filter)
+      const filter = { query: { email: queryEmail } }
 
-        if(docs.total > 0) {
-          throw new errors.BadRequest('Email sudah digunakan')
-        }
+      const docs = await this.app.service('users').find(filter)
 
-        return { status: 'success' }
+      if(docs.total > 0) {
+        throw new errors.BadRequest('Email sudah digunakan')
+      }
+
+      return {
+        "total": 1,
+        "limit": 10,
+        "skip": 0,
+        "data": [{ "status": "success" }]
+      }
     }
 
     if(queryUsername) {
