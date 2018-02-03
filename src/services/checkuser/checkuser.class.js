@@ -7,7 +7,7 @@ Usage:
 
 checkuser.username:
 get user name and name by email or username
-/checkuser?email=example@gmail.com
+/checkuser?username=example@gmail.com
 
 checkuser.checkemail:
 to check if email is already registered
@@ -38,10 +38,10 @@ module.exports = class checkUser {
         }
 
         const firstData = docs.data[0]
-        docs.data = {
+        docs.data = [{
             username: firstData.username,
             name: firstData.profile.name
-        }
+        }]
         return docs
       }
 
