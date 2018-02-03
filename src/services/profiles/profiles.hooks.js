@@ -1,3 +1,4 @@
+const { authenticate } = require('feathers-authentication').hooks;
 const commonHooks = require('feathers-hooks-common');
 
 module.exports = {
