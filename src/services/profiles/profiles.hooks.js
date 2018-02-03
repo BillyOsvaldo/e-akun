@@ -2,7 +2,7 @@ const commonHooks = require('feathers-hooks-common');
 
 module.exports = {
   before: {
-    all: [commonHooks.disallow('external')],
+    all: [ authenticate('jwt') ],
     find: [],
     get: [],
     create: [],
