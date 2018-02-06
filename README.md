@@ -118,7 +118,6 @@ Code reg is used for creating user, code reg can be used only once.
 
     required:
         email=[String email]
-        code=[String]
         opd=[ObjectID]
 
     optional:
