@@ -37,5 +37,17 @@
       "usernameField": "username",
       "passwordField": "password"
     }
-  }
+  },
+  "test": {
+    "port": 3031
+  },
+  "nodemailer_transport": {
+    "service": "gmail",
+    "auth": {
+      "user": "seosea10seosea20seosea30@gmail.com",
+      "pass": "kkf9f9f9f9w23ki"
+    }
+  },
+  "hostname": "http://purbalinggakab.go.id:8002",
+  "logo": "https://purbalinggakab.go.id/logo/logo_purbalingga.png"
 }

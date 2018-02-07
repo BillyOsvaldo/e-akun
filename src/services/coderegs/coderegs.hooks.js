@@ -1,12 +1,13 @@
 const { authenticate } = require('feathers-authentication').hooks;
 const generateCode = require('../../hooks/generate_codereg')
+const sendEmailCodeReg = require('../../hooks/send_email_codereg')
 
 module.exports = {
   before: {
     all: [],
     find: [],
     get: [],
-    create: [ generateCode ],
+    create: [ generateCode, sendEmailCodeReg ],
     update: [],
     patch: [],
     remove: []
