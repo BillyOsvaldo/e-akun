@@ -8,15 +8,15 @@ Get user data (username and name), search by email or username
 
 * URL
 
-    /checkuser
+  /checkuser
 
 * METHOD
 
-    GET
+  GET
 
 * URL Params
 
-    username=[username|email]
+  username=[username|email]
 
 * Success Response:
 
@@ -40,11 +40,11 @@ Get user data (username and name), search by email or username
     ```
 
 * Error Response:
-
     Code: 404 NOT FOUND 
 
     Content:
-    ```{
+    ```
+    {
         "name": "BadRequest",
         "message": "ID Akun/NIP tidak ditemukan.",
         "code": 400,
@@ -54,6 +54,8 @@ Get user data (username and name), search by email or username
         },
         "errors": {}
     }```
+
+------------------------
 
 ### Check Is Email Available
 
@@ -89,9 +91,7 @@ Return 200 if email is available, return 404 if email is not valid or email is a
     ```
 
 * Error Response:
-
     Code: 404 NOT FOUND 
-
     Content:
     ```{
         "name": "BadRequest",
@@ -101,6 +101,7 @@ Return 200 if email is available, return 404 if email is not valid or email is a
         "errors": {}
     }
     ```
+------------------------
 
 ### Create Code Reg
 
@@ -114,7 +115,7 @@ Code reg is used for creating user, code reg can be used only once.
 
     POST
 
-* URL Params
+* Body
 
     required:
         email=[String email]
@@ -137,3 +138,46 @@ Code reg is used for creating user, code reg can be used only once.
         "opd": ObjectID
     }
     ```
+
+------------------------
+
+### Resend Email
+
+To resend email `codereg` and `resetpassword`.
+
+ * URL
+ 
+    Format:
+    /resend-email/{email}
+  
+    Contoh:
+    /resend-email/testtest@gmail.com
+
+ * METHOD
+ 
+    PATCH
+
+ * Body
+ 
+    required:
+        type=[String 'codereg'|'resetpassword']
+
+ * Success Response:
+ 
+    Code: 200 
+
+    Content:
+    ```
+    {
+      "code": "MR2LOP",
+      "email": "example@gmail.com",
+      "status": "success"
+    }
+    ```
+
+ * Error Response:
+ 
+    Code: 400 Bad Request 
+     * Format email tidak valid
+     * Tipe tidak diketahui
+     * Email tidak ditemukan

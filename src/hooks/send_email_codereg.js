@@ -3,6 +3,8 @@ const pug = require('pug')
 const { resolve } = require('path')
 
 const sendEmailCodeReg = async function(context) {
+  if(!context.data.code || !context.data.email) return
+
   const getTemplate = () => {
     emailData = {
       code: context.data.code,

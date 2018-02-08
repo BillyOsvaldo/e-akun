@@ -13,6 +13,7 @@ const apps = require('./apps/apps.service.js');
 const administrators = require('./administrators/administrators.service.js');
 const postcodes = require('./postcodes/postcodes.service.js');
 const addresses = require('./addresses/addresses.service.js');
+const resendEmail = require('./resend_email/resend_email.service.js');
 module.exports = function () {
   const app = this; // eslint-disable-line no-unused-vars
   app.configure(coderegs);
@@ -30,4 +31,5 @@ module.exports = function () {
   app.configure(administrators);
   app.configure(postcodes);
   app.configure(addresses);
+  app.configure(resendEmail);
 };
