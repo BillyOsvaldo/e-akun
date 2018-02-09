@@ -16,9 +16,9 @@ module.exports = {
   },
 
   after: {
-    all: [],
-    find: [ addTimestamp ],
-    get: [ addTimestamp ],
+    all: [ addTimestamp ],
+    find: [],
+    get: [],
     create: [],
     update: [],
     patch: [],
