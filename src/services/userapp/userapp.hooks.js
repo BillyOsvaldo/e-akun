@@ -84,6 +84,7 @@ module.exports = {
 
   after: {
     all: [
+      addTimestamp,
       commonHooks.when(
         hook => hook.params.provider,
         commonHooks.when(
@@ -92,8 +93,8 @@ module.exports = {
         )
       )
     ],
-    find: [ addTimestamp ],
-    get: [ populate({ schema: populateSchema }), addTimestamp ],
+    find: [],
+    get: [ populate({ schema: populateSchema }) ],
     create: [],
     update: [],
     patch: [ populate({ schema: populateSchema }) ],
