@@ -10,8 +10,8 @@ module.exports = {
     find: [ orderByCreatedAtDesc ],
     get: [],
     create: [ generateCode, sendEmailCodeReg ],
-    update: [],
-    patch: [],
+    update: [ sendEmailCodeReg ],
+    patch: [ sendEmailCodeReg ],
     remove: []
   },
 
