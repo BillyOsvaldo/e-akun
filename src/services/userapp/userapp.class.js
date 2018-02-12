@@ -57,6 +57,12 @@ module.exports = class userApp {
     return data
   }
 
+  async find(params) {
+    const users = this.app.service('users')
+    const docsUser = await users.find(params)
+    return docsUser
+  }
+
   async get (userid) {
     let _output = []
     if (typeof userid !== 'undefined') {

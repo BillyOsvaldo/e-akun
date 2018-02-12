@@ -93,7 +93,7 @@ module.exports = {
         )
       )
     ],
-    find: [],
+    find: [ populate({ schema: populateSchema }) ],
     get: [ populate({ schema: populateSchema }) ],
     create: [],
     update: [],
