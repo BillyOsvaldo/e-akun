@@ -17,6 +17,8 @@ const filterTimestamp = (doc) => {
 }
 
 const addTimestampHook = async function(context) {
+  if(context.result === undefined) return
+
   // for not populated docs (deep: 1)
   if(Array.isArray(context.result.data)) { // method: find
     context.result.data = context.result.data.map(filterTimestamp)
