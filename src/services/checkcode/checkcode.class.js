@@ -1,3 +1,5 @@
+const errors = require('@feathersjs/errors')
+
 module.exports = class checkCode {
   async find (params) {
     const code = params.query.code
@@ -10,6 +12,7 @@ module.exports = class checkCode {
             status: false
           }
         })
+
       if (_code.total > 0) {
         let output = {
           code: _code.data[0].code,
@@ -18,6 +21,8 @@ module.exports = class checkCode {
         }
         _code.data.splice(0, 1)
         _code.data.push(output)
+      } else {
+        throw new errors.BadRequest('Kode tidak ditemukan')
       }
       return _code
     }
