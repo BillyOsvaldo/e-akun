@@ -10,6 +10,16 @@ module.exports = class userApp {
       const checkProfile = new profiles.Model(data)
       await checkUser.validate()
       await checkProfile.validate()
+
+      const docUser1 = await users.Model.findOne({ email: data.email })
+      if(docUser1 !== null) {
+        throw new errors.BadRequest('Email telah digunakan')
+      }
+
+      const docUser2 = await users.Model.findOne({ username: data.username })
+      if(docUser2 !== null) {
+        throw new errors.BadRequest('Username telah digunakan')
+      }
     }
 
     const getCodeReg = async () => {
@@ -20,7 +30,7 @@ module.exports = class userApp {
       }
       const doc = await coderegs.Model.findOne(filter)
       if(doc === null) {
-        throw new errors.BadRequest('code not found')
+        throw new errors.BadRequest('Kode salah')
       }
 
       const ret = { codeRegId: doc._id, opd: doc.opd }
@@ -50,9 +60,9 @@ module.exports = class userApp {
     const { codeRegId, opd } = await getCodeReg()
     data.opd = opd // used for insertUser
 
-    await useCodeReg(codeRegId)
     await insertProfile()
     await insertUser()
+    await useCodeReg(codeRegId)
 
     return data
   }

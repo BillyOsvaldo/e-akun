@@ -181,3 +181,49 @@ To resend email `codereg` and `resetpassword`.
      * Format email tidak valid
      * Tipe tidak diketahui
      * Email tidak ditemukan
+
+------------------------
+
+### Create User
+
+
+ * URL
+ 
+    Format:
+    /userapp
+
+ * METHOD
+ 
+    POST
+
+ * Body
+ 
+    ```
+        {
+          "email": String email,
+          "username": String,
+          "password": String,
+          "codereg": String,
+          "gender": Number,
+          "name": {
+              "last_title": String,
+              "first_title": String,
+              "last_name": String,
+              "first_name": String
+          },
+          "phone": {
+              "lists": [String]
+          },
+          "isPns": Boolean,
+          "nip": String
+      }
+  ```
+  *Note: If isPns is true, then nip is required.
+
+
+ * Error Response:
+ 
+    Code: 400 Bad Request 
+     * Kode salah
+     * Email telah digunakan
+     * Username telah digunakan
