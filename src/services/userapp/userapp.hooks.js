@@ -4,6 +4,7 @@ const { restrictToOwner } = require('feathers-authentication-hooks');
 const { hashPassword } = require('feathers-authentication-local').hooks;
 const { populate } = require('feathers-hooks-common');
 const addTimestamp = require('../../hooks/add_timestamp')
+const userappHook = require('../../hooks/userapp_service')
 
 const restrict = [
   authenticate('jwt'),
@@ -70,7 +71,7 @@ module.exports = {
     all: [ authenticate('jwt') ],
     find: [],
     get: [ ...restrict ],
-    create: [],
+    create: [ userappHook.checkPns ],
     update: [],
     patch: [
       ...restrict,
@@ -93,7 +94,7 @@ module.exports = {
         )
       )
     ],
-    find: [],
+    find: [ populate({ schema: populateSchema }) ],
     get: [ populate({ schema: populateSchema }) ],
     create: [],
     update: [],
