@@ -218,8 +218,7 @@ To resend email `codereg` and `resetpassword`.
               "primary": Number, default: 0
           },
           "isPns": Boolean Optional,
-          "nip": String Optional,
-          "role": ObjectID Optional, default `role staff`
+          "nip": String Optional
       }
   ```
   *Note: If isPns is true, then nip is required
