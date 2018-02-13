@@ -27,6 +27,14 @@ module.exports = class userApp {
       if(docUser2 !== null) {
         throw new errors.BadRequest('Username telah digunakan')
       }
+
+      if(!data.birth) {
+        throw new errors.BadRequest('Tanggal lahir wajib diisi')
+      }
+
+      if(!moment(data.birth.day).isValid()) {
+        throw new errors.BadRequest('Format tanggal lahir tidak valid')
+      }
     }
 
     const getCodeReg = async () => {
