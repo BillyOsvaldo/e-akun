@@ -1,8 +1,15 @@
 const bcrypt = require('bcryptjs')
 const errors = require('@feathersjs/errors')
+const dateFormat = require('dateformat')
 
 module.exports = class userApp {
   async create(data, params) {
+    // to prevent validation error
+    const setup = async () => {
+      data.email = 'default@gmail.com'
+      data.username = 'default'
+    }
+
     const validate = async () => {
       const users = this.app.service('users')
       const profiles = this.app.service('profiles')
@@ -33,7 +40,7 @@ module.exports = class userApp {
         throw new errors.BadRequest('Kode salah')
       }
 
-      const ret = { codeRegId: doc._id, opd: doc.opd }
+      const ret = { codeRegId: doc._id, opd: doc.opd, email: doc.email }
       return ret
     }
 
@@ -48,18 +55,56 @@ module.exports = class userApp {
       data.profile = newProfile._id
     }
 
+    const buildUsername = async () => {
+      const countSameGenderAndBirthDay = async () => {
+        const Profiles = this.app.service('profiles').Model
+        const count = await Profiles.count({ gender: data.gender, 'birth.day': data.birth.day })
+        return count
+      }
+
+      const getSuffix = async () => {
+        const countPlusOne = (await countSameGenderAndBirthDay()) + 1
+        const suffix = countPlusOne.toString().padStart(3, '0')
+        return suffix
+      }
+
+      const prefix = data.gender
+      const middle = dateFormat(data.birth.day, 'ddmmyy')
+      const suffix = await getSuffix()
+      const username = prefix.toString() + middle.toString() + suffix
+
+      data.username = username
+    }
+
+    const setDefaultRole = async () => {
+      if(data.role !== undefined) return
+
+      const defaultRole = 'staff'
+      const Roles = this.app.service('roles').Model
+      const doc = await Roles.findOne({ tag: defaultRole })
+      if(doc === null) {
+        throw new errors.BadRequest('Role staff tidak ditemukan')
+      }
+
+      data.role = doc._id
+    }
+
     const insertUser = async () => {
       const users = await this.app.service('users')
       const newUser = await users.create(data)
       return newUser
     }
 
+    setup()
     // try to check insert user and profile, if there is error, revert all inserted data
     await validate()
 
-    const { codeRegId, opd } = await getCodeReg()
+    const { codeRegId, opd, email } = await getCodeReg()
     data.opd = opd // used for insertUser
+    data.email = email // used for insertUser
 
+    await setDefaultRole()
+    await buildUsername()
     await insertProfile()
     await insertUser()
     await useCodeReg(codeRegId)
