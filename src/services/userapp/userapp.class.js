@@ -44,6 +44,12 @@ module.exports = class userApp {
       return ret
     }
 
+    const resolveOpd = async (opdId) => {
+      const Opds = this.app.service('opds').Model
+      const doc = await Opds.findOne({ _id: opdId })
+      return doc
+    }
+
     const useCodeReg = (id) => {
       const coderegs = this.app.service('coderegs')
       return coderegs.patch(id, { status: true })
@@ -52,7 +58,7 @@ module.exports = class userApp {
     const insertProfile = async () => {
       const profiles = this.app.service('profiles')
       const newProfile = await profiles.create(data)
-      data.profile = newProfile._id
+      data.profile = newProfile
     }
 
     const buildUsername = async () => {
@@ -86,12 +92,13 @@ module.exports = class userApp {
         throw new errors.BadRequest('Role staff tidak ditemukan')
       }
 
-      data.role = doc._id
+      data.role = doc
     }
 
     const insertUser = async () => {
       const users = await this.app.service('users')
       const newUser = await users.create(data)
+      data._id = newUser._id
       return newUser
     }
 
@@ -100,7 +107,7 @@ module.exports = class userApp {
     await validate()
 
     const { codeRegId, opd, email } = await getCodeReg()
-    data.opd = opd // used for insertUser
+    data.opd = await resolveOpd(opd) // used for insertUser
     data.email = email // used for insertUser
 
     await setDefaultRole()
