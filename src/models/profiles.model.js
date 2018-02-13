@@ -25,7 +25,7 @@ module.exports = function (app) {
         type: mongooseClient.Schema.Types.ObjectId,
         ref: 'postcodes'
       },
-      detail: String
+      detail: { type: String, default: '' }
   	},
   	phone: {
   		lists: {
