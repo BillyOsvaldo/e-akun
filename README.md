@@ -216,10 +216,15 @@ To resend email `codereg` and `resetpassword`.
             "place": String
           },
           "phone": {
-              "lists": [String]
+              "lists": [String],
+              "primary": Number, required, default: 0
           },
           "isPns": Boolean,
-          "nip": String
+          "nip": String,
+          "role": String ObjectId,
+          "permissions": String ObjectId,
+          "opd": String ObjectId,
+          "address": String
       }
   ```
   *Note: If isPns is true, then nip is required.
