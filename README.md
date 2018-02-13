@@ -211,15 +211,14 @@ To resend email `codereg` and `resetpassword`.
           },
           "birth": {
             "day": Date Required,
-            "place": String Required
+            "place": String
           },
           "phone": {
               "lists": [String] Optional,
               "primary": Number, default: 0
           },
           "isPns": Boolean Optional,
-          "nip": String Optional,
-          "role": ObjectID Optional, default `role staff`
+          "nip": String Optional
       }
   ```
   *Note: If isPns is true, then nip is required
