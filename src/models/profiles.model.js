@@ -16,10 +16,10 @@ module.exports = function (app) {
       last_title: { type: String },
     },
   	birth: {
-      day: Date,
-      place: String
+      day: { type: Date, required: true },
+      place: { type: String }
     },
-  	gender: { type: String, required: true },
+  	gender: { type: String, required: true }, // gender 1 = laki-laki, gender 2 = perempuan
   	address: {
   		postcode: {
         type: mongooseClient.Schema.Types.ObjectId,

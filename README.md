@@ -200,34 +200,30 @@ To resend email `codereg` and `resetpassword`.
  
     ```
         {
-          "email": String email,
-          "username": String,
           "password": String,
-          "codereg": String,
-          "gender": Number,
+          "codereg": ObjectID Required,
+          "gender": Number Required, value: 1|2,
           "name": {
-              "last_title": String,
-              "first_title": String,
-              "last_name": String,
-              "first_name": String
+              "last_title": String Optional,
+              "first_title": String Optional,
+              "last_name": String Required,
+              "first_name": String Required
           },
           "birth": {
-            "day": Date,
-            "place": String
+            "day": Date Required,
+            "place": String Required
           },
           "phone": {
-              "lists": [String],
-              "primary": Number, required, default: 0
+              "lists": [String] Optional,
+              "primary": Number, default: 0
           },
-          "isPns": Boolean,
-          "nip": String,
-          "role": String ObjectId,
-          "permissions": String ObjectId,
-          "opd": String ObjectId,
-          "address": String
+          "isPns": Boolean Optional,
+          "nip": String Optional,
+          "role": ObjectID Optional, default `role staff`
       }
   ```
-  *Note: If isPns is true, then nip is required.
+  *Note: If isPns is true, then nip is required
+  *Note: gender 1 = laki-laki, gender 2 = perempuan
 
 
  * Error Response:
