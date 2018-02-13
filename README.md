@@ -211,7 +211,7 @@ To resend email `codereg` and `resetpassword`.
           },
           "birth": {
             "day": Date Required,
-            "place": String Required
+            "place": String
           },
           "phone": {
               "lists": [String] Optional,
