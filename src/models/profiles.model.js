@@ -19,7 +19,7 @@ module.exports = function (app) {
       day: { type: Date, required: true },
       place: { type: String }
     },
-  	gender: { type: String, required: true }, // gender 1 = laki-laki, gender 2 = perempuan
+  	gender: { type: Number, required: true }, // gender 1 = laki-laki, gender 2 = perempuan
   	address: {
   		postcode: {
         type: mongooseClient.Schema.Types.ObjectId,
