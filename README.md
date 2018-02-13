@@ -211,6 +211,10 @@ To resend email `codereg` and `resetpassword`.
               "last_name": String,
               "first_name": String
           },
+          "birth": {
+            "day": Date,
+            "place": String
+          },
           "phone": {
               "lists": [String]
           },
