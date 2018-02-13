@@ -68,11 +68,11 @@ const populateSchema = {
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ],
-    find: [],
+    all: [],
+    find: [ authenticate('jwt') ],
     get: [ ...restrict ],
     create: [ userappHook.checkPns ],
-    update: [],
+    update: [ authenticate('jwt') ],
     patch: [
       ...restrict,
       commonHooks.when(
@@ -80,7 +80,7 @@ module.exports = {
         hashPassword()
       )
     ],
-    remove: []
+    remove: [ authenticate('jwt') ]
   },
 
   after: {
