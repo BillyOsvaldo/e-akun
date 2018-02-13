@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs')
 const errors = require('@feathersjs/errors')
-const dateFormat = require('dateformat')
+const moment = require('moment')
 
 module.exports = class userApp {
   async create(data, params) {
@@ -69,7 +69,7 @@ module.exports = class userApp {
       }
 
       const prefix = data.gender
-      const middle = dateFormat(data.birth.day, 'ddmmyy')
+      const middle = moment(data.birth.day).format('DDMMYY')
       const suffix = await getSuffix()
       const username = prefix.toString() + middle.toString() + suffix
 
