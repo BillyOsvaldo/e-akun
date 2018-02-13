@@ -8,6 +8,12 @@ module.exports = class userApp {
     const setup = async () => {
       data.email = 'default@gmail.com'
       data.username = 'default'
+
+      if(!data.address) {
+        data.address = {
+          detail: ''
+        }
+      }
     }
 
     const validate = async () => {
