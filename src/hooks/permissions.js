@@ -29,6 +29,7 @@ permissions.restrict = async (context) => {
     }
   }
 
+  console.log('is_admin', admin)
   if(!admin) {
     try {
       await restrictToOwner({

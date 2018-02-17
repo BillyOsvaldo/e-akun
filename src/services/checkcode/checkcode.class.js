@@ -16,7 +16,7 @@ module.exports = class checkCode {
       if (_code.total > 0) {
         let output = {
           code: _code.data[0].code,
-          opd: _code.data[0].opd,
+          organization: _code.data[0].organization,
           email: _code.data[0].email
         }
         _code.data.splice(0, 1)

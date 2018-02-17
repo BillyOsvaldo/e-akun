@@ -33,9 +33,9 @@ module.exports = function (app) {
       type: mongooseClient.Schema.Types.ObjectId,
       ref: 'permissions'
     }],
-    opd: {
+    organization: {
       type: mongooseClient.Schema.Types.ObjectId,
-      ref: 'opds'
+      ref: 'organizations'
     }
   }, {
     timestamps: true

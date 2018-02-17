@@ -16,9 +16,9 @@ userappHook.populate = async (context) => {
   var populateSchema = {
     include: [
       {
-        service: 'opds',
-        nameAs: 'opd',
-        parentField: 'opd',
+        service: 'organizations',
+        nameAs: 'organization',
+        parentField: 'organization',
         childField: '_id'
       },
       {
