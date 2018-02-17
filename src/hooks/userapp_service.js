@@ -66,10 +66,7 @@ userappHook.populate = async (context) => {
     ]
   })
 
-  console.log('context.data', context.data)
-  console.log('context.result', context.result)
   await populate({ schema: populateSchema })(context)
 }
-
 
 module.exports = userappHook

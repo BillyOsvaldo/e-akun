@@ -191,7 +191,6 @@ module.exports = class userApp {
         delete user.data[0].password
         docsUsers.push(user.data[0])
       }
-      console.log('docsUsers', docsUsers)
 
       const ret = {
         total: await Users.count(),
@@ -235,6 +234,11 @@ module.exports = class userApp {
           .patch(id, data, params)
         return _user
       }
+    } else if(data.update === 'manage_account') {
+      console.log('manage_account')
+
+      const _user = await this.app.service('users').patch(id, data, params)
+      return _user
     } else if (data.update === 'profile') {
       console.log('profile')
       let profile_id = data.id
