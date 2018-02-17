@@ -24,10 +24,6 @@ module.exports = {
     update: [ authenticate('jwt') ],
     patch: [
       authenticate('jwt'),
-      commonHooks.when(
-        hook => typeof hook.data.password !== 'undefined',
-        hashPassword()
-      ),
       permissions.restrict
     ],
     remove: [ authenticate('jwt') ]
