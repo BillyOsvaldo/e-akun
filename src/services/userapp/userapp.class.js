@@ -54,13 +54,13 @@ module.exports = class userApp {
         throw new errors.BadRequest('Kode salah')
       }
 
-      const ret = { codeRegId: doc._id, opd: doc.opd, email: doc.email }
+      const ret = { codeRegId: doc._id, organization: doc.organization, email: doc.email }
       return ret
     }
 
-    const resolveOpd = async (opdId) => {
-      const Opds = this.app.service('opds').Model
-      const doc = await Opds.findOne({ _id: opdId })
+    const resolveorganization = async (organizationId) => {
+      const organizations = this.app.service('organizations').Model
+      const doc = await organizations.findOne({ _id: organizationId })
       return doc
     }
 
@@ -120,8 +120,8 @@ module.exports = class userApp {
     // try to check insert user and profile, if there is error, revert all inserted data
     await validate()
 
-    const { codeRegId, opd, email } = await getCodeReg()
-    data.opd = await resolveOpd(opd) // used for insertUser
+    const { codeRegId, organization, email } = await getCodeReg()
+    data.organization = await resolveorganization(organization) // used for insertUser
     data.email = email // used for insertUser
 
     await setDefaultRole()
@@ -191,7 +191,6 @@ module.exports = class userApp {
         delete user.data[0].password
         docsUsers.push(user.data[0])
       }
-      console.log('docsUsers', docsUsers)
 
       const ret = {
         total: await Users.count(),
@@ -235,6 +234,11 @@ module.exports = class userApp {
           .patch(id, data, params)
         return _user
       }
+    } else if(data.update === 'manage_account') {
+      console.log('manage_account')
+
+      const _user = await this.app.service('users').patch(id, data, params)
+      return _user
     } else if (data.update === 'profile') {
       console.log('profile')
       let profile_id = data.id
