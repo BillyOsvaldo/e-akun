@@ -2,7 +2,6 @@ const { authenticate } = require('feathers-authentication').hooks;
 const commonHooks = require('feathers-hooks-common');
 const { restrictToOwner } = require('feathers-authentication-hooks');
 const { hashPassword } = require('feathers-authentication-local').hooks;
-const { populate } = require('feathers-hooks-common');
 const addTimestamp = require('../../hooks/add_timestamp')
 const userappHook = require('../../hooks/userapp_service')
 
@@ -14,62 +13,11 @@ const restrict = [
   })
 ]
 
-const populateSchema = {
-  include: [
-    {
-      service: 'profiles',
-      nameAs: 'profile',
-      parentField: 'profile',
-      childField: '_id',
-      include: [
-        {
-          service: 'postcodes',
-          nameAs: 'address.postcode',
-          parentField: 'address.postcode',
-          childField: '_id'
-        }
-      ]
-    },
-    {
-      service: 'opds',
-      nameAs: 'opd',
-      parentField: 'opd',
-      childField: '_id'
-    },
-    {
-      service: 'roles',
-      nameAs: 'role',
-      parentField: 'role',
-      childField: '_id'
-    },
-    {
-      service: 'permissions',
-      nameAs: 'permissions',
-      parentField: 'permissions',
-      childField: '_id',
-      select: (hook) => ({ app: hook.app.get('appid') }),
-      include: [
-        {
-          service: 'apps',
-          nameAs: 'app',
-          parentField: 'app',
-          childField: '_id'
-        },
-        {
-          service: 'administrators',
-          nameAs: 'administrator',
-          parentField: 'administrator',
-          childField: '_id',
-        }
-      ]
-    }
-  ]
-}
-
 module.exports = {
   before: {
     all: [],
     find: [ authenticate('jwt') ],
+    //find: [ authenticate('jwt'), userappHook.populate ],
     get: [ ...restrict ],
     create: [ userappHook.checkPns ],
     update: [ authenticate('jwt') ],
@@ -94,11 +42,12 @@ module.exports = {
         )
       )
     ],
-    find: [ populate({ schema: populateSchema }) ],
-    get: [ populate({ schema: populateSchema }) ],
+    find: [ userappHook.populate ],
+    //find: [],
+    get: [ userappHook.populate ],
     create: [],
     update: [],
-    patch: [ populate({ schema: populateSchema }) ],
+    patch: [ userappHook.populate ],
     remove: []
   },
 
