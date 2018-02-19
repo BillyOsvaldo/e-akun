@@ -69,4 +69,77 @@ userappHook.populate = async (context) => {
   await populate({ schema: populateSchema })(context)
 }
 
+userappHook.sortByProfile = async (context) => {
+  const querySort = context.params.query.$sort
+  const sortByProfilesFields = [
+    'profile.name.first_name',
+    'profile.name.last_name',
+    'profile.birth.day',
+    'profile.age'
+  ]
+
+  const isSortByProfile = () => {
+    if(!querySort) return false
+    for(let key in querySort) {
+      if(!sortByProfilesFields.includes(key)) continue
+      return true
+    }
+    return false
+  }
+
+  const sortByProfile = (data) => {
+    // collect all sort-by-profile
+    const sortBy = {}
+    for(let key in querySort) {
+      if(!sortByProfilesFields.includes(key)) continue
+
+      sortBy[key] = parseInt(querySort[key])
+    }
+
+    const getProfilePropVal = (docUser, profileProp) => {
+      if(profileProp === 'profile.name.first_name') {
+        return docUser.profile.name.first_name
+      } else if(profileProp === 'profile.name.last_name') {
+        return docUser.profile.name.last_name
+      } else if(profileProp === 'profile.birth.day') {
+        return docUser.profile.name.last_name
+      } else if(profileProp === 'profile.age') {
+        return docUser.profile.name.last_name
+      } else {
+        return 0
+      }
+    }
+
+    for(let sortName in sortBy) {
+      let sortVal = sortBy[sortName]
+
+      if(sortVal == 1) {
+        data = data.sort(function(a, b) {
+          if(getProfilePropVal(a, sortName) == getProfilePropVal(b, sortName))
+            return 0
+          else if(getProfilePropVal(a, sortName) > getProfilePropVal(b, sortName))
+            return 1
+          else
+            return -1
+        })
+      } else {
+        data = data.sort(function(a, b) {
+          if(getProfilePropVal(a, sortName) == getProfilePropVal(b, sortName))
+            return 0
+          else if(getProfilePropVal(a, sortName) < getProfilePropVal(b, sortName))
+            return 1
+          else
+            return -1
+        })
+      }
+    }
+
+    return data
+  }
+
+  // exec
+  if(!isSortByProfile()) return
+  context.result.data = sortByProfile(context.result.data)
+}
+
 module.exports = userappHook

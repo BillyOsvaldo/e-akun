@@ -149,82 +149,10 @@ module.exports = class userApp {
     return data
   }
 
-  async find (params) {
-    const sortByProfilesFields = [
-      'name.first_name',
-      'name.last_name',
-      'birth.day',
-      'age'
-    ]
-
-    const isSortByProfile = () => {
-      const querySort = params.query.$sort
-      if(!querySort) return false
-
-      for(let key in querySort) {
-        if(!sortByProfilesFields.includes(key)) continue
-
-        return true
-      }
-
-      return false
-    }
-
-    const sortByProfile = async () => {
-      const querySort = params.query.$sort
-      if(!querySort) return
-
-      const Profiles = this.app.service('profiles').Model
-      const Users = this.app.service('users').Model
-
-      const sortBy = {}
-      for(let key in querySort) {
-        if(!sortByProfilesFields.includes(key)) continue
-
-        sortBy[key] = parseInt(querySort[key])
-        delete querySort[key]
-      }
-
-      // if no query.$sort left, then delete the object query.$sort
-      /*if(!querySort) {
-        delete params.query.$sort
-      }*/
-
-      const options = {
-        sort: sortBy,
-        limit: parseInt(params.query.$limit) || this.app.get('paginate').default,
-        skip: parseInt(params.query.$skip) || 0,
-      }
-      const docsProfiles = await Profiles.find({}, '_id', options)
-
-      const promiseJobs = docsProfiles.map(doc => this.app.service('users').find({ query: { profile: doc._id } }))
-      const docsUsers = []
-      const dataUsers = await Promise.all(promiseJobs)
-      for(let user of dataUsers) {
-        if(!user) continue
-        if(!user.data) continue
-
-        delete user.data[0].password
-        docsUsers.push(user.data[0])
-      }
-
-      const ret = {
-        total: await Users.count(),
-        limit: options.limit,
-        skip: options.skip,
-        data: docsUsers
-      }
-      return ret
-    }
-
-    let ret = []
-    if(isSortByProfile()) {
-      ret = await sortByProfile()
-    } else {
-      ret = await this.app.service('users').find(params)
-    }
-
-    return ret
+  async find(params) {
+    const users = this.app.service('users')
+    const docsUser = await users.find(params)
+    return docsUser
   }
 
   async get (userid) {
