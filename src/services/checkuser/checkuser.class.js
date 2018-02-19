@@ -37,10 +37,35 @@ module.exports = class checkUser {
           throw new errors.BadRequest('ID Akun/NIP tidak ditemukan.', {username: queryUsername})
         }
 
+        const getAdminName = async (docUsers) => {
+          const Permissions = this.app.service('permissions').Model
+          const docPermissions = await Permissions.findOne({ _id: docUsers.permissions[0] }).populate('administrator').populate('app')
+          if(!docPermissions) {
+            return errors.BadRequest('Tidak ada data permissions')
+          }
+
+          const test = JSON.parse(JSON.stringify(docPermissions.app))
+          const name = {
+            first_name: docPermissions.administrator.name,
+            last_name: test.name,
+            first_title: '',
+            last_title: ''
+          }
+
+          return name
+        }
+
         const firstData = docs.data[0]
+        var name
+        if(firstData.profile) {
+          name = firstData.profile.name
+        } else {
+          name = await getAdminName(firstData)
+        }
+
         docs.data = [{
             username: firstData.username,
-            name: firstData.profile.name,
+            name: name,
             status: "success"
         }]
         return docs
