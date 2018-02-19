@@ -41,5 +41,9 @@ module.exports = function (app) {
     timestamps: true
   });
 
+  /*profiles.post('find', (docs) => {
+    console.log('---------', docs)
+  })*/
+
   return mongooseClient.model('profiles', profiles);
 };
