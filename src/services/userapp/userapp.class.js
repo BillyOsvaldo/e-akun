@@ -77,9 +77,25 @@ module.exports = class userApp {
 
     const buildUsername = async () => {
       const countSameGenderAndBirthDay = async () => {
-        const Profiles = this.app.service('profiles').Model
-        const count = await Profiles.count({ gender: data.gender, 'birth.day': data.birth.day })
-        return count
+        const Users = this.app.service('users').Model
+        // filter birth day
+        const docsSameBirthDay = await Users.aggregate([
+          {
+            $project: {
+              username: { $substr: [ '$username', 1, 6 ] },
+              gender: { $substr: [ '$username', 0, 1 ] }
+            }
+          },
+          {
+            $match: {
+              username: moment(data.birth.day).format('DDMMYY')
+            }
+          }
+        ])
+
+        // filter gender
+        const docsGenderFiltered = docsSameBirthDay.filter(doc => doc.gender == data.gender)
+        return docsGenderFiltered.length
       }
 
       const getSuffix = async () => {
