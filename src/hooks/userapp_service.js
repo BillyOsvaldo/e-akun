@@ -32,7 +32,7 @@ userappHook.populate = async (context) => {
         nameAs: 'permissions',
         parentField: 'permissions',
         childField: '_id',
-        select: (hook) => ({ app: hook.app.get('appid') }),
+        //select: (hook) => ({ app: hook.app.get('appid') }),
         include: [
           {
             service: 'apps',
