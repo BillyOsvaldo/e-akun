@@ -1,10 +1,61 @@
+
 # e-akun
 
 ## API Resources
 
-### Show Userdata
+### Service Addresses
 
-Get user data (username and name), search by email or username
+Method **Find**:
+
+Desc: Find addresses search by substring of kecamatan or kelurahan. E.g params q=ali will return Bali, Kalimantan etc.
+
+* URL
+
+  /addresses
+
+* METHOD
+
+  GET
+
+* URL Params
+
+  q=[kecamatan|kelurahan]
+  
+  contoh: q=Bali
+
+* Success Response:
+
+    Code: 200 
+
+    Content:
+    ```
+    {
+        "total": 1,
+        "limit": 10,
+        "skip": 0,
+        {
+            data: [
+                {
+                "_id": ObjectID,
+                "provinsi": "Bali",
+                "kotakab": "Jembrana",
+                "kecamatan": "Negara",
+                "kelurahan": "Kaliakah",
+                "kodepos": "82218"
+            },
+            ]
+        }
+    }
+    ```
+
+------------------------
+
+
+### Service Checkuser
+
+Method **find**:
+
+Desc: To show user data (username and name), search by email or username
 
 * URL
 
@@ -55,11 +106,8 @@ Get user data (username and name), search by email or username
         "errors": {}
     }```
 
-------------------------
 
-### Check Is Email Available
-
-Return 200 if email is available, return 404 if email is not valid or email is already registered
+Desc: **To check if email is available**. Return 200 if email is available, return 404 if email is not valid or email is already registered
 
 * URL
 
@@ -103,9 +151,10 @@ Return 200 if email is available, return 404 if email is not valid or email is a
     ```
 ------------------------
 
-### Create Code Reg
+### Service Coderegs
 
-Code reg is used for creating user, code reg can be used only once.
+Method: **Create**
+Desc: Code reg is used for creating user, code reg can be used only once.
 
 * URL
 
@@ -141,9 +190,9 @@ Code reg is used for creating user, code reg can be used only once.
 
 ------------------------
 
-### Resend Email
+### Service Resend Email
 
-To resend email `codereg` and `resetpassword`.
+Desc: To resend email `codereg` and `resetpassword`.
 
  * URL
  
@@ -184,8 +233,11 @@ To resend email `codereg` and `resetpassword`.
 
 ------------------------
 
-### Create User
+### Service Userapp
 
+Method: **Create**
+
+Desc: To create new user.
 
  * URL
  
@@ -220,12 +272,13 @@ To resend email `codereg` and `resetpassword`.
           "isPns": Boolean Optional,
           "nip": String Optional
       }
-  ```
-  *Note: If isPns is true, then nip is required
-  *Note: gender 1 = laki-laki, gender 2 = perempuan
+    ```
+
+> Note: If isPns is true, then nip is required Note: gender 1 =
+> laki-laki, gender 2 = perempuan
 
 
- * Error Response:
+* Error Response:
  
     Code: 400 Bad Request 
      * Kode salah
