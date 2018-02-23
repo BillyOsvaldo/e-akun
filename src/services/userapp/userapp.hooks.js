@@ -40,7 +40,7 @@ module.exports = {
         )
       )
     ],
-    find: [ userappHook.populate, userappHook.sortByProfile ],
+    find: [ userappHook.populate ],
     get: [ userappHook.populate ],
     create: [],
     update: [],

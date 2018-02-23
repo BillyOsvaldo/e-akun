@@ -150,9 +150,52 @@ module.exports = class userApp {
   }
 
   async find(params) {
-    const users = this.app.service('users')
-    const docsUser = await users.find(params)
-    return docsUser
+    // query[0] is like $limit, profile.age, $skip
+    // query[1] is like 29, string
+
+    const getUsersQuery = () => {
+      return Object.entries(params.query).filter(query => !query[0].startsWith('$') && !query[0].startsWith('profile.'))
+    }
+
+    const getProfilesQuery = () => {
+      return Object.entries(params.query).filter(query => !query[0].startsWith('$') && query[0].startsWith('profile.'))
+    }
+
+    const Users = this.app.service('users').Model
+    const aggregateData = []
+
+    // match user
+    if(getUsersQuery().length) {
+      let matchVal = {}
+      for(let query of getUsersQuery())
+        matchVal[query[0]] = query[1]
+
+      aggregateData.push({ $match: matchVal })
+    }
+
+    aggregateData.push({ $lookup: { from: 'profiles', localField: 'profile', foreignField: '_id', as: 'profile'} })
+
+    for(let k in params.query.$sort) {
+      params.query.$sort[k] = parseInt(params.query.$sort[k])
+    }
+
+    if(params.query.$sort)
+      aggregateData.push({ $sort: params.query.$sort })
+
+    // match profile
+    if(getProfilesQuery().length) {
+      let matchVal = {}
+      for(let query of getProfilesQuery())
+        matchVal[query[0]] = query[1]
+
+      aggregateData.push({ $match: matchVal })
+    }
+
+    aggregateData.push({ $skip: parseInt(params.query.$skip) || 0 })
+    aggregateData.push({ $limit: parseInt(params.query.$limit) || this.app.get('paginate').default })
+
+    const docs = await Users.aggregate(aggregateData)
+    return docs
   }
 
   async get (userid) {
