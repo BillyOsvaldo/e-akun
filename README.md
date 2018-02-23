@@ -50,6 +50,61 @@ Desc: Find addresses search by substring of kecamatan or kelurahan. E.g params q
 
 ------------------------
 
+### Service Checkcode
+
+Method **Find**:
+
+Desc: Find unused code search by code.
+Return status 200 when found unused code, otherwise return status 400.
+
+* URL
+
+  /checkcode
+
+* METHOD
+
+  GET
+
+* URL Params
+
+  code=[code]
+  
+  contoh: code=A82F21
+
+* Success Response:
+
+    Code: 200 
+
+    Content:
+    ```
+    {
+        "total": 1,
+        "limit": 10,
+        "skip": 0,
+        {
+            data: [
+                {
+                "code": String,
+                "email": String Email
+            },
+            ]
+        }
+    }
+    ```
+    
+* Error Response:
+    Code: 400
+    Content:
+    ```{
+        "name": "BadRequest",
+        "message": "Kode tidak ditemukan",
+        "code": 400,
+        "className": "bad-request",
+        "errors": {}
+    }
+    ```
+    
+------------------------
 
 ### Service Checkuser
 
