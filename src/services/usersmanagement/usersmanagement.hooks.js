@@ -3,7 +3,7 @@ const commonHooks = require('feathers-hooks-common');
 const { restrictToOwner } = require('feathers-authentication-hooks');
 const { hashPassword } = require('feathers-authentication-local').hooks;
 const addTimestamp = require('../../hooks/add_timestamp')
-const userappHook = require('../../hooks/userapp_service')
+const usersManagementHooks = require('../../hooks/usersmanagement_service')
 const permissions = require('../../hooks/permissions')
 
 const restrict = [
@@ -18,9 +18,9 @@ module.exports = {
   before: {
     all: [],
     find: [ authenticate('jwt') ],
-    //find: [ authenticate('jwt'), userappHook.populate ],
+    //find: [ authenticate('jwt'), usersManagementHooks.populate ],
     get: [ ...restrict ],
-    create: [ userappHook.checkPns ],
+    create: [ usersManagementHooks.checkPns ],
     update: [ authenticate('jwt') ],
     patch: [
       authenticate('jwt'),
@@ -40,11 +40,11 @@ module.exports = {
         )
       )
     ],
-    find: [ userappHook.populate ],
-    get: [ userappHook.populate ],
+    find: [ usersManagementHooks.populate ],
+    get: [ usersManagementHooks.populate ],
     create: [],
     update: [],
-    patch: [ userappHook.populate ],
+    patch: [ usersManagementHooks.populate ],
     remove: []
   },
 
