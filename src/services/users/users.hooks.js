@@ -4,7 +4,6 @@ const commonHooks = require('feathers-hooks-common');
 const { restrictToOwner } = require('feathers-authentication-hooks');
 const { hashPassword } = require('feathers-authentication-local').hooks;
 const permissions = require('../../hooks/permissions')
-const usersManagementHooks = require('../../hooks/usersmanagement_service')
 
 const restrict = [
   restrictToOwner({
@@ -16,7 +15,7 @@ const restrict = [
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
-    find: [ usersManagementHooks.populate ],
+    find: [],
     get: [ ...restrict ],
     create: [ hashPassword() ],
     update: [ hashPassword() ],
