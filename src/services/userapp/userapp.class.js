@@ -1,4 +1,3 @@
-const bcrypt = require('bcryptjs')
 const errors = require('@feathersjs/errors')
 const moment = require('moment')
 

@@ -1,11 +1,13 @@
 const { populate } = require('feathers-hooks-common')
 const { restrictToOwner } = require('feathers-authentication-hooks');
+const bcrypt = require('bcryptjs')
+const errors = require('@feathersjs/errors')
 
 const permissions = {}
 
 permissions.isAdmin = (context) => {
   if(Array.isArray(context.params.user.permissions))
-    return Boolean(context.params.user.permissions)
+    return Boolean(context.params.user.permissions.length)
 
   return false
 }
@@ -26,12 +28,21 @@ permissions.set = async (context) => {
   }
 }
 
+/*
+  Role admin organization allowed to edit everything in this service
+  Role admin aplikasi allowed to edit everything in this service as long as current application is same as his
+  Role user only allowed to edit his doc
+*/
 permissions.restrict = async (context) => {
   await permissions.set(context)
 
   var admin = false
   for(let permission of context.params.user.permissions) {
+    //console.log('permission.administrator.tag', permission.administrator.tag)
     if(permission.administrator.tag == 'admin_organization') {
+      admin = true
+    }
+    if(permission.administrator.tag == 'admin_application' && permission.app._id == context.app.get('appid')) {
       admin = true
     }
   }
@@ -52,16 +63,19 @@ permissions.restrict = async (context) => {
   standard user have to provide his password in data.comparepassword and matched
 */
 permissions.matchPassword = async (context) => {
+  if(!context.data.comparepassword)
+    throw new errors.BadRequest('Password wajib diisi')
+
   const isAdmin = permissions.isAdmin(context)
   // if current user is admin then no need to check the pw
   if(isAdmin) return
 
-  let current = await this.app.service('users').get(context.id)
-  let compare = await bcrypt.compareSync(data.comparepassword, current.password)
+  let current = await context.app.service('users').get(context.id)
+  let compare = await bcrypt.compareSync(context.data.comparepassword, current.password)
   if (!compare) {
-    throw new errors.BadRequest('Kata Sandi Salah.', {})
+    throw new errors.BadRequest('Kata Sandi Salah.')
   }
-  delete data.comparepassword
+  delete context.data.comparepassword
 }
 
 module.exports = permissions
