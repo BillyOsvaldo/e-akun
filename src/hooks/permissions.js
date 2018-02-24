@@ -12,7 +12,20 @@ permissions.isAdmin = (context) => {
   return false
 }
 
+/*
+  @return is_admin Boolean
+*/
 permissions.set = async (context) => {
+  var isAdmin
+  if(!context.params.user) {
+    isAdmin = false
+    return isAdmin
+  }
+  if(context.params.user.permissions == [] || context.params.user.permissions == null) {
+    isAdmin = false
+    return isAdmin
+  }
+
   const jobsPermissions = context.params.user.permissions.map(permissionId => context.app.service('permissions').get(permissionId))
   const docsPermissions = await Promise.all(jobsPermissions)
 
@@ -26,6 +39,9 @@ permissions.set = async (context) => {
     permission.administrator = docsAdministrators[i]
     i++
   }
+
+  isAdmin = true
+  return isAdmin
 }
 
 /*
@@ -34,28 +50,23 @@ permissions.set = async (context) => {
   Role user only allowed to edit his doc
 */
 permissions.restrict = async (context) => {
-  await permissions.set(context)
+  var restricted = true
+  const isAdmin = await permissions.set(context)
 
-  var admin = false
-  for(let permission of context.params.user.permissions) {
-    //console.log('permission.administrator.tag', permission.administrator.tag)
-    if(permission.administrator.tag == 'admin_organization') {
-      admin = true
-    }
-    if(permission.administrator.tag == 'admin_application' && permission.app._id == context.app.get('appid')) {
-      admin = true
+  if(isAdmin) {
+    for(let permission of context.params.user.permissions) {
+      if(permission.administrator.tag == 'super_admin') {
+        restricted = false
+      } else if(permission.administrator.tag == 'admin_organization') {
+        restricted = false
+      } else if(permission.administrator.tag == 'admin_application' && permission.app._id == context.app.get('appid')) {
+        restricted = false
+      }
     }
   }
 
-  if(!admin) {
-    try {
-      await restrictToOwner({
-        idField: '_id',
-        ownerField: '_id'
-      })(context)
-    } catch(e) {
-      throw e
-    }
+  if(restricted) {
+    await restrictToOwner({ idField: '_id', ownerField: '_id' })(context)
   }
 }
 
@@ -63,12 +74,12 @@ permissions.restrict = async (context) => {
   standard user have to provide his password in data.comparepassword and matched
 */
 permissions.matchPassword = async (context) => {
-  if(!context.data.comparepassword)
-    throw new errors.BadRequest('Password wajib diisi')
-
   const isAdmin = permissions.isAdmin(context)
   // if current user is admin then no need to check the pw
   if(isAdmin) return
+
+  if(!context.data.comparepassword)
+    throw new errors.BadRequest('Password wajib diisi')
 
   let current = await context.app.service('users').get(context.id)
   let compare = await bcrypt.compareSync(context.data.comparepassword, current.password)
