@@ -5,22 +5,15 @@ const { restrictToOwner } = require('feathers-authentication-hooks');
 const { hashPassword } = require('feathers-authentication-local').hooks;
 const permissions = require('../../hooks/permissions')
 
-const restrict = [
-  restrictToOwner({
-    idField: '_id',
-    ownerField: '_id'
-  })
-];
-
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
     find: [],
-    get: [ ...restrict ],
+    get: [ permissions.restrict ],
     create: [ hashPassword() ],
     update: [ hashPassword() ],
     patch: [ hashPassword(), permissions.restrict, permissions.matchPassword ],
-    remove: [ ...restrict ]
+    remove: [ permissions.restrict ]
   },
 
   after: {
