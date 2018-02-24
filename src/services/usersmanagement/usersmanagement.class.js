@@ -176,26 +176,26 @@ module.exports = class UsersManagement {
       aggregateData.push({ $match: matchVal })
     }
 
-    //    aggregateData.push({ $lookup: { from: 'profiles', localField: 'profile', foreignField: '_id', as: 'profile'} })
-    //
-    //    for(let k in params.query.$sort) {
-    //      params.query.$sort[k] = parseInt(params.query.$sort[k])
-    //    }
-    //
-    //    if(params.query.$sort)
-    //      aggregateData.push({ $sort: params.query.$sort })
-    //
-    //    // match profile
-    //    if(getProfilesQuery().length) {
-    //      let matchVal = {}
-    //        const queryVal = (mongoose.Types.ObjectId.isValid(query[1]) ? mongoose.Types.ObjectId(query[1]) : query[1])
-    //        matchVal[query[0]] = queryVal
-    //
-    //      aggregateData.push({ $match: matchVal })
-    //    }
-    //
-    //    aggregateData.push({ $skip: parseInt(params.query.$skip) || 0 })
-        aggregateData.push({ $limit: parseInt(params.query.$limit) || this.app.get('paginate').default })
+    aggregateData.push({ $lookup: { from: 'profiles', localField: 'profile', foreignField: '_id', as: 'profile'} })
+
+    for(let k in params.query.$sort) {
+      params.query.$sort[k] = parseInt(params.query.$sort[k])
+    }
+
+    if(params.query.$sort)
+      aggregateData.push({ $sort: params.query.$sort })
+
+    // match profile
+    if(getProfilesQuery().length) {
+      let matchVal = {}
+        const queryVal = (mongoose.Types.ObjectId.isValid(query[1]) ? mongoose.Types.ObjectId(query[1]) : query[1])
+        matchVal[query[0]] = queryVal
+
+      aggregateData.push({ $match: matchVal })
+    }
+
+    aggregateData.push({ $skip: parseInt(params.query.$skip) || 0 })
+    aggregateData.push({ $limit: parseInt(params.query.$limit) || this.app.get('paginate').default })
 
     const docs = await Users.aggregate(aggregateData)
     return docs
