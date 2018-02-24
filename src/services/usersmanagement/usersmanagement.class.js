@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs')
 const errors = require('@feathersjs/errors')
 const moment = require('moment')
+const mongoose = require('mongoose')
 
 module.exports = class UsersManagement {
   async create(data, params) {
@@ -167,8 +168,10 @@ module.exports = class UsersManagement {
     // match user
     if(getUsersQuery().length) {
       let matchVal = {}
-      for(let query of getUsersQuery())
-        matchVal[query[0]] = query[1]
+      for(let query of getUsersQuery()) {
+        const queryVal = (mongoose.Types.ObjectId.isValid(query[1]) ? mongoose.Types.ObjectId(query[1]) : query[1])
+        matchVal[query[0]] = queryVal
+      }
 
       aggregateData.push({ $match: matchVal })
     }
@@ -185,8 +188,8 @@ module.exports = class UsersManagement {
     // match profile
     if(getProfilesQuery().length) {
       let matchVal = {}
-      for(let query of getProfilesQuery())
-        matchVal[query[0]] = query[1]
+        const queryVal = (mongoose.Types.ObjectId.isValid(query[1]) ? mongoose.Types.ObjectId(query[1]) : query[1])
+        matchVal[query[0]] = queryVal
 
       aggregateData.push({ $match: matchVal })
     }
