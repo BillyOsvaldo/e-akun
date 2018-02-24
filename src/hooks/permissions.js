@@ -3,6 +3,13 @@ const { restrictToOwner } = require('feathers-authentication-hooks');
 
 const permissions = {}
 
+permissions.isAdmin = (context) => {
+  if(Array.isArray(context.params.user.permissions))
+    return Boolean(context.params.user.permissions)
+
+  return false
+}
+
 permissions.set = async (context) => {
   const jobsPermissions = context.params.user.permissions.map(permissionId => context.app.service('permissions').get(permissionId))
   const docsPermissions = await Promise.all(jobsPermissions)
@@ -29,7 +36,6 @@ permissions.restrict = async (context) => {
     }
   }
 
-  console.log('is_admin', admin)
   if(!admin) {
     try {
       await restrictToOwner({
@@ -40,6 +46,22 @@ permissions.restrict = async (context) => {
       throw e
     }
   }
+}
+
+/*
+  standard user have to provide his password in data.comparepassword and matched
+*/
+permissions.matchPassword = async (context) => {
+  const isAdmin = permissions.isAdmin(context)
+  // if current user is admin then no need to check the pw
+  if(isAdmin) return
+
+  let current = await this.app.service('users').get(context.id)
+  let compare = await bcrypt.compareSync(data.comparepassword, current.password)
+  if (!compare) {
+    throw new errors.BadRequest('Kata Sandi Salah.', {})
+  }
+  delete data.comparepassword
 }
 
 module.exports = permissions
