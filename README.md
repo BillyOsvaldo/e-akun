@@ -1,4 +1,5 @@
 
+
 # e-akun
 
 ## API Resources
@@ -288,7 +289,7 @@ Desc: To resend email `codereg` and `resetpassword`.
 
 ------------------------
 
-### Service Userapp
+### Service Usersmanagement
 
 Method: **Create**
 
@@ -297,7 +298,7 @@ Desc: To create new user.
  * URL
  
     Format:
-    /userapp
+    /usersmanagement
 
  * METHOD
  
