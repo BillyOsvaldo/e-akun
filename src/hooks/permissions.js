@@ -50,6 +50,8 @@ permissions.set = async (context) => {
   Role user only allowed to edit his doc
 */
 permissions.restrict = async (context) => {
+  console.log('context.data.fromUsersManagement', context.data.fromUsersManagement)
+  if(context.data.fromUsersManagement)
   var restricted = true
   const isAdmin = await permissions.set(context)
 
