@@ -340,3 +340,23 @@ Desc: To create new user.
      * Kode salah
      * Email telah digunakan
      * Username telah digunakan
+
+Method: **Patch**
+
+Desc: To edit self, all users and all profile data.
+
+ * URL
+ 
+    Format:
+    /usersmanagement
+
+ * METHOD
+ 
+    PATCH
+
+* Body
+
+  **required**:
+        update=[self|account|profile]
+  **note**:
+      if update is `self` then you have to provide `comparepassword`.
