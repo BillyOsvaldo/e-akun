@@ -15,6 +15,7 @@ const addresses = require('./addresses/addresses.service.js');
 const resendEmail = require('./resend_email/resend_email.service.js');
 const UsersManagement = require('./usersmanagement/usersmanagement.service.js');
 const OrganizationsManagement = require('./organizationsmanagement/organizationsmanagement.service.js');
+const CoderegsManagement = require('./coderegsmanagement/coderegsmanagement.service.js');
 
 module.exports = function () {
   const app = this; // eslint-disable-line no-unused-vars
@@ -35,4 +36,5 @@ module.exports = function () {
   app.configure(resendEmail);
   app.configure(UsersManagement);
   app.configure(OrganizationsManagement);
+  app.configure(CoderegsManagement);
 };
