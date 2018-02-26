@@ -212,6 +212,7 @@ module.exports = class UsersManagement {
 
   async patch(id, data, params) {
     if(data.update === 'account') {
+      data.fromUsersManagement = true
       const _user = await this.app.service('users').patch(id, data, params)
       return _user
     } else if(data.update === 'profile') {
