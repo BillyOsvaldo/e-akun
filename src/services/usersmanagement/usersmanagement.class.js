@@ -211,8 +211,21 @@ module.exports = class UsersManagement {
   }
 
   async patch(id, data, params) {
-    if(data.update === 'account') {
-      data.fromUsersManagement = true
+    // if data.update is 'self' then compare the password regardless his permission
+    if(data.update === 'self') {
+      if(!data.comparepassword)
+        throw new errors.BadRequest('Password wajib diisi')
+
+      let current = await this.app.service('users').get(id)
+      let compare = await bcrypt.compareSync(data.comparepassword, current.password)
+      if (!compare) {
+        throw new errors.BadRequest('Kata Sandi Salah.')
+      }
+      delete data.comparepassword
+
+      const _user = await this.app.service('users').patch(id, data, params)
+      return _user
+    } else if(data.update === 'account') {
       const _user = await this.app.service('users').patch(id, data, params)
       return _user
     } else if(data.update === 'profile') {

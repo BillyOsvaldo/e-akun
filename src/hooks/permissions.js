@@ -70,23 +70,4 @@ permissions.restrict = async (context) => {
   }
 }
 
-/*
-  standard user have to provide his password in data.comparepassword and matched
-*/
-permissions.matchPassword = async (context) => {
-  const isAdmin = permissions.isAdmin(context)
-  // if current user is admin then no need to check the pw
-  if(isAdmin) return
-
-  if(!context.data.comparepassword)
-    throw new errors.BadRequest('Password wajib diisi')
-
-  let current = await context.app.service('users').get(context.id)
-  let compare = await bcrypt.compareSync(context.data.comparepassword, current.password)
-  if (!compare) {
-    throw new errors.BadRequest('Kata Sandi Salah.')
-  }
-  delete context.data.comparepassword
-}
-
 module.exports = permissions
