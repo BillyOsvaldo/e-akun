@@ -7,7 +7,13 @@ module.exports = function (app) {
   const { Schema } = mongooseClient;
   const organizations = new Schema({
     name: { type: String, required: true },
-    address: { type: String, required: true },
+    address: {
+      postcode: {
+        type: mongooseClient.Schema.Types.ObjectId,
+        ref: 'postcodes'
+      },
+      detail: { type: String, default: '' }
+    },
     phone: { type: String, required: true },
     fax: { type: String, required: true },
     email: { type: String, required: true },
