@@ -11,6 +11,7 @@ module.exports = function (app) {
     to: { type: String, required: true },
     desc: { type: String, required: true },
     color: { type: String, required: true },
+    order: { type: Number, required: true },
     roles: [{
       type: mongooseClient.Schema.Types.ObjectId,
       ref: 'roles'
