@@ -1,9 +1,10 @@
 const { authenticate } = require('feathers-authentication').hooks;
+const orderByOrderAsc = require('../../hooks/order_by_order_asc')
 
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
-    find: [],
+    find: [ orderByOrderAsc ],
     get: [],
     create: [],
     update: [],
