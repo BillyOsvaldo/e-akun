@@ -1,8 +1,8 @@
 const { populate } = require('feathers-hooks-common');
 
-const permissionsHook = {}
+const permissionsManagementHook = {}
 
-permissionsHook.populate = async (context) => {
+permissionsManagementHook.populate = async (context) => {
   var populateSchema = {
     include: [
       {
@@ -23,4 +23,4 @@ permissionsHook.populate = async (context) => {
   await populate({ schema: populateSchema })(context)
 }
 
-module.exports = permissionsHook
+module.exports = permissionsManagementHook
