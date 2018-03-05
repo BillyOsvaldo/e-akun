@@ -17,6 +17,7 @@ const UsersManagement = require('./usersmanagement/usersmanagement.service.js');
 const OrganizationsManagement = require('./organizationsmanagement/organizationsmanagement.service.js');
 const CoderegsManagement = require('./coderegsmanagement/coderegsmanagement.service.js');
 const AppsManagement = require('./appsmanagement/appsmanagement.service.js');
+const PermissionsManagement = require('./permissionsmanagement/permissionsmanagement.service.js');
 
 module.exports = function () {
   const app = this; // eslint-disable-line no-unused-vars
@@ -39,4 +40,5 @@ module.exports = function () {
   app.configure(OrganizationsManagement);
   app.configure(CoderegsManagement);
   app.configure(AppsManagement);
+  app.configure(PermissionsManagement);
 };
