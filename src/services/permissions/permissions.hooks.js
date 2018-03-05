@@ -1,4 +1,5 @@
 const { authenticate } = require('feathers-authentication').hooks;
+const permissionsHooks = require('../../hooks/permissions_service')
 
 module.exports = {
   before: {
@@ -13,11 +14,11 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
-    get: [],
+    find: [ permissionsHooks.populate ],
+    get: [ permissionsHooks.populate ],
     create: [],
     update: [],
-    patch: [],
+    patch: [ permissionsHooks.populate ],
     remove: []
   },
 

@@ -17,6 +17,7 @@ permissions.isAdmin = (context) => {
 */
 permissions.set = async (context) => {
   var isAdmin
+  console.log('context.params.user', context.params.user)
   if(!context.params.user) {
     isAdmin = false
     return isAdmin
@@ -39,6 +40,8 @@ permissions.set = async (context) => {
     permission.administrator = docsAdministrators[i]
     i++
   }
+
+
 
   isAdmin = true
   return isAdmin
@@ -64,6 +67,7 @@ permissions.restrict = async (context) => {
       }
     }
   }
+  console.log('restricted', restricted)
 
   if(restricted) {
     await restrictToOwner({ idField: '_id', ownerField: '_id' })(context)
