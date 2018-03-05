@@ -1,3 +1,5 @@
+const permissionsManagementHook = require('../../hooks/permissionsmanagement_service')
+
 module.exports = {
   before: {
     all: [],
@@ -11,11 +13,11 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
-    get: [],
+    find: [ permissionsManagementHook.populate ],
+    get: [ permissionsManagementHook.populate ],
     create: [],
     update: [],
-    patch: [],
+    patch: [ permissionsManagementHook.populate ],
     remove: []
   },
 
