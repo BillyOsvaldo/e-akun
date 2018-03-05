@@ -8,8 +8,9 @@ module.exports = class menuApp {
         .find({
           query: {
             $or: [
-              {roles: role},
-              {permissions: permission}
+              { roles: role },
+              { permissions: permission },
+              { $and: [ { roles: [] }, { permissions: [] } ] }
             ]
           }
         })
