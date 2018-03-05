@@ -27,7 +27,13 @@ permissions.set = async (context) => {
     return isAdmin
   }
 
-  const jobsPermissions = context.params.user.permissions.map(permissionId => context.app.service('permissions').get(permissionId))
+  var jobsPermissions
+  if(Array.isArray(context.params.user.permissions)) {
+    jobsPermissions = context.params.user.permissions.map(permissionId => context.app.service('permissions').get(permissionId))
+  } else {
+    jobsPermissions = [context.params.user.permissions]
+  }
+
   const docsPermissions = await Promise.all(jobsPermissions)
 
   const jobsAdministrators = docsPermissions.map(doc => context.app.service('administrators').get(doc.administrator))
