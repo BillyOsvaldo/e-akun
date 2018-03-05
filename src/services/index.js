@@ -18,6 +18,7 @@ const OrganizationsManagement = require('./organizationsmanagement/organizations
 const CoderegsManagement = require('./coderegsmanagement/coderegsmanagement.service.js');
 const AppsManagement = require('./appsmanagement/appsmanagement.service.js');
 const PermissionsManagement = require('./permissionsmanagement/permissionsmanagement.service.js');
+const MenusManagement = require('./menusmanagement/menusmanagement.service.js');
 
 module.exports = function () {
   const app = this; // eslint-disable-line no-unused-vars
@@ -41,4 +42,5 @@ module.exports = function () {
   app.configure(CoderegsManagement);
   app.configure(AppsManagement);
   app.configure(PermissionsManagement);
+  app.configure(MenusManagement);
 };
