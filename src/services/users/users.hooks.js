@@ -4,7 +4,6 @@ const commonHooks = require('feathers-hooks-common');
 const { restrictToOwner } = require('feathers-authentication-hooks');
 const { hashPassword } = require('feathers-authentication-local').hooks;
 const permissions = require('../../hooks/permissions')
-const usersHooks = require('../../hooks/users_service')
 
 module.exports = {
   before: {
@@ -24,11 +23,11 @@ module.exports = {
         commonHooks.discard('password')
       )
     ],
-    find: [ usersHooks.populate ],
-    get: [ usersHooks.populate ],
+    find: [],
+    get: [],
     create: [],
     update: [],
-    patch: [ usersHooks.populate ],
+    patch: [],
     remove: []
   },
 
