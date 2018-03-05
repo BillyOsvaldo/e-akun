@@ -59,6 +59,8 @@ permissions.restrict = async (context) => {
         restricted = false
       } else if(permission.administrator.tag == 'admin_organization') {
         restricted = false
+      } else if(permission.administrator.tag == 'kepala_daerah') {
+        restricted = false
       } else if(permission.administrator.tag == 'admin_application' && permission.app._id == context.app.get('appid')) {
         restricted = false
       }
