@@ -1,5 +1,6 @@
 
 
+
 # e-akun
 
 ## API Resources
@@ -360,3 +361,48 @@ Desc: To edit self, all users and all profile data.
         update=[self|account|profile]
   **note**:
       if update is `self` then you have to provide `comparepassword`.
+
+### Service Appsselect
+
+Method **Find**:
+
+Desc: Find addresses search by substring of `name` or `desc`. E.g params q=e-presensi will return e-presensi.
+
+* URL
+
+  /appsselect
+
+* METHOD
+
+  GET
+
+* URL Params
+
+  q=[name|desc]
+  
+  contoh: q=e-presensi
+
+* Success Response:
+
+    Code: 200 
+
+    Content:
+    ```
+    {
+        "total": 1,
+        "limit": 10,
+        "skip": 0,
+        {
+            data: [
+                {
+                "_id": ObjectID,
+                "name": String,
+                "desc": String,
+                "service": String,
+                "url": String,
+                "status": Boolean
+                },
+            ]
+        }
+    }
+    ```
