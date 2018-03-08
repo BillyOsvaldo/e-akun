@@ -20,6 +20,7 @@ const AppsManagement = require('./appsmanagement/appsmanagement.service.js');
 const PermissionsManagement = require('./permissionsmanagement/permissionsmanagement.service.js');
 const MenusManagement = require('./menusmanagement/menusmanagement.service.js');
 const AppsSelect = require('./appsselect/appsselect.service.js');
+const AdministratorsSelect = require('./administratorsselect/administratorsselect.service.js');
 
 module.exports = function () {
   const app = this; // eslint-disable-line no-unused-vars
@@ -45,4 +46,5 @@ module.exports = function () {
   app.configure(PermissionsManagement);
   app.configure(MenusManagement);
   app.configure(AppsSelect);
+  app.configure(AdministratorsSelect);
 };
