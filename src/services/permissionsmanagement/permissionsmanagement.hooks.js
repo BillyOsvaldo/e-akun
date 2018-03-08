@@ -15,7 +15,7 @@ module.exports = {
     all: [],
     find: [ permissionsManagementHook.populate ],
     get: [ permissionsManagementHook.populate ],
-    create: [],
+    create: [ permissionsManagementHook.populate ],
     update: [],
     patch: [ permissionsManagementHook.populate ],
     remove: []
