@@ -366,7 +366,7 @@ Desc: To edit self, all users and all profile data.
 
 Method **Find**:
 
-Desc: Find addresses search by substring of `name` or `desc`. E.g params q=e-presensi will return e-presensi.
+Desc: Find apps search by substring of `name` or `desc`. E.g params q=e-presensi will return e-presensi.
 
 * URL
 
@@ -402,6 +402,49 @@ Desc: Find addresses search by substring of `name` or `desc`. E.g params q=e-pre
                 "url": String,
                 "status": Boolean
                 },
+            ]
+        }
+    }
+    ```
+
+
+### Service Administratorsselect
+
+Method **Find**:
+
+Desc: Find administrators search by substring of `name` or `tag`. E.g params q=admin_organization will return admin_organization.
+
+* URL
+
+  /administratorsselect
+
+* METHOD
+
+  GET
+
+* URL Params
+
+  q=[name|tag]
+  
+  contoh: q=admin_organization
+
+* Success Response:
+
+    Code: 200 
+
+    Content:
+    ```
+    {
+        "total": 1,
+        "limit": 10,
+        "skip": 0,
+        {
+            data: [
+              {
+                  "_id": ObjectId,
+                  "name": "Super Admin",
+                  "tag": "super_admin"
+              },
             ]
         }
     }
