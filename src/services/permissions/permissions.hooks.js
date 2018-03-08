@@ -1,11 +1,12 @@
 const { authenticate } = require('feathers-authentication').hooks;
+const permissionsManagementHook = require('../../hooks/permissionsmanagement_service')
 
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
     find: [],
     get: [],
-    create: [],
+    create: [ permissionsManagementHook.ensureUnique ],
     update: [],
     patch: [],
     remove: []
