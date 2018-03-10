@@ -1,12 +1,13 @@
 const { authenticate } = require('feathers-authentication').hooks;
 const orderByOrderAsc = require('../../hooks/order_by_order_asc')
+const menusHook = require('../../hooks/menus_service')
 
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
     find: [ orderByOrderAsc ],
     get: [],
-    create: [],
+    create: [ menusHook.generateOrder ],
     update: [],
     patch: [],
     remove: []
