@@ -449,3 +449,31 @@ Desc: Find administrators search by substring of `name` or `tag`. E.g params q=a
         }
     }
     ```
+
+------------------------
+
+### Service Administratosmanagement
+
+Method: **Create**
+
+Desc: To create new user.
+
+ * URL
+ 
+    Format:
+    /administratosmanagement
+
+ * METHOD
+ 
+    POST
+
+ * Body
+ 
+    ```
+      {
+          "username": String,
+          "email": String,
+          "password": String,
+          "permissions": Array of permission id,
+      }
+    ```
