@@ -21,7 +21,7 @@ const PermissionsManagement = require('./permissionsmanagement/permissionsmanage
 const MenusManagement = require('./menusmanagement/menusmanagement.service.js');
 const AppsSelect = require('./appsselect/appsselect.service.js');
 const AdministratorsSelect = require('./administratorsselect/administratorsselect.service.js');
-const AdministratorsManagement = require('./administratorsmanagement/administratorsmanagement.service.js');
+//const AdministratorsManagement = require('./administratorsmanagement/administratorsmanagement.service.js');
 const RolesSelect = require('./rolesselect/rolesselect.service.js');
 const PermissionsSelect = require('./permissionsselect/permissionsselect.service.js');
 
@@ -50,7 +50,7 @@ module.exports = function () {
   app.configure(MenusManagement);
   app.configure(AppsSelect);
   app.configure(AdministratorsSelect);
-  app.configure(AdministratorsManagement);
+  //app.configure(AdministratorsManagement);
   app.configure(RolesSelect);
   app.configure(PermissionsSelect);
 };
