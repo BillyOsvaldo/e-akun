@@ -1,3 +1,5 @@
+const permissionsselectHook = require('../../hooks/permissionsselect_service')
+
 module.exports = {
   before: {
     all: [],
@@ -11,7 +13,7 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
+    find: [ permissionsselectHook.populate ],
     get: [],
     create: [],
     update: [],
