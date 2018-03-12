@@ -10,6 +10,7 @@ administratorsselectHook.populate = async (context) => {
         nameAs: 'permissions',
         parentField: 'permissions',
         childField: '_id',
+        asArray: true,
         include: [
           {
             service: 'apps',
