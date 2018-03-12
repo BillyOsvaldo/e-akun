@@ -3,7 +3,10 @@ module.exports = class AdministratorsManagement {
     return await this.app.service('users').create(data, params)
   }
 
+  // able to sort by username
   async find(params) {
+    // return only if users has permissions
+    params.query.$where = 'this.permissions.length > 0'
     return await this.app.service('users').find(params)
   }
 
