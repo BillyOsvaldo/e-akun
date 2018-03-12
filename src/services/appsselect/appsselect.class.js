@@ -1,7 +1,7 @@
 module.exports = class addresses {
   async find (params) {
     const q = new RegExp(params.query.q, "i")
-    const _result = await this.app.service('apps')
+    const docs = await this.app.service('apps')
       .find({
         query: {
           $or: [
@@ -12,9 +12,15 @@ module.exports = class addresses {
           $limit: params.query.$limit,
           $select: params.query.$select,
           $sort: params.query.$sort
-        }
+        },
+        paginate: false
       })
-    return _result
+    return {
+      "total": docs.length,
+      "limit": docs.length,
+      "skip": 0,
+      "data": docs
+    }
   }
 
   setup (app) {

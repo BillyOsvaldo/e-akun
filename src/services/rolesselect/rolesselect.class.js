@@ -1,6 +1,13 @@
 module.exports = class addresses {
   async find (params) {
-    return await this.app.service('roles').find(params)
+    params.paginate = false
+    const docs = await this.app.service('roles').find(params)
+    return {
+      "total": docs.length,
+      "limit": docs.length,
+      "skip": 0,
+      "data": docs
+    }
   }
 
   setup (app) {
