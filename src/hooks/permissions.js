@@ -51,9 +51,9 @@ permissions.set = async (context) => {
 }
 
 /*
-  Role admin organization allowed to edit everything in this service
-  Role admin aplikasi allowed to edit everything in this service as long as current application is same as his
-  Role user only allowed to edit his doc
+  Permission admin organization allowed to edit everything in this service
+  Permission admin aplikasi allowed to edit everything in this service as long as current application is same as his
+  Permission user only allowed to edit his doc
 */
 permissions.restrict = async (context) => {
   var restricted = true
