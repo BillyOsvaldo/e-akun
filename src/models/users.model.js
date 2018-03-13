@@ -36,7 +36,18 @@ module.exports = function (app) {
     organization: {
       type: mongooseClient.Schema.Types.ObjectId,
       ref: 'organizations'
-    }
+    },
+    position:  {
+      type: mongooseClient.Schema.Types.ObjectId,
+      ref: 'positions',
+      default: null
+    },
+    parent:  {
+      type: mongooseClient.Schema.Types.ObjectId,
+      ref: 'positions',
+      default: null
+    },
+    status: { type: Boolean, default: true }
   }, {
     timestamps: true
   });
