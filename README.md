@@ -598,7 +598,8 @@ Desc: To create organizations structure.
           "structure": ObjectId (reference of structures),
           "organization": ObjectId (reference of organizations),
           "name": String,
-          "title": String,
+          "structureposition": ObjectId,
+          "role": ObjectId
       }
     ```
  * Contoh:
@@ -607,7 +608,8 @@ Desc: To create organizations structure.
           "structure": 5aa7285f044c393f4afd6e51,
           "organization": 5aa7285f044c393f4afd6e52,
           "name": "Informatika",
-          "title": "Kepala",
+          "structureposition": 5aa7285f044c393f4afd6e52,
+          "role": 5aa7285f044c393f4afd6e52
       }
     ```
 
@@ -632,7 +634,8 @@ Desc: To return organization structure document.
             "structure": 5aa7285f044c393f4afd6e51,
             "organization": 5aa7285f044c393f4afd6e52,
             "name": "Informatika",
-            "title": "Kepala",
+            "structureposition": 5aa7285f044c393f4afd6e52,
+            "role": 5aa7285f044c393f4afd6e52
         }
       ]
     ```
@@ -663,7 +666,8 @@ Desc: To create position document.
     ```
       {
           "name": ObjectId (reference of organizationstructure),
-          "parent": ObjectId (reference of organizationstructure)
+          "parent": ObjectId (reference of organizationstructure),
+          "alt_parent": ObjectId (reference of organizationstructure) (optional)
       }
     ```
 
@@ -687,6 +691,60 @@ Desc: To return position document.
         {
             "name": 5aa7285f044c393f4afd6e51,
             "parent": 5aa7285f044c393f4afd6e52
+        }
+      ]
+    ```
+
+------------------------
+
+### Service Structurepositions 
+
+Note:
+
+ - Service **structurepositionsmanagement** is same as service **structurepositions**. 
+
+Method: **Create**
+
+Desc: To create structure positions document.
+
+ * URL
+ 
+    Format:
+    /structurepositions
+
+ * METHOD
+ 
+    POST
+
+ * Body
+ 
+    ```
+      {
+          "name": String,
+          "desc": String
+      }
+    ```
+
+Method: **Find**
+
+Desc: To return structure positions document.
+
+ * URL
+ 
+    Format:
+    /structurepositions
+
+ * METHOD
+ 
+    GET
+
+ * Body
+ 
+    ```
+      [
+        {
+            "name": "Sekertaris",
+            "desc": "Sekertaris Daerah"
         }
       ]
     ```
