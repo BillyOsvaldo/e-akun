@@ -11,6 +11,10 @@ module.exports = function (app) {
       type: mongooseClient.Schema.Types.ObjectId,
       ref: 'organizationstructures',
       required: true
+    },
+    alt_parent: {
+      type: mongooseClient.Schema.Types.ObjectId,
+      ref: 'organizationstructures'
     }
   }, {
     timestamps: false
