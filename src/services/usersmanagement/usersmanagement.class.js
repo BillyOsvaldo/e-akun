@@ -113,7 +113,7 @@ module.exports = class UsersManagement {
       data.username = username
     }
 
-    const setDefaultRole = async () => {
+    /*const setDefaultRole = async () => {
       if(data.role !== undefined) return
 
       const defaultRole = 'staff'
@@ -124,7 +124,7 @@ module.exports = class UsersManagement {
       }
 
       data.role = doc
-    }
+    }*/
 
     const insertUser = async () => {
       const users = await this.app.service('users')
@@ -141,7 +141,7 @@ module.exports = class UsersManagement {
     data.organization = await resolveorganization(organization) // used for insertUser
     data.email = email // used for insertUser
 
-    await setDefaultRole()
+    //await setDefaultRole()
     await buildUsername()
     await insertProfile()
     await insertUser()
