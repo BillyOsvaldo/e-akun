@@ -4,6 +4,7 @@ module.exports = class MenusManagement {
   }
 
   async find(params) {
+    params.fromServiceMenuManagement = true
     return await this.app.service('menus').find(params)
   }
 
