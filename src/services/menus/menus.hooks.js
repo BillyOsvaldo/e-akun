@@ -5,7 +5,7 @@ const menusHook = require('../../hooks/menus_service')
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
-    find: [ orderByOrderAsc ],
+    find: [ orderByOrderAsc, menusHook.setPaginationBefore ],
     get: [],
     create: [ menusHook.generateOrder ],
     update: [],
@@ -15,7 +15,7 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
+    find: [ menusHook.setPaginationAfter ],
     get: [],
     create: [],
     update: [],
