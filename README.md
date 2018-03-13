@@ -1,6 +1,7 @@
 
 
 
+
 # e-akun
 
 ## API Resources
@@ -461,7 +462,7 @@ Desc: To create new administrator user.
  * URL
  
     Format:
-    /administratosmanagement
+    /administratorsmanagement
 
  * METHOD
  
@@ -500,6 +501,189 @@ Desc: To return administrators users.
             "permissions": Array of permissions ObjectId,
             "username": String,
             "email": String,
+        }
+      ]
+    ```
+
+
+------------------------
+
+### Service Structures
+
+Note: Service **structuresmanagement** is same as service **structures**
+
+Method: **Create**
+
+Desc: To create structure.
+
+ * URL
+ 
+    Format:
+    /structures
+
+ * METHOD
+ 
+    POST
+
+ * Body
+ 
+    ```
+      {
+          "name": String,
+          "desc": String
+      }
+    ```
+ * Contoh:
+    ```
+      {
+          "name": "Kepala",
+          "desc": "Kepala Organisasi"
+      }
+    ```
+
+Method: **Find**
+
+Desc: To return structure document.
+
+ * URL
+ 
+    Format:
+    /structures
+
+ * METHOD
+ 
+    GET
+
+ * Body
+ 
+    ```
+      [
+        {
+            "_id": ObjectId,
+            "name": String
+        }
+      ]
+    ```
+
+------------------------
+
+### Service OrganizationStructures 
+
+Note:
+
+ - Service **organizationstructuresmanagement** is same as service **organizationstructures**. 
+ - Service **organizationstructuresselect** is same as service **organizationstructures** with no pagination.
+
+
+Method: **Create**
+
+Desc: To create organizations structure.
+
+ * URL
+ 
+    Format:
+    /organizationstructures
+
+ * METHOD
+ 
+    POST
+
+ * Body
+ 
+    ```
+      {
+          "structure": ObjectId (reference of structures),
+          "organization": ObjectId (reference of organizations),
+          "name": String,
+          "title": String,
+      }
+    ```
+ * Contoh:
+    ```
+      {
+          "structure": 5aa7285f044c393f4afd6e51,
+          "organization": 5aa7285f044c393f4afd6e52,
+          "name": "Informatika",
+          "title": "Kepala",
+      }
+    ```
+
+Method: **Find**
+
+Desc: To return organization structure document.
+
+ * URL
+ 
+    Format:
+    /organizationstructures
+
+ * METHOD
+ 
+    GET
+
+ * Body
+ 
+    ```
+      [
+        {
+            "structure": 5aa7285f044c393f4afd6e51,
+            "organization": 5aa7285f044c393f4afd6e52,
+            "name": "Informatika",
+            "title": "Kepala",
+        }
+      ]
+    ```
+
+------------------------
+
+### Service Positions 
+
+Note:
+
+ - Service **positionsmanagement** is same as service **positions**. 
+
+Method: **Create**
+
+Desc: To create position document.
+
+ * URL
+ 
+    Format:
+    /positions
+
+ * METHOD
+ 
+    POST
+
+ * Body
+ 
+    ```
+      {
+          "name": ObjectId (reference of organizationstructure),
+          "parent": ObjectId (reference of organizationstructure)
+      }
+    ```
+
+Method: **Find**
+
+Desc: To return position document.
+
+ * URL
+ 
+    Format:
+    /positions
+
+ * METHOD
+ 
+    GET
+
+ * Body
+ 
+    ```
+      [
+        {
+            "name": 5aa7285f044c393f4afd6e51,
+            "parent": 5aa7285f044c393f4afd6e52
         }
       ]
     ```
