@@ -1,3 +1,5 @@
+const organizationstructuresManagementHooks = require('../../hooks/organizationstructuresmanagement_service')
+
 module.exports = {
   before: {
     all: [],
@@ -11,11 +13,11 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
-    get: [],
+    find: [ organizationstructuresManagementHooks.populate ],
+    get: [ organizationstructuresManagementHooks.populate ],
     create: [],
     update: [],
-    patch: [],
+    patch: [ organizationstructuresManagementHooks.populate ],
     remove: []
   },
 
