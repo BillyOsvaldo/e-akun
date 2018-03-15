@@ -748,3 +748,55 @@ Desc: To return structure positions document.
         }
       ]
     ```
+
+
+------------------------
+
+### Service Checkavailable
+
+Method **find**:
+
+Desc: To check wheter username or email is already registered. Return success (200) if no user found in database, return error (400) if user is found
+
+* URL
+
+  /checkavailable
+
+* METHOD
+
+  GET
+
+* URL Params
+
+  username=[username]
+  OR
+  email=[email]
+
+* Success Response:
+
+    Code: 200 
+
+    Content:
+    ```
+    {
+        "status": "success"
+    }
+    ```
+
+
+* Error Response:
+
+    Code: 200 
+
+    Content:
+    ```
+    {
+      "name": "BadRequest",
+      "message": "Email sudah digunakan",
+      "code": 400,
+      "className": "bad-request",
+      "errors": {}
+    }
+
+    ```
+
