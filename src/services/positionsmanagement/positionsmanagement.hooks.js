@@ -1,3 +1,5 @@
+const positionsManagementHooks = require('../../hooks/positionsmanagement_service')
+
 module.exports = {
   before: {
     all: [],
@@ -11,11 +13,11 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
-    get: [],
+    find: [ positionsManagementHooks.populate ],
+    get: [ positionsManagementHooks.populate ],
     create: [],
     update: [],
-    patch: [],
+    patch: [ positionsManagementHooks.populate ],
     remove: []
   },
 
