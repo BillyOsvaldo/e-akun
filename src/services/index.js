@@ -37,6 +37,7 @@ const structurepositionsmanagement = require('./structurepositionsmanagement/str
 const structuresselect = require('./structuresselect/structuresselect.service.js')
 const structurepositionsselect = require('./structurepositionsselect/structurepositionsselect.service.js')
 const organizationsselect = require('./organizationsselect/organizationsselect.service.js')
+const checkavailable = require('./checkavailable/checkavailable.service.js')
 
 module.exports = function () {
   const app = this
@@ -79,4 +80,5 @@ module.exports = function () {
   app.configure(structuresselect)
   app.configure(structurepositionsselect)
   app.configure(organizationsselect)
+  app.configure(checkavailable)
 }
