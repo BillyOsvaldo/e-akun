@@ -34,6 +34,9 @@ const positionsmanagement = require('./positionsmanagement/positionsmanagement.s
 const rolesmanagement = require('./rolesmanagement/rolesmanagement.service.js')
 const structurepositions = require('./structurepositions/structurepositions.service.js')
 const structurepositionsmanagement = require('./structurepositionsmanagement/structurepositionsmanagement.service.js')
+const structuresselect = require('./structuresselect/structuresselect.service.js')
+const structurepositionsselect = require('./structurepositionsselect/structurepositionsselect.service.js')
+const organizationsselect = require('./organizationsselect/organizationsselect.service.js')
 
 module.exports = function () {
   const app = this
@@ -73,4 +76,7 @@ module.exports = function () {
   app.configure(rolesmanagement)
   app.configure(structurepositions)
   app.configure(structurepositionsmanagement)
+  app.configure(structuresselect)
+  app.configure(structurepositionsselect)
+  app.configure(organizationsselect)
 }
