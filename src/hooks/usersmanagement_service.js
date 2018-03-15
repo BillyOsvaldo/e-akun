@@ -70,7 +70,15 @@ userappHook.populate = async (context) => {
                 service: 'organizations',
                 nameAs: 'organization',
                 parentField: 'organization',
-                childField: '_id'
+                childField: '_id',
+                include: [
+                  {
+                    service: 'postcodes',
+                    nameAs: 'address.postcode',
+                    parentField: 'address.postcode',
+                    childField: '_id'
+                  }
+                ]
               },
               {
                 service: 'structurepositions',
@@ -102,7 +110,15 @@ userappHook.populate = async (context) => {
                 service: 'organizations',
                 nameAs: 'organization',
                 parentField: 'organization',
-                childField: '_id'
+                childField: '_id',
+                include: [
+                  {
+                    service: 'postcodes',
+                    nameAs: 'address.postcode',
+                    parentField: 'address.postcode',
+                    childField: '_id'
+                  }
+                ]
               },
               {
                 service: 'structurepositions',
