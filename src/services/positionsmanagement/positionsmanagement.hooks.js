@@ -15,7 +15,7 @@ module.exports = {
     all: [],
     find: [ positionsManagementHooks.populate ],
     get: [ positionsManagementHooks.populate ],
-    create: [],
+    create: [ positionsManagementHooks.populate ],
     update: [],
     patch: [ positionsManagementHooks.populate ],
     remove: []

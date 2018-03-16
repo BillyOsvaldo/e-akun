@@ -15,7 +15,7 @@ module.exports = {
     all: [],
     find: [ organizationstructuresManagementHooks.populate ],
     get: [ organizationstructuresManagementHooks.populate ],
-    create: [],
+    create: [ organizationstructuresManagementHooks.populate ],
     update: [],
     patch: [ organizationstructuresManagementHooks.populate ],
     remove: []
