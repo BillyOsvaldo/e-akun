@@ -13,11 +13,6 @@ module.exports = function (app) {
       ref: 'organizations',
       required: true
     },
-    structureposition: {
-      type: mongooseClient.Schema.Types.ObjectId,
-      ref: 'structurepositions',
-      required: true
-    },
     role: {
       type: mongooseClient.Schema.Types.ObjectId,
       ref: 'roles'
