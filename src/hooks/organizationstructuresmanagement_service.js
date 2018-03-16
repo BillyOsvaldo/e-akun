@@ -54,10 +54,15 @@ organizationstructuresHook.decideSelfOrder = async (context) => {
 organizationstructuresHook.pushToParent = async (context) => {
   if(!context.data.parent) return
 
+  function onlyUnique(value, index, self) { 
+    return self.indexOf(value).toString() == index.toString();
+  }
+
   const organizationstructures = context.app.service('organizationstructures')
   const docParent = context.data.docParent
   docParent.children.push(context.result._id)
-  const newChildren = docParent.children
+  const newChildrenString = docParent.children.map((child) => child.toString())
+  const newChildren = [...new Set(newChildrenString)]
   const updateData = { children: newChildren }
 
   await organizationstructures.patch(context.data.parent, updateData)
