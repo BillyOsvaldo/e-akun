@@ -1,7 +1,7 @@
 const errors = require('@feathersjs/errors')
 const validator = require('validator')
 
-module.exports = class checkUser {
+module.exports = class checkusername {
   async find(params) {
     var query
     var prefixMsg = ''
