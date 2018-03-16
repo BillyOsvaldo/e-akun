@@ -7,10 +7,14 @@ module.exports = {
     get: [],
     create: [
       organizationstructuresManagementHooks.setParentData,
-      organizationstructuresManagementHooks.decideOrder
+      organizationstructuresManagementHooks.decideSelfOrder
     ],
     update: [],
-    patch: [],
+    patch: [
+      organizationstructuresManagementHooks.setParentData,
+      organizationstructuresManagementHooks.removeChildrenArrOfParent,
+      organizationstructuresManagementHooks.decideSelfOrder
+    ],
     remove: []
   },
 
@@ -23,7 +27,11 @@ module.exports = {
       organizationstructuresManagementHooks.populate
     ],
     update: [],
-    patch: [ organizationstructuresManagementHooks.populate ],
+    patch: [
+      organizationstructuresManagementHooks.pushToParent,
+      organizationstructuresManagementHooks.decideDescendantsOrder,
+      organizationstructuresManagementHooks.populate
+    ],
     remove: []
   },
 
