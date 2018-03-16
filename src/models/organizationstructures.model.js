@@ -16,7 +16,13 @@ module.exports = function (app) {
     role: {
       type: mongooseClient.Schema.Types.ObjectId,
       ref: 'roles'
-    }
+    },
+    order: { type: Number, default: 1 },
+    children: [{
+      type: mongooseClient.Schema.Types.ObjectId,
+    }],
+    parent: { type:mongooseClient.Schema.Types.ObjectId , default: null },
+    alt_parent: { type: Number, default: null }
   }, {
     timestamps: false
   });

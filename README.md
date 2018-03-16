@@ -752,7 +752,7 @@ Desc: To return structure positions document.
 
 ------------------------
 
-### Service Checkavailable
+### Service Checkusername, Checkemail
 
 Method **find**:
 
@@ -760,7 +760,8 @@ Desc: To check wheter username or email is already registered. Return success (2
 
 * URL
 
-  /checkavailable
+  /checkusername
+  /checkemail
 
 * METHOD
 

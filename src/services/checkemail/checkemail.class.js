@@ -16,7 +16,12 @@ module.exports = class checkemail {
 
     const docs = await this.app.service('users').find({ query: query })
     if(docs.total === 0) {
-      return { status: 'success' }
+      return {
+        "total": 1,
+        "limit": 1,
+        "skip": 0,
+        "data": [ { status: 'success' } ]
+      }
     } else {
       throw new errors.BadRequest(prefixMsg + ' sudah digunakan')
     }

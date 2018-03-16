@@ -5,7 +5,10 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [
+      organizationstructuresManagementHooks.setParentData,
+      organizationstructuresManagementHooks.decideOrder
+    ],
     update: [],
     patch: [],
     remove: []
@@ -15,7 +18,10 @@ module.exports = {
     all: [],
     find: [ organizationstructuresManagementHooks.populate ],
     get: [ organizationstructuresManagementHooks.populate ],
-    create: [ organizationstructuresManagementHooks.populate ],
+    create: [
+      organizationstructuresManagementHooks.pushToParent,
+      organizationstructuresManagementHooks.populate
+    ],
     update: [],
     patch: [ organizationstructuresManagementHooks.populate ],
     remove: []
