@@ -3,7 +3,8 @@ module.exports = function (app) {
   const { Schema } = mongooseClient;
   const structures = new Schema({
     name: { type: String, required: true, index: true },
-    desc: { type: String, required: true }
+    desc: { type: String, required: true },
+    nameOfPosition: { type: String }
   }, {
     timestamps: false
   });

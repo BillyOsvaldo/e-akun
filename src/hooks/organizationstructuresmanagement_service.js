@@ -25,12 +25,6 @@ organizationstructuresHook.populate = async (context) => {
         ]
       },
       {
-        service: 'structurepositions',
-        nameAs: 'structureposition',
-        parentField: 'structureposition',
-        childField: '_id'
-      },
-      {
         service: 'roles',
         nameAs: 'role',
         parentField: 'role',

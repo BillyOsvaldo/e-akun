@@ -81,12 +81,6 @@ userappHook.populate = async (context) => {
                 ]
               },
               {
-                service: 'structurepositions',
-                nameAs: 'structureposition',
-                parentField: 'structureposition',
-                childField: '_id'
-              },
-              {
                 service: 'roles',
                 nameAs: 'role',
                 parentField: 'role',
@@ -119,12 +113,6 @@ userappHook.populate = async (context) => {
                     childField: '_id'
                   }
                 ]
-              },
-              {
-                service: 'structurepositions',
-                nameAs: 'structureposition',
-                parentField: 'structureposition',
-                childField: '_id'
               },
               {
                 service: 'roles',

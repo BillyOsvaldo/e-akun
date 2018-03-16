@@ -31,12 +31,6 @@ positionHook.populate = async (context) => {
             ]
           },
           {
-            service: 'structurepositions',
-            nameAs: 'structureposition',
-            parentField: 'structureposition',
-            childField: '_id'
-          },
-          {
             service: 'roles',
             nameAs: 'role',
             parentField: 'role',
@@ -69,12 +63,6 @@ positionHook.populate = async (context) => {
                 childField: '_id'
               }
             ]
-          },
-          {
-            service: 'structurepositions',
-            nameAs: 'structureposition',
-            parentField: 'structureposition',
-            childField: '_id'
           },
           {
             service: 'roles',
