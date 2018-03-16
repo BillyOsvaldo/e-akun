@@ -19,9 +19,9 @@ module.exports = function (app) {
     },
     order: { type: Number, default: 1 },
     children: [{
-      type: mongooseClient.Schema.Types.ObjectId
+      type: mongooseClient.Schema.Types.ObjectId,
     }],
-    parent: { type: Number, default: null },
+    parent: { type:mongooseClient.Schema.Types.ObjectId , default: null },
     alt_parent: { type: Number, default: null }
   }, {
     timestamps: false
