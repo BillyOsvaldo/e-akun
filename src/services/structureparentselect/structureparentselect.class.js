@@ -5,11 +5,22 @@
     find all descendant
     docs = find all docs where _id not in `descendant id` and not current _id
 */
+
+Array.prototype.flatten = function() {
+  return this.reduce(function(prev, cur) {
+    var more = [].concat(cur).some(Array.isArray)
+    return prev.concat(more ? cur.flatten() : cur)
+  },[])
+}
+
 module.exports = class StructureParentSelect {
 
   async find(params) {
+    const ObjectId = this.app.get('mongooseClient').Types.ObjectId
+
     const id = params.query.id
     const organizationstructures = this.app.service('organizationstructures')
+    const Organizationstructures = organizationstructures.Model
 
     var descendantId = [] // final
     const findAllDescendantId = async (childrenId) => {
@@ -26,23 +37,41 @@ module.exports = class StructureParentSelect {
       await findAllDescendantId(grandChildrenId)
     }
 
-    var parentDoc = await organizationstructures.get(id)
-    await findAllDescendantId(parentDoc.children)
+    var children = []
+    var parentDocs = await Organizationstructures.find({ organization: ObjectId(id) })
+    children = parentDocs.map(doc => doc.children)
+    children = children.flatten()
+
+    await findAllDescendantId(children)
 
     var nin = descendantId
-    nin.push(id)
 
     // $nin is not in
-    const query = {
-      _id: { $nin: nin }
-    }
+    const queryNinId = { _id: { $nin: nin } }
+    const queryNinOrganizationId = { organization: ObjectId(id) }
+    const queryStructures = { 'structure.name': new RegExp('asisten', 'i') }
 
+    const docs = await Organizationstructures.aggregate([
+      { $match: queryNinId },
+      { $lookup: { from: 'structures', localField: 'structure', foreignField: '_id', as: 'structure'} },
+      {
+        $match: {
+          $or: [
+            queryNinOrganizationId,
+            queryStructures
+          ]
+        }
+      }
+    ])
+
+    /*
     const byPassParams = {
       query,
       paginate: false
     }
-
     const docs = await this.app.service('organizationstructures').find(byPassParams)
+    */
+
     return {
       "total": docs.length,
       "limit": docs.length,
