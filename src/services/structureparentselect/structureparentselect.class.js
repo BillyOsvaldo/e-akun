@@ -5,6 +5,14 @@
     find all descendant
     docs = find all docs where _id not in `descendant id` and not current _id
 */
+
+Array.prototype.flatten = function() {
+  return this.reduce(function(prev, cur) {
+    var more = [].concat(cur).some(Array.isArray)
+    return prev.concat(more ? cur.flatten() : cur)
+  },[])
+}
+
 module.exports = class StructureParentSelect {
 
   async find(params) {
@@ -12,6 +20,7 @@ module.exports = class StructureParentSelect {
 
     const id = params.query.id
     const organizationstructures = this.app.service('organizationstructures')
+    const Organizationstructures = organizationstructures.Model
 
     var descendantId = [] // final
     const findAllDescendantId = async (childrenId) => {
@@ -28,23 +37,31 @@ module.exports = class StructureParentSelect {
       await findAllDescendantId(grandChildrenId)
     }
 
-    var parentDoc = await organizationstructures.get(id)
-    await findAllDescendantId(parentDoc.children)
+    var children = []
+    var parentDocs = await Organizationstructures.find({ organization: ObjectId(id) })
+    children = parentDocs.map(doc => doc.children)
+    children = children.flatten()
+
+    await findAllDescendantId(children)
 
     var nin = descendantId
-    nin.push(ObjectId(id))
 
     // $nin is not in
     const queryNinId = { _id: { $nin: nin } }
-    //const queryNinOrganizationId = {  }
+    const queryNinOrganizationId = { organization: ObjectId(id) }
     const queryStructures = { 'structure.name': new RegExp('asisten', 'i') }
 
-    const Organizationstructures = organizationstructures.Model
     const docs = await Organizationstructures.aggregate([
       { $match: queryNinId },
-      { $match: query2 },
       { $lookup: { from: 'structures', localField: 'structure', foreignField: '_id', as: 'structure'} },
-      { $match: queryStructures }
+      {
+        $match: {
+          $or: [
+            queryNinOrganizationId,
+            queryStructures
+          ]
+        }
+      }
     ])
 
     /*
