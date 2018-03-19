@@ -8,6 +8,8 @@
 module.exports = class StructureParentSelect {
 
   async find(params) {
+    const ObjectId = this.app.get('mongooseClient').Types.ObjectId
+
     const id = params.query.id
     const organizationstructures = this.app.service('organizationstructures')
 
@@ -30,19 +32,29 @@ module.exports = class StructureParentSelect {
     await findAllDescendantId(parentDoc.children)
 
     var nin = descendantId
-    nin.push(id)
+    nin.push(ObjectId(id))
 
     // $nin is not in
-    const query = {
-      _id: { $nin: nin }
-    }
+    const queryNinId = { _id: { $nin: nin } }
+    //const queryNinOrganizationId = {  }
+    const queryStructures = { 'structure.name': new RegExp('asisten', 'i') }
 
+    const Organizationstructures = organizationstructures.Model
+    const docs = await Organizationstructures.aggregate([
+      { $match: queryNinId },
+      { $match: query2 },
+      { $lookup: { from: 'structures', localField: 'structure', foreignField: '_id', as: 'structure'} },
+      { $match: queryStructures }
+    ])
+
+    /*
     const byPassParams = {
       query,
       paginate: false
     }
-
     const docs = await this.app.service('organizationstructures').find(byPassParams)
+    */
+
     return {
       "total": docs.length,
       "limit": docs.length,
