@@ -801,3 +801,49 @@ Desc: To check wheter username or email is already registered. Return success (2
 
     ```
 
+
+
+------------------------
+
+### Service StructureParentSelect
+
+Method **find**:
+
+Desc: To Find all ancestors of current organzationstructures
+
+* URL
+
+  /structureparentselect
+
+* METHOD
+
+  FIND
+
+* URL Params
+
+  id=[id]
+
+* Success Response:
+
+    Code: 200 
+
+    Content:
+    ```
+    {
+      "total": 15,
+      "limit": 15,
+      "skip": 0,
+      "data": [
+        {
+          "_id": ObjectId,
+          "order": Number,
+          "children": [ObjectId],
+          "parent": ObjectId,
+          "alt_parent": ObjectId|null,
+          "name": String,
+          "organization": ObjectId,
+          "structure": ObjectId
+        },
+      ]
+    }
+    ```
