@@ -36,6 +36,7 @@ const structuresselect = require('./structuresselect/structuresselect.service.js
 const organizationsselect = require('./organizationsselect/organizationsselect.service.js')
 const checkemail = require('./checkemail/checkemail.service.js')
 const checkusername = require('./checkusername/checkusername.service.js')
+const structureparentselect = require('./structureparentselect/structureparentselect.service.js')
 
 module.exports = function () {
   const app = this
@@ -77,4 +78,5 @@ module.exports = function () {
   app.configure(organizationsselect)
   app.configure(checkemail)
   app.configure(checkusername)
+  app.configure(structureparentselect)
 }
