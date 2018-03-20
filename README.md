@@ -847,3 +847,50 @@ Desc: To Find all ancestors of current organzationstructures
       ]
     }
     ```
+
+------------------------
+
+### Service organizationusers
+
+Method **find**:
+
+Desc: -
+
+Note: On create `organizationusers.endDate` will be filled automatically
+
+* URL
+
+  /organizationusers
+  /organizationusersmanagement
+
+* METHOD
+
+  POST
+
+* Body
+
+    required:
+        userId = ObjectId (reference of users)
+        organization = ObjectId (reference of organizations)
+        startDate = Date
+
+* Success Response:
+
+    Code: 200 
+
+    Content:
+    ```
+    {
+      "total": 15,
+      "limit": 15,
+      "skip": 0,
+      "data": [
+        {
+          "userId": ObjectId,
+          "organization": ObjectId,
+          "startDate": Date,
+          "endDate": Date,
+        },
+      ]
+    }
+    ```
