@@ -3,7 +3,9 @@ const organizationstructuresManagementHooks = require('../../hooks/organizations
 module.exports = {
   before: {
     all: [],
-    find: [],
+    find: [
+      organizationstructuresManagementHooks.orderByOrderAsc
+    ],
     get: [],
     create: [
       organizationstructuresManagementHooks.setParentData,

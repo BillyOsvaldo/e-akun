@@ -36,6 +36,14 @@ organizationstructuresHook.populate = async (context) => {
   await populate({ schema: populateSchema })(context)
 }
 
+organizationstructuresHook.orderByOrderAsc = async function(context) {
+  var sort = context.params.query.$sort
+
+  if(sort === undefined) {
+    context.params.query.$sort = { order: 1 }
+  }
+}
+
 organizationstructuresHook.setParentData = async (context) => {
   if(!context.data.parent) return
 
