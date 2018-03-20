@@ -75,10 +75,14 @@ organizationstructuresHook.removeChildrenArrOfParent = async (context) => {
   const organizationstructures = context.app.service('organizationstructures')
 
   const docSelf = await organizationstructures.get(context.id)
-  var docOldParent = await organizationstructures.get(docSelf.parent)
-  docOldParent.children = docOldParent.children.filter((child) => (child != context.id))
-  const updateData = { children: docOldParent.children }
-  await organizationstructures.patch(docOldParent._id, updateData)
+
+  // ignore if self.parent is null || empty
+  if(docSelf.parent) {
+    var docOldParent = await organizationstructures.get(docSelf.parent)
+    docOldParent.children = docOldParent.children.filter((child) => (child != context.id))
+    var updateData = { children: docOldParent.children }
+    await organizationstructures.patch(docOldParent._id, updateData)
+  }
 }
 
 organizationstructuresHook.decideDescendantsOrder = async (context) => {
