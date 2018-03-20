@@ -894,3 +894,50 @@ Note: On create `organizationusers.endDate` will be filled automatically
       ]
     }
     ```
+
+------------------------
+
+### Service organizationstructuresusers
+
+Method **find**:
+
+Desc: -
+
+Note: On create `organizationstructuresusers.endDate` will be filled automatically
+
+* URL
+
+  /organizationstructuresusers
+  /organizationstructuresusersmanagement
+
+* METHOD
+
+  POST
+
+* Body
+
+    required:
+        userId = ObjectId (reference of users)
+        organizationstructure = ObjectId (reference of organizationstructures)
+        startDate = Date
+
+* Success Response:
+
+    Code: 200 
+
+    Content:
+    ```
+    {
+      "total": 15,
+      "limit": 15,
+      "skip": 0,
+      "data": [
+        {
+          "userId": ObjectId,
+          "organizationstructure": ObjectId,
+          "startDate": Date,
+          "endDate": Date,
+        },
+      ]
+    }
+    ```
