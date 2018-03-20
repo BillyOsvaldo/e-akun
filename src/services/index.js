@@ -39,8 +39,8 @@ const checkusername = require('./checkusername/checkusername.service.js')
 const structureparentselect = require('./structureparentselect/structureparentselect.service.js')
 const organizationusers = require('./organizationusers/organizationusers.service.js')
 const organizationusersmanagement = require('./organizationusersmanagement/organizationusersmanagement.service.js')
-//const organizationstructuresusers = require('./organizationstructuresusers/organizationstructuresusers.service.js')
-//const organizationstructuresusersmanagement = require('./organizationstructuresusersmanagement/organizationstructuresusersmanagement.service.js')
+const organizationstructuresusers = require('./organizationstructuresusers/organizationstructuresusers.service.js')
+const organizationstructuresusersmanagement = require('./organizationstructuresusersmanagement/organizationstructuresusersmanagement.service.js')
 
 module.exports = function () {
   const app = this
@@ -85,6 +85,6 @@ module.exports = function () {
   app.configure(structureparentselect)
   app.configure(organizationusers)
   app.configure(organizationusersmanagement)
-  //app.configure(organizationstructuresusers)
-  //app.configure(organizationstructuresusersmanagement)
+  app.configure(organizationstructuresusers)
+  app.configure(organizationstructuresusersmanagement)
 }
