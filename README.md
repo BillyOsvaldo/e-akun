@@ -294,6 +294,24 @@ Desc: To resend email `codereg` and `resetpassword`.
 
 ### Service Usersmanagement
 
+Method: **Find**
+
+Desc: To get users.
+
+ * URL
+ 
+    Format:
+    /usersmanagement
+    /usersselect
+
+* URL Params
+
+  $first_name_or_last_name=string
+  profile.name.first_name=string
+  profile.name.last_name=string
+  username=string
+
+
 Method: **Create**
 
 Desc: To create new user.

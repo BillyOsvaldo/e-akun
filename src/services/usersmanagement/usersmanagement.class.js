@@ -177,6 +177,7 @@ module.exports = class UsersManagement {
     }
 
     aggregateData.push({ $lookup: { from: 'profiles', localField: 'profile', foreignField: '_id', as: 'profile'} })
+    aggregateData.push({ $unwind: { path: '$profile', preserveNullAndEmptyArrays: true } },)
 
     for(let k in params.query.$sort) {
       params.query.$sort[k] = parseInt(params.query.$sort[k])
@@ -186,19 +187,42 @@ module.exports = class UsersManagement {
       aggregateData.push({ $sort: params.query.$sort })
 
     // match profile
-    if(getProfilesQuery().length) {
+    const profilesQuery = getProfilesQuery()
+    if(profilesQuery.length) {
+      const currentQuery = profilesQuery[0]
+      const currentQueryKey = currentQuery[0]
+      const currentQueryVal = currentQuery[1]
       let matchVal = {}
-        const queryVal = (mongoose.Types.ObjectId.isValid(query[1]) ? mongoose.Types.ObjectId(query[1]) : query[1])
-        matchVal[query[0]] = queryVal
+      const queryVal = (mongoose.Types.ObjectId.isValid(currentQueryVal) ? mongoose.Types.ObjectId(currentQueryVal) : currentQueryVal)
+      matchVal[currentQueryKey] = queryVal
 
       aggregateData.push({ $match: matchVal })
     }
 
-    aggregateData.push({ $skip: parseInt(params.query.$skip) || 0 })
-    aggregateData.push({ $limit: parseInt(params.query.$limit) || this.app.get('paginate').default })
+    if(params.query.$first_name_or_last_name) {
+      const firstNameOrLastNameQuery = {
+        $or: [
+          { 'profile.name.first_name': params.query.$first_name_or_last_name },
+          { 'profile.name.last_name': params.query.$first_name_or_last_name },
+        ]
+      }
+      aggregateData.push({ $match: firstNameOrLastNameQuery })
+      delete params.query.$first_name_or_last_name
+    }
+
+    const skip = parseInt(params.query.$skip) || 0
+    const limit = parseInt(params.query.$limit) || this.app.get('paginate').default
+
+    aggregateData.push({ $skip: skip })
+    aggregateData.push({ $limit: limit })
 
     const docs = await Users.aggregate(aggregateData)
-    return docs
+    return {
+      "total": docs.length,
+      "limit": limit,
+      "skip": skip,
+      "data": docs
+    }
   }
 
   async get (userid) {
