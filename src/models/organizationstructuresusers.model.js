@@ -2,7 +2,7 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const organizationstructuresusers = new Schema({
-    userId: {
+    user: {
       type: mongooseClient.Schema.Types.ObjectId,
       ref: 'users',
       required: true

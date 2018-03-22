@@ -48,8 +48,8 @@ module.exports = class {
 
       if(sortByFirstName || sortByLastName) {
         var docs = []
-        for(let userId of usersIdList) {
-          let paramsInner = { query: { userId: userId } }
+        for(let user of usersIdList) {
+          let paramsInner = { query: { user: user } }
           let retTmp = await this.app.service('organizationstructuresusers').find(paramsInner)
           if(retTmp.data.length) {
             docs.push(retTmp.data[0])
@@ -65,7 +65,7 @@ module.exports = class {
           data: docsLimitedAndSkipped
         }
       } else {
-        params.query.userId = { $in: usersIdList }
+        params.query.user = { $in: usersIdList }
       }
 
       delete params.query.$first_name_or_last_name
