@@ -52,6 +52,7 @@ organizationusersHook.populate = async (context) => {
 
 organizationusersHook.fillEndDate = async (context) => {
   const OrganizationStructuresUsers = context.app.service('organizationstructuresusers').Model
+  const organizationStructuresUsers = context.app.service('organizationstructuresusers')
   const ObjectId = context.app.get('mongooseClient').Types.ObjectId
 
   const filter = { userId: ObjectId(context.data.userId) }
@@ -59,9 +60,10 @@ organizationusersHook.fillEndDate = async (context) => {
 
   const docs = await OrganizationStructuresUsers.find(filter).sort(sort)
   if(docs.length) {
+    const firstDoc = docs[0]
     var startDateObj = new Date(context.data.startDate)
     startDateObj.setDate(startDateObj.getDate() - 1) // current date - 1
-    context.data.endDate = startDateObj
+    organizationStructuresUsers.patch(firstDoc._id, { endDate: startDateObj })
   }
 }
 

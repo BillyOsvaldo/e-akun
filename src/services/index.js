@@ -41,6 +41,7 @@ const organizationusers = require('./organizationusers/organizationusers.service
 const organizationusersmanagement = require('./organizationusersmanagement/organizationusersmanagement.service.js')
 const organizationstructuresusers = require('./organizationstructuresusers/organizationstructuresusers.service.js')
 const organizationstructuresusersmanagement = require('./organizationstructuresusersmanagement/organizationstructuresusersmanagement.service.js')
+const usersselect = require('./usersselect/usersselect.service.js')
 
 module.exports = function () {
   const app = this
@@ -87,4 +88,5 @@ module.exports = function () {
   app.configure(organizationusersmanagement)
   app.configure(organizationstructuresusers)
   app.configure(organizationstructuresusersmanagement)
+  app.configure(usersselect)
 }
