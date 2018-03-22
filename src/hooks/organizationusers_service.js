@@ -6,8 +6,8 @@ organizationusersHook.populate = async (context) => {
     include: [
       {
         service: 'users',
-        nameAs: 'userId',
-        parentField: 'userId',
+        nameAs: 'user',
+        parentField: 'user',
         childField: '_id',
         asArray: false,
         include: [
@@ -86,7 +86,7 @@ organizationusersHook.fillEndDate = async (context) => {
   const organizationUsers = context.app.service('organizationusers')
   const ObjectId = context.app.get('mongooseClient').Types.ObjectId
 
-  const filter = { userId: ObjectId(context.data.userId) }
+  const filter = { user: ObjectId(context.data.user) }
   const sort = { startDate: -1 }
 
   const docs = await OrganizationUsers.find(filter).sort(sort)
