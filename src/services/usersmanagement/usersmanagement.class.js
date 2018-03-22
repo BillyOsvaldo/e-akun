@@ -202,12 +202,17 @@ module.exports = class UsersManagement {
     if(params.query.$first_name_or_last_name) {
       const firstNameOrLastNameQuery = {
         $or: [
-          { 'profile.name.first_name': params.query.$first_name_or_last_name },
-          { 'profile.name.last_name': params.query.$first_name_or_last_name },
+          { 'profile.name.first_name': new RegExp(params.query.$first_name_or_last_name, 'i') },
+          { 'profile.name.last_name': new RegExp(params.query.$first_name_or_last_name, 'i') },
         ]
       }
       aggregateData.push({ $match: firstNameOrLastNameQuery })
       delete params.query.$first_name_or_last_name
+    }
+
+    if(params.query.$only_id) {
+      aggregateData.push({ $project: { _id: 1 } })
+      delete params.query.$only_id
     }
 
     const skip = parseInt(params.query.$skip) || 0
