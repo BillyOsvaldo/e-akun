@@ -888,7 +888,7 @@ Note: On create `organizationusers.endDate` will be filled automatically
 * Body
 
     required:
-        userId = ObjectId (reference of users)
+        user = ObjectId (reference of users)
         organization = ObjectId (reference of organizations)
         startDate = Date
 
@@ -904,7 +904,7 @@ Note: On create `organizationusers.endDate` will be filled automatically
       "skip": 0,
       "data": [
         {
-          "userId": ObjectId,
+          "user": ObjectId,
           "organization": ObjectId,
           "startDate": Date,
           "endDate": Date,
@@ -935,7 +935,7 @@ Note: On create `organizationstructuresusers.endDate` will be filled automatical
 * Body
 
     required:
-        userId = ObjectId (reference of users)
+        user = ObjectId (reference of users)
         organizationstructure = ObjectId (reference of organizationstructures)
         startDate = Date
 
@@ -951,7 +951,7 @@ Note: On create `organizationstructuresusers.endDate` will be filled automatical
       "skip": 0,
       "data": [
         {
-          "userId": ObjectId,
+          "user": ObjectId,
           "organizationstructure": ObjectId,
           "startDate": Date,
           "endDate": Date,
