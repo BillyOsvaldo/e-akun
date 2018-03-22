@@ -8,7 +8,24 @@ organizationusersHook.populate = async (context) => {
         service: 'users',
         nameAs: 'userId',
         parentField: 'userId',
-        childField: '_id'
+        childField: '_id',
+        asArray: false,
+        include: [
+          {
+            service: 'profiles',
+            nameAs: 'profile',
+            parentField: 'profile',
+            childField: '_id',
+            include: [
+              {
+                service: 'postcodes',
+                nameAs: 'address.postcode',
+                parentField: 'address.postcode',
+                childField: '_id'
+              }
+            ]
+          }
+        ]
       },
       {
         service: 'organizations',
