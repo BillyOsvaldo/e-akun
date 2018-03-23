@@ -4,6 +4,7 @@ module.exports = class {
   }
 
   async find(params) {
+    params.query.organizationuser = { $exists: true, $ne: null }
     return await this.app.service('usersmanagement').find(params)
 
     // handle sorting:start
