@@ -36,20 +36,6 @@ userappHook.populate = async (context) => {
         ]
       },
       {
-        service: 'organizationstructures',
-        nameAs: 'parent',
-        parentField: 'parent',
-        childField: '_id',
-        include: [
-          {
-            service: 'structures',
-            nameAs: 'structure',
-            parentField: 'structure',
-            childField: '_id'
-          }
-        ]
-      },
-      {
         service: 'roles',
         nameAs: 'role',
         parentField: 'role',
@@ -73,6 +59,34 @@ userappHook.populate = async (context) => {
             nameAs: 'administrator',
             parentField: 'administrator',
             childField: '_id',
+          }
+        ]
+      },
+      {
+        nameAs: 'organizationuser',
+        parentField: 'organizationuser',
+        service: 'organizationusers',
+        childField: '_id',
+        include: [
+          {
+            service: 'organizations',
+            nameAs: 'organization',
+            parentField: 'organization',
+            childField: '_id'
+          },
+          {
+            service: 'organizationstructures',
+            nameAs: 'parent',
+            parentField: 'parent',
+            childField: '_id',
+            include: [
+              {
+                service: 'structures',
+                nameAs: 'structure',
+                parentField: 'structure',
+                childField: '_id'
+              }
+            ]
           }
         ]
       }
