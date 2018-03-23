@@ -111,13 +111,13 @@ organizationusersHook.updateOrganization = async (context) => {
   const user = context.data.user
   const users = context.app.service('users')
   await users.patch(user, { organization: newOrganization })
-  context.data.newParent = docOrganizationUsers.parent
+  context.data.newOrganizationUsers = docOrganizationUsers._id
 }
 
-organizationusersHook.updateParent = async (context) => {
+organizationusersHook.updateOrganizationUsers = async (context) => {
   const user = context.data.user
   const users = context.app.service('users')
-  await users.patch(user, { parent: context.data.newParent })
+  await users.patch(user, { organizationuser: context.data.newOrganizationUsers })
 }
 
 module.exports = organizationusersHook
