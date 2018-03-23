@@ -104,8 +104,6 @@ organizationstructuresusersHook.updateRole = async (context) => {
 organizationstructuresusersHook.updatePosition = async (context) => {
   const user = context.data.user
   const users = context.app.service('users')
-  console.log('user', user)
-  console.log('{ position: context.data.idOrganizationStructureUsers }', { position: context.data.idOrganizationStructureUsers })
   await users.patch(user, { position: context.data.idOrganizationStructureUsers })
   delete context.data.idOrganizationStructureUsers
 }
