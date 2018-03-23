@@ -37,14 +37,14 @@ module.exports = function (app) {
       type: mongooseClient.Schema.Types.ObjectId,
       ref: 'organizations'
     },
-    position:  {
+    position: {
       type: mongooseClient.Schema.Types.ObjectId,
-      ref: 'positions',
+      ref: 'organizationstructures',
       default: null
     },
-    parent:  {
+    parent: {
       type: mongooseClient.Schema.Types.ObjectId,
-      ref: 'positions',
+      ref: 'organizationstructures',
       default: null
     },
     status: { type: Boolean, default: true }

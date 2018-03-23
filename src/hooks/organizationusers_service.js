@@ -98,4 +98,26 @@ organizationusersHook.fillEndDate = async (context) => {
   }
 }
 
+organizationusersHook.updateOrganization = async (context) => {
+  const params = {
+    query: {
+      user: context.data.user,
+      $sort: { startDate: -1 }
+    }
+  }
+
+  const docOrganizationUsers = (await context.app.service('organizationusers').find(params)).data[0]
+  const newOrganization = docOrganizationUsers.organization
+  const user = context.data.user
+  const users = context.app.service('users')
+  await users.patch(user, { organization: newOrganization })
+  context.data.newParent = docOrganizationUsers.parent
+}
+
+organizationusersHook.updateParent = async (context) => {
+  const user = context.data.user
+  const users = context.app.service('users')
+  await users.patch(user, { parent: context.data.newParent })
+}
+
 module.exports = organizationusersHook

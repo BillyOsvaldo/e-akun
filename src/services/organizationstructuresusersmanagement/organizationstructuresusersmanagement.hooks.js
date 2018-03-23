@@ -15,9 +15,9 @@ module.exports = {
     all: [],
     find: [ organizationStructuresUsersHooks.populate ],
     get: [ organizationStructuresUsersHooks.populate ],
-    create: [ organizationStructuresUsersHooks.populate ],
-    update: [],
-    patch: [ organizationStructuresUsersHooks.populate ],
+    create: [ organizationStructuresUsersHooks.updateRole, organizationStructuresUsersHooks.updatePosition, organizationStructuresUsersHooks.populate ],
+    update: [ organizationStructuresUsersHooks.updateRole,  organizationStructuresUsersHooks.updatePosition ],
+    patch: [ organizationStructuresUsersHooks.updateRole, organizationStructuresUsersHooks.updatePosition, organizationStructuresUsersHooks.populate ],
     remove: []
   },
 
