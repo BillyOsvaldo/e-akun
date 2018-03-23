@@ -4,6 +4,8 @@ module.exports = class {
   }
 
   async find(params) {
+    return await this.app.service('usersmanagement').find(params)
+
     // handle sorting:start
     // efficient query
     var sortByFirstName = null
