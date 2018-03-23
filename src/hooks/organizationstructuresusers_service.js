@@ -1,7 +1,7 @@
 const { populate } = require('feathers-hooks-common');
 
-const organizationusersHook = {}
-organizationusersHook.populate = async (context) => {
+const organizationstructuresusersHook = {}
+organizationstructuresusersHook.populate = async (context) => {
   var populateSchema = {
     include: [
       {
@@ -67,7 +67,7 @@ organizationusersHook.populate = async (context) => {
   await populate({ schema: populateSchema })(context)
 }
 
-organizationusersHook.fillEndDate = async (context) => {
+organizationstructuresusersHook.fillEndDate = async (context) => {
   const OrganizationStructuresUsers = context.app.service('organizationstructuresusers').Model
   const organizationStructuresUsers = context.app.service('organizationstructuresusers')
   const ObjectId = context.app.get('mongooseClient').Types.ObjectId
@@ -84,4 +84,28 @@ organizationusersHook.fillEndDate = async (context) => {
   }
 }
 
-module.exports = organizationusersHook
+organizationstructuresusersHook.updateRole = async (context) => {
+  const params = {
+    query: {
+      user: context.data.user,
+      $sort: { startDate: -1 }
+    }
+  }
+
+  const idOrganizationStructureUsers = (await context.app.service('organizationstructuresusers').find(params)).data[0].organizationstructure
+  const docOrganizationstructure = await context.app.service('organizationstructures').get(idOrganizationStructureUsers)
+  const role = docOrganizationstructure.role
+  const user = context.data.user
+  const users = context.app.service('users')
+  await users.patch(user, { role: role })
+  context.data.idOrganizationStructureUsers = idOrganizationStructureUsers
+}
+
+organizationstructuresusersHook.updatePosition = async (context) => {
+  const user = context.data.user
+  const users = context.app.service('users')
+  await users.patch(user, { position: context.data.idOrganizationStructureUsers })
+  delete context.data.idOrganizationStructureUsers
+}
+
+module.exports = organizationstructuresusersHook
