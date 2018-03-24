@@ -968,4 +968,4 @@ Note: all method (create, find, get, patch) is same as service `organizationuser
 
 To publish draft:
   Method: DELETE
-  URL: /organizationusersdraftmanagement/{ObjectId}
+  URL: /organizationusersdraftmanagement/publish_{ObjectId}
