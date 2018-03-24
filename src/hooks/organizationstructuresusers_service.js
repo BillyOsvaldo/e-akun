@@ -108,4 +108,21 @@ organizationstructuresusersHook.updatePosition = async (context) => {
   delete context.data.idOrganizationStructureUsers
 }
 
+organizationstructuresusersHook.publish = async (context) => {
+  if(!context.id.startsWith('publish_')) return
+
+  const id = context.id.replace('publish_', '')
+  const organizationStructuresUsersDraft = context.app.service('organizationstructuresusersdraft')
+  const organizationStructuresUsers = context.app.service('organizationstructuresusersmanagement')
+
+  const docOrganizationStructuresUsersDraft = await organizationStructuresUsersDraft.get(id)
+  if(!docOrganizationStructuresUsersDraft) {
+    throw new errors.BadRequest('Doc not found')
+  }
+
+  await organizationStructuresUsers.create(docOrganizationStructuresUsersDraft)
+  await organizationStructuresUsersDraft.remove(docOrganizationStructuresUsersDraft._id)
+  context.result = docOrganizationStructuresUsersDraft
+}
+
 module.exports = organizationstructuresusersHook
