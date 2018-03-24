@@ -7,8 +7,8 @@ module.exports = {
     get: [],
     create: [ organizationUsersHooks.fillEndDate ],
     update: [],
-    patch: [ organizationUsersHooks.publish ],
-    remove: []
+    patch: [],
+    remove: [ organizationUsersHooks.publish ]
   },
 
   after: {

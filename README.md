@@ -967,6 +967,5 @@ Note: On create `organizationstructuresusers.endDate` will be filled automatical
 Note: all method (create, find, get, patch) is same as service `organizationusers`, except hooks `organizationUsersHooks.updateOrganization` and `organizationUsersHooks.updateOrganizationUsers` are disabled because users.organization and users.organizationusers no need to modified currently.
 
 To publish draft:
-  Method: PATCH
+  Method: DELETE
   URL: /organizationusersdraftmanagement/{ObjectId}
-  Body Post: { "publish": true }

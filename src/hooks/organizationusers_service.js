@@ -122,8 +122,6 @@ organizationusersHook.updateOrganizationUsers = async (context) => {
 }
 
 organizationusersHook.publish = async (context) => {
-  if(!context.data.publish) return
-
   const organizationUsersDraft = context.app.service('organizationusersdraft')
   const organizationUsers = context.app.service('organizationusersmanagement')
 
@@ -133,8 +131,7 @@ organizationusersHook.publish = async (context) => {
   }
 
   await organizationUsers.create(docOrganizationUsersDraft)
-  await organizationUsersDraft.remove(docOrganizationUsersDraft._id)
-  context.result = { status: 'ok' }
+  //await organizationUsersDraft.remove(docOrganizationUsersDraft._id)
 }
 
 module.exports = organizationusersHook
