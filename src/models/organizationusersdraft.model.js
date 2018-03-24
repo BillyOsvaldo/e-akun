@@ -1,7 +1,7 @@
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
-  const drafts = new Schema({
+  const organizationusersdraft = new Schema({
     user: {
       type: mongooseClient.Schema.Types.ObjectId,
       ref: 'users',
@@ -22,5 +22,5 @@ module.exports = function (app) {
     timestamps: true
   });
 
-  return mongooseClient.model('drafts', drafts);
+  return mongooseClient.model('organizationusersdraft', organizationusersdraft);
 };
