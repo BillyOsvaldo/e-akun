@@ -959,3 +959,10 @@ Note: On create `organizationstructuresusers.endDate` will be filled automatical
       ]
     }
     ```
+
+------------------------
+
+### Service drafts
+
+Note: all method (create, find, get, patch) is same as service `organizationusers`, except hooks `organizationUsersHooks.updateOrganization` and `organizationUsersHooks.updateOrganizationUsers` are disabled because users.organization and users.organizationusers no need to modified currently.
+
