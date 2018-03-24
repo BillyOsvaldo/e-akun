@@ -122,19 +122,20 @@ organizationusersHook.updateOrganizationUsers = async (context) => {
 }
 
 organizationusersHook.publish = async (context) => {
-  if(!context.data.publish) return
+  if(!context.id.startsWith('publish_')) return
 
+  const id = context.id.replace('publish_', '')
   const organizationUsersDraft = context.app.service('organizationusersdraft')
   const organizationUsers = context.app.service('organizationusersmanagement')
 
-  const docOrganizationUsersDraft = await organizationUsersDraft.get(context.id)
+  const docOrganizationUsersDraft = await organizationUsersDraft.get(id)
   if(!docOrganizationUsersDraft) {
     throw new errors.BadRequest('Doc not found')
   }
 
   await organizationUsers.create(docOrganizationUsersDraft)
   await organizationUsersDraft.remove(docOrganizationUsersDraft._id)
-  context.result = { status: 'ok' }
+  context.result = docOrganizationUsersDraft
 }
 
 module.exports = organizationusersHook
