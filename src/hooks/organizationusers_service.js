@@ -125,14 +125,14 @@ organizationusersHook.publish = async (context) => {
   if(!context.data.publish) return
 
   const organizationUsersDraft = context.app.service('organizationusersdraft')
+  const organizationUsers = context.app.service('organizationusersmanagement')
+
   const docOrganizationUsersDraft = await organizationUsersDraft.get(context.id)
   if(!docOrganizationUsersDraft) {
     throw new errors.BadRequest('Doc not found')
   }
 
-  OrganizationUsers = context.app.service('organizationusers').Model
-  const doc = new OrganizationUsers(docOrganizationUsersDraft)
-  await doc.save()
+  await organizationUsers.create(docOrganizationUsersDraft)
   await organizationUsersDraft.remove(docOrganizationUsersDraft._id)
   context.result = { status: 'ok' }
 }
