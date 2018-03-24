@@ -1,4 +1,5 @@
 const { populate } = require('feathers-hooks-common');
+const errors = require('@feathersjs/errors')
 
 const organizationusersHook = {}
 organizationusersHook.populate = async (context) => {
@@ -118,6 +119,22 @@ organizationusersHook.updateOrganizationUsers = async (context) => {
   const user = context.data.user
   const users = context.app.service('users')
   await users.patch(user, { organizationuser: context.data.newOrganizationUsers })
+}
+
+organizationusersHook.publish = async (context) => {
+  if(!context.data.publish) return
+
+  const organizationUsersDraft = context.app.service('organizationusersdraft')
+  const docOrganizationUsersDraft = await organizationUsersDraft.get(context.id)
+  if(!docOrganizationUsersDraft) {
+    throw new errors.BadRequest('Doc not found')
+  }
+
+  OrganizationUsers = context.app.service('organizationusers').Model
+  const doc = new OrganizationUsers(docOrganizationUsersDraft)
+  await doc.save()
+  await organizationUsersDraft.remove(docOrganizationUsersDraft._id)
+  context.result = { status: 'ok' }
 }
 
 module.exports = organizationusersHook
