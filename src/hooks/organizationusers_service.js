@@ -112,6 +112,16 @@ organizationusersHook.updateOrganizationUsers = async (context) => {
 organizationusersHook.publish = async (context) => {
   if(!context.id.startsWith('publish_')) return
 
+  /*
+    publishOrganizationStructuresUsers()
+      format:
+        publish_{organizationusers._id}_{organizationstructuresusers._id}
+
+      logic:
+        if organizationstructuresusers._id is exist:
+          publish organizationstructuresusers._id
+  */
+
   const id = context.id.replace('publish_', '')
   const organizationUsersDraft = context.app.service('organizationusersdraft')
   const organizationUsers = context.app.service('organizationusersmanagement')

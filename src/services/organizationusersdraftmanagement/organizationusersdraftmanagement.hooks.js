@@ -5,7 +5,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [ organizationUsersHooks.fillEndDate ],
+    create: [],
     update: [],
     patch: [],
     remove: [ organizationUsersHooks.publish ]
@@ -13,7 +13,7 @@ module.exports = {
 
   after: {
     all: [],
-    find: [ organizationUsersHooks.populate ],
+    find: [],
     get: [ organizationUsersHooks.populate ],
     create: [ organizationUsersHooks.populate ],
     update: [],
