@@ -5,7 +5,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [ organizationStructuresUsersHooks.fillEndDate ],
+    create: [],
     update: [],
     patch: [],
     remove: [ organizationStructuresUsersHooks.publish ]
