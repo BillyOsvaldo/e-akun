@@ -12,9 +12,9 @@ module.exports = function (app) {
       ref: 'organizations',
       required: true
     },
-    parent: {
+    inside: {
       type: mongooseClient.Schema.Types.ObjectId,
-      ref: 'organizationstructures'
+      ref: 'organizationstructuresusers'
     },
     startDate: { type: Date, required: true },
     endDate: { type: Date }
