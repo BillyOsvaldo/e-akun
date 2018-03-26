@@ -42,11 +42,6 @@ module.exports = function (app) {
       ref: 'organizationstructures',
       default: null
     },
-    parent: { // TODO: remove
-      type: mongooseClient.Schema.Types.ObjectId,
-      ref: 'organizationstructures',
-      default: null
-    },
     organizationuser: {
       type: mongooseClient.Schema.Types.ObjectId,
       ref: 'organizationusers',
