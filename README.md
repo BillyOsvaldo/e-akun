@@ -969,3 +969,13 @@ Note: all method (create, find, get, patch) is same as service `organizationuser
 To publish draft:
   Method: DELETE
   URL: /organizationusersdraftmanagement/publish_{ObjectId}
+
+------------------------
+
+### Service organizationstructuresusersdraft
+
+Note: all method (create, find, get, patch) is same as service `organizationstructuresusers`, except hooks `organizationstructuresUsersHooks.updateOrganization` and `organizationstructuresUsersHooks.updateOrganizationstructuresUsers` are disabled because users.organization and users.organizationstructuresusers no need to modified currently.
+
+To publish draft:
+  Method: DELETE
+  URL: /organizationstructuresusersdraftmanagement/publish_{ObjectId}

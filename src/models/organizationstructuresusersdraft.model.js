@@ -1,20 +1,15 @@
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
-  const organizationusers = new Schema({
+  const organizationstructuresusersdraft = new Schema({
     user: {
       type: mongooseClient.Schema.Types.ObjectId,
       ref: 'users',
       required: true
     },
-    organization: {
+    organizationstructure: {
       type: mongooseClient.Schema.Types.ObjectId,
-      ref: 'organizations',
-      required: true
-    },
-    inside: {
-      type: mongooseClient.Schema.Types.ObjectId,
-      ref: 'organizationstructuresusers'
+      ref: 'organizationstructures'
     },
     startDate: { type: Date, required: true },
     endDate: { type: Date }
@@ -22,5 +17,5 @@ module.exports = function (app) {
     timestamps: true
   });
 
-  return mongooseClient.model('organizationusers', organizationusers);
+  return mongooseClient.model('organizationstructuresusersdraft', organizationstructuresusersdraft);
 };

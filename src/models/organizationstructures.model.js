@@ -21,8 +21,8 @@ module.exports = function (app) {
     children: [{
       type: mongooseClient.Schema.Types.ObjectId,
     }],
-    parent: { type:mongooseClient.Schema.Types.ObjectId , default: null },
-    alt_parent: { type: Number, default: null },
+    parent: { type: mongooseClient.Schema.Types.ObjectId , default: null },
+    alt_parent: { type: mongooseClient.Schema.Types.ObjectId, default: null },
     status: { type: Boolean, default: true }
   }, {
     timestamps: false
