@@ -122,11 +122,23 @@ organizationusersHook.publish = async (context) => {
           publish organizationstructuresusers._id
   */
 
-  const id = context.id.replace('publish_', '')
+  const publishOrganizationStructuresUsers = async (organizationStructuresUsersId) => {
+    context.app.service('organizationstructuresusersdraftmanagement').remove('publish_' + organizationStructuresUsersId)
+  }
+
+  const mergedId = context.id.replace('publish_', '').split('_')
+
+  const isOrganizationStructuresUsersIdExist = (mergedId.length > 1)
+  if(isOrganizationStructuresUsersIdExist) {
+    const organizationStructuresUsersId = mergedId[1]
+    await publishOrganizationStructuresUsers(organizationStructuresUsersId)
+  }
+
+  const organizationUsersDraftid = mergedId[0]
   const organizationUsersDraft = context.app.service('organizationusersdraft')
   const organizationUsers = context.app.service('organizationusersmanagement')
 
-  const docOrganizationUsersDraft = await organizationUsersDraft.get(id)
+  const docOrganizationUsersDraft = await organizationUsersDraft.get(organizationUsersDraftid)
   if(!docOrganizationUsersDraft) {
     throw new errors.BadRequest('Doc not found')
   }
