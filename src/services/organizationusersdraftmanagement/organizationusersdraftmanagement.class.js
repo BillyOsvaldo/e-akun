@@ -14,6 +14,9 @@ module.exports = class {
     return await this.app.service('organizationusersdraft').create(data, params)
   }
 
+  // Example:
+  //   localhost:3030/organizationusersdraftmanagement?$sort[user.profile.name.first_name]=1
+  //   localhost:3030/organizationusersdraftmanagement?organization=12321321313
   async find(params) {
 
     const ObjectId = this.app.get('mongooseClient').Types.ObjectId
