@@ -102,6 +102,8 @@ module.exports = class {
       { $unwind: '$organization' },
       { $lookup: { from: 'profiles', localField: 'user.profile', foreignField: '_id', as: 'user.profile'} },
       { $unwind: '$user.profile' },
+      { $lookup: { from: 'organizationstructures', localField: 'inside', foreignField: '_id', as: 'inside'} },
+      { $unwind: { path: '$inside', preserveNullAndEmptyArrays: true } },
       {
         $project: {
           _id: 1,
@@ -114,6 +116,7 @@ module.exports = class {
           'user._id': '$user._id',
           'user.profile.name': '$user.profile.name',
           'user.profile.nip': '$user.profile.nip',
+          inside: '$inside'
         }
       },
       { $sort: sort },
