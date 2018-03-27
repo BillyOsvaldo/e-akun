@@ -48,7 +48,6 @@ const organizationusersdraft = require('./organizationusersdraft/organizationuse
 const organizationusersdraftmanagement = require('./organizationusersdraftmanagement/organizationusersdraftmanagement.service.js')
 const organizationstructuresusersdraft = require('./organizationstructuresusersdraft/organizationstructuresusersdraft.service.js')
 const organizationstructuresusersdraftmanagement = require('./organizationstructuresusersdraftmanagement/organizationstructuresusersdraftmanagement.service.js')
-const checkorganizationusers = require('./checkorganizationusers/checkorganizationusers.service.js')
 
 module.exports = function () {
   const app = this
@@ -102,5 +101,4 @@ module.exports = function () {
   app.configure(organizationusersdraftmanagement)
   app.configure(organizationstructuresusersdraft)
   app.configure(organizationstructuresusersdraftmanagement)
-  app.configure(checkorganizationusers)
 }

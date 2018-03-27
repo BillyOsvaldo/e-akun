@@ -11,7 +11,12 @@ module.exports = class {
       await this.app.service('organizationstructuresusersdraft').create(dataOrganizationstructuresusers, params)
     }
 
-    return await this.app.service('organizationusersdraft').create(data, params)
+    const organizationusersdraft = this.app.service('organizationusersdraft')
+    const newDoc = await organizationusersdraft.create(data, params)
+    const params2 = { query: { _id: newDoc._id } }
+    const docs = await this.find(params2)
+    const ret = docs.data[0]
+    return ret
   }
 
   // Example:
@@ -102,6 +107,8 @@ module.exports = class {
       { $unwind: '$organization' },
       { $lookup: { from: 'profiles', localField: 'user.profile', foreignField: '_id', as: 'user.profile'} },
       { $unwind: '$user.profile' },
+      { $lookup: { from: 'organizationstructures', localField: 'inside', foreignField: '_id', as: 'inside'} },
+      { $unwind: { path: '$inside', preserveNullAndEmptyArrays: true } },
       {
         $project: {
           _id: 1,
@@ -114,6 +121,7 @@ module.exports = class {
           'user._id': '$user._id',
           'user.profile.name': '$user.profile.name',
           'user.profile.nip': '$user.profile.nip',
+          inside: '$inside'
         }
       },
       { $sort: sort },

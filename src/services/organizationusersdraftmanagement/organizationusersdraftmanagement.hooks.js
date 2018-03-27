@@ -15,7 +15,7 @@ module.exports = {
     all: [],
     find: [],
     get: [ organizationUsersHooks.populate ],
-    create: [ organizationUsersHooks.populate ],
+    create: [],
     update: [],
     patch: [ organizationUsersHooks.populate ],
     remove: []
