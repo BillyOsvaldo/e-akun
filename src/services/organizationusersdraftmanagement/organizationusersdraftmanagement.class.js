@@ -11,7 +11,12 @@ module.exports = class {
       await this.app.service('organizationstructuresusersdraft').create(dataOrganizationstructuresusers, params)
     }
 
-    return await this.app.service('organizationusersdraft').create(data, params)
+    const organizationusersdraft = this.app.service('organizationusersdraft')
+    const newDoc = await organizationusersdraft.create(data, params)
+    const params2 = { query: { _id: newDoc._id } }
+    const docs = await this.find(params2)
+    const ret = docs.data[0]
+    return ret
   }
 
   // Example:
