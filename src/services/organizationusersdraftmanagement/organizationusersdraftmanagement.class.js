@@ -58,7 +58,7 @@ module.exports = class {
       {
         $lookup: {
           //from: 'organizationstructuresusers', // if not found, try comment this line and uncomment line below
-          from: 'organizationstructuresusersdraft', // if not found, try comment this line and uncomment line below
+          from: 'organizationstructuresusersdrafts', // if not found, try comment this line and uncomment line below
           localField: 'user',
           foreignField: 'user',
           as: 'organizationstructuresusers'
