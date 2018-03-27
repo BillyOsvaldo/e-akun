@@ -9,7 +9,8 @@ module.exports = function (app) {
     },
     organizationstructure: {
       type: mongooseClient.Schema.Types.ObjectId,
-      ref: 'organizationstructures'
+      ref: 'organizationstructures',
+      required: true
     },
     startDate: { type: Date, required: true },
     endDate: { type: Date }
