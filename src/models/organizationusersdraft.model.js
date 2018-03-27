@@ -12,7 +12,7 @@ module.exports = function (app) {
       ref: 'organizations',
       required: true
     },
-    parent: {
+    inside: {
       type: mongooseClient.Schema.Types.ObjectId,
       ref: 'organizationstructures'
     },

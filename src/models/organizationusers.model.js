@@ -14,7 +14,7 @@ module.exports = function (app) {
     },
     inside: {
       type: mongooseClient.Schema.Types.ObjectId,
-      ref: 'organizationstructuresusers'
+      ref: 'organizationstructures'
     },
     startDate: { type: Date, required: true },
     endDate: { type: Date }

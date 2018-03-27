@@ -123,7 +123,13 @@ organizationusersHook.publish = async (context) => {
   */
 
   const publishOrganizationStructuresUsers = async (organizationStructuresUsersId) => {
-    context.app.service('organizationstructuresusersdraftmanagement').remove('publish_' + organizationStructuresUsersId)
+    const organizationStructuresUsersDraft = context.app.service('organizationstructuresusersdraftmanagement')
+    /*const organizationStructuresUsers = context.app.service('organizationstructuresusersmanagement')
+
+    const docOrganizationStructuresUsers = await organizationStructuresUsersDraft.get(organizationStructuresUsersId)
+
+    await organizationStructuresUsers.create(docOrganizationStructuresUsers)*/
+    await organizationStructuresUsersDraft.remove('publish_' + organizationStructuresUsersId) 
   }
 
   const mergedId = context.id.replace('publish_', '').split('_')
@@ -136,14 +142,32 @@ organizationusersHook.publish = async (context) => {
 
   const organizationUsersDraftid = mergedId[0]
   const organizationUsersDraft = context.app.service('organizationusersdraft')
-  const organizationUsers = context.app.service('organizationusersmanagement')
+  const organizationUsers = context.app.service('organizationusers')
 
   const docOrganizationUsersDraft = await organizationUsersDraft.get(organizationUsersDraftid)
   if(!docOrganizationUsersDraft) {
     throw new errors.BadRequest('Doc not found')
   }
 
-  await organizationUsers.create(docOrganizationUsersDraft)
+  /*
+    find organizationusersmanagement where user=currentUserId AND organization=currentOrganizationId, endDate=null
+    if not found
+      await organizationUsers.create(docOrganizationUsersDraft)
+    endif
+  */
+
+  const whereOrganizationUsers = {
+    user: docOrganizationUsersDraft.user,
+    organization: docOrganizationUsersDraft.organization,
+    endDate: null
+  }
+
+  const docs = await organizationUsers.find(whereOrganizationUsers)
+  const isOrganizationUsersExist = Boolean(docs.total)
+  if(!isOrganizationUsersExist) {
+    await organizationUsers.create(docOrganizationUsersDraft)
+  }
+
   await organizationUsersDraft.remove(docOrganizationUsersDraft._id)
   context.result = docOrganizationUsersDraft
 }
