@@ -111,6 +111,7 @@ module.exports = class {
           'organizationstructuresusers.startDate': '$organizationstructuresusers.startDate',
           'organizationstructuresusers.endDate': '$organizationstructuresusers.endDate',
           'organization.name': '$organization.name',
+          'user._id': '$user._id',
           'user.profile.name': '$user.profile.name',
           'user.profile.nip': '$user.profile.nip',
         }
