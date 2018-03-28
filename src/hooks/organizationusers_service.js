@@ -142,7 +142,8 @@ organizationusersHook.publish = async (context) => {
 
   const organizationUsersDraftid = mergedId[0]
   const organizationUsersDraft = context.app.service('organizationusersdraft')
-  const organizationUsers = context.app.service('organizationusersmanagement')
+  const organizationUsers = context.app.service('organizationusers')
+  const organizationUsersManagement = context.app.service('organizationusersmanagement')
 
   const docOrganizationUsersDraft = await organizationUsersDraft.get(organizationUsersDraftid)
   if(!docOrganizationUsersDraft) {
@@ -165,7 +166,7 @@ organizationusersHook.publish = async (context) => {
   const docs = await organizationUsers.find(whereOrganizationUsers)
   const isOrganizationUsersExist = Boolean(docs.total)
   if(!isOrganizationUsersExist) {
-    await organizationUsers.create(docOrganizationUsersDraft)
+    await organizationUsersManagement.create(docOrganizationUsersDraft)
   }
 
   await organizationUsersDraft.remove(docOrganizationUsersDraft._id)
