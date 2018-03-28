@@ -4,6 +4,8 @@ module.exports = class {
   }
 
   async find(params) {
+    params = params || {}
+    params.query = params.query || {}
     params.query.organizationuser = { $exists: true, $ne: null }
     return await this.app.service('usersmanagement').find(params)
 

@@ -1,12 +1,13 @@
 module.exports = class {
   async create(data, params) {
     // if context.data.organizationStructure is not empty then create organizationstructuresusers
-    if(data.organizationStructure && data.organizationStructureStartDate) {
+    if(Boolean(data.organizationStructure && data.organizationStructureStartDate)) {
       const dataOrganizationstructuresusers = {
         user: data.user,
         organizationstructure: data.organizationStructure,
         startDate: data.organizationStructureStartDate
       }
+      console.log('dataOrganizationstructuresusers', dataOrganizationstructuresusers)
 
       await this.app.service('organizationstructuresusersdraft').create(dataOrganizationstructuresusers, params)
     }
