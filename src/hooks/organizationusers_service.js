@@ -122,28 +122,14 @@ organizationusersHook.publish = async (context) => {
           publish organizationstructuresusers._id
   */
 
-  const publishOrganizationStructuresUsers = async (organizationStructuresUsersId) => {
-    const organizationStructuresUsersDraft = context.app.service('organizationstructuresusersdraftmanagement')
-    /*const organizationStructuresUsers = context.app.service('organizationstructuresusersmanagement')
-
-    const docOrganizationStructuresUsers = await organizationStructuresUsersDraft.get(organizationStructuresUsersId)
-
-    await organizationStructuresUsers.create(docOrganizationStructuresUsers)*/
-    await organizationStructuresUsersDraft.remove('publish_' + organizationStructuresUsersId) 
-  }
-
   const mergedId = context.id.replace('publish_', '').split('_')
-
-  const isOrganizationStructuresUsersIdExist = (mergedId.length > 1)
-  if(isOrganizationStructuresUsersIdExist) {
-    const organizationStructuresUsersId = mergedId[1]
-    await publishOrganizationStructuresUsers(organizationStructuresUsersId)
-  }
 
   const organizationUsersDraftid = mergedId[0]
   const organizationUsersDraft = context.app.service('organizationusersdraft')
   const organizationUsers = context.app.service('organizationusers')
   const organizationUsersManagement = context.app.service('organizationusersmanagement')
+  const organizationStructuresUsersDraft = context.app.service('organizationstructuresusersdraftmanagement')
+  const organizationStructuresUsers = context.app.service('organizationstructuresusersmanagement')
 
   const docOrganizationUsersDraft = await organizationUsersDraft.get(organizationUsersDraftid)
   if(!docOrganizationUsersDraft) {
@@ -164,13 +150,28 @@ organizationusersHook.publish = async (context) => {
       endDate: null
     }
   }
+
   const docs = await organizationUsers.find(whereOrganizationUsers)
   const isOrganizationUsersExist = Boolean(docs.total)
+  var organizationUsersId
+  // TODO: not tested
   if(!isOrganizationUsersExist) {
-    await organizationUsersManagement.create(docOrganizationUsersDraft)
+    var docOrgUsers = await organizationUsersManagement.create(docOrganizationUsersDraft)
+    organizationUsersId = docOrgUsers._id
+  } else {
+    organizationUsersId = docs.data[0]._id
   }
 
+  // remove organization-users
   await organizationUsersDraft.remove(docOrganizationUsersDraft._id)
+
+  const isOrganizationStructuresUsersIdExist = (mergedId.length > 1)
+  if(isOrganizationStructuresUsersIdExist) {
+    const organizationStructuresUsersId = mergedId[1]
+    await organizationStructuresUsersDraft.remove('publish_' + organizationStructuresUsersId) 
+    await organizationStructuresUsers.patch(organizationStructuresUsersId, { organizationuser: organizationUsersId })
+  }
+
   context.result = docOrganizationUsersDraft
 }
 

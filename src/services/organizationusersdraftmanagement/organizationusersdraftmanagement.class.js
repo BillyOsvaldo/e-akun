@@ -7,7 +7,6 @@ module.exports = class {
         organizationstructure: data.organizationStructure,
         startDate: data.organizationStructureStartDate
       }
-      console.log('dataOrganizationstructuresusers', dataOrganizationstructuresusers)
 
       await this.app.service('organizationstructuresusersdraft').create(dataOrganizationstructuresusers, params)
     }

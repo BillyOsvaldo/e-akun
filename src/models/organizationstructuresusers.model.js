@@ -12,6 +12,10 @@ module.exports = function (app) {
       ref: 'organizationstructures',
       required: true
     },
+    organizationuser: {
+      type: mongooseClient.Schema.Types.ObjectId,
+      ref: 'organizationusers'
+    },
     startDate: { type: Date, required: true },
     endDate: { type: Date }
   }, {

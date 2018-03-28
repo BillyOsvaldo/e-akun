@@ -106,6 +106,8 @@ organizationstructuresusersHook.fillEndDate = async (context) => {
 }
 
 organizationstructuresusersHook.updateRole = async (context) => {
+  if(!context.data.user) return
+
   const params = {
     query: {
       user: context.data.user,
@@ -113,7 +115,8 @@ organizationstructuresusersHook.updateRole = async (context) => {
     }
   }
 
-  const idOrganizationStructureUsers = (await context.app.service('organizationstructuresusers').find(params)).data[0].organizationstructure
+  const docOrganizationStructuresUsers = await context.app.service('organizationstructuresusers').find(params)
+  const idOrganizationStructureUsers = docOrganizationStructuresUsers.data[0].organizationstructure
   const docOrganizationstructure = await context.app.service('organizationstructures').get(idOrganizationStructureUsers)
   const role = docOrganizationstructure.role
   const user = context.data.user
@@ -123,6 +126,8 @@ organizationstructuresusersHook.updateRole = async (context) => {
 }
 
 organizationstructuresusersHook.updatePosition = async (context) => {
+  if(!context.data.user) return
+
   const user = context.data.user
   const users = context.app.service('users')
   await users.patch(user, { position: context.data.idOrganizationStructureUsers })
