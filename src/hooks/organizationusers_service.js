@@ -154,7 +154,6 @@ organizationusersHook.publish = async (context) => {
   const docs = await organizationUsers.find(whereOrganizationUsers)
   const isOrganizationUsersExist = Boolean(docs.total)
   var organizationUsersId
-  // TODO: not tested
   if(!isOrganizationUsersExist) {
     var docOrgUsers = await organizationUsersManagement.create(docOrganizationUsersDraft)
     organizationUsersId = docOrgUsers._id
