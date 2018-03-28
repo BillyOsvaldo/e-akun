@@ -85,7 +85,7 @@ organizationstructuresusersHook.fillEndDate = async (context) => {
       var startDateObj = new Date(context.data.startDate)
       startDateObj.setDate(startDateObj.getDate() - 1) // current date - 1
       await organizationStructuresUsers.patch(firstDoc._id, { endDate: startDateObj })
-      await users.patch(firstDoc.user, { position: null })
+      await users.patch(firstDoc.user, { position: null, role: null })
     }
   }
 
