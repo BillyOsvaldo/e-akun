@@ -114,6 +114,7 @@ module.exports = class {
           _id: 1,
           startDate: 1,
           endDate: 1,
+          'organizationstructuresusers._id': '$organizationstructuresusers._id',
           'organizationstructuresusers.organizationstructure': '$organizationstructuresusers.organizationstructure',
           'organizationstructuresusers.startDate': '$organizationstructuresusers.startDate',
           'organizationstructuresusers.endDate': '$organizationstructuresusers.endDate',
