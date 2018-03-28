@@ -1,4 +1,5 @@
 const { populate } = require('feathers-hooks-common');
+const errors = require('@feathersjs/errors')
 
 const organizationstructuresusersHook = {}
 organizationstructuresusersHook.populate = async (context) => {
