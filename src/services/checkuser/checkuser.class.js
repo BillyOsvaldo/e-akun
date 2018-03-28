@@ -44,10 +44,10 @@ module.exports = class checkUser {
             return errors.BadRequest('Tidak ada data permissions')
           }
 
-          const test = JSON.parse(JSON.stringify(docPermissions.app))
+          const docApp = JSON.parse(JSON.stringify(docPermissions.app))
           const name = {
             first_name: docPermissions.administrator.name,
-            last_name: test.name,
+            last_name: (docApp ? docApp.name : ''),
             first_title: '',
             last_title: ''
           }
