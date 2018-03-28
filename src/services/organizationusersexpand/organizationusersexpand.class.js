@@ -7,7 +7,6 @@ module.exports = class {
     }
 
     params.query.$sort = { startDate: -1 }
-    params.query.$skip = 1
     params.paginate = false
 
     const docs = await this.app.service('organizationusers').find(params)

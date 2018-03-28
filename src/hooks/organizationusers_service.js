@@ -183,14 +183,11 @@ organizationusersHook.setOrganizationStructuresUsers = async (context) => {
   }
 
   const docsOrganizationStructuresUsers = await context.app.service('organizationstructuresusersmanagement').find(params)
-  const getPositionsByOrganizationId = (organizationId) => {
+  const getPositionsByOrganizationUsersId = (organizationUserId) => {
     var positionsResult = []
 
     for(let doc of docsOrganizationStructuresUsers) {
-      if(!doc.organizationstructure || !doc.organizationstructure.organization) continue
-
-      let currentDocOrganizationId = doc.organizationstructure.organization._id.toString()
-      if(currentDocOrganizationId == organizationId.toString()) {
+      if(doc.organizationuser.toString() == organizationUserId.toString()) {
         positionsResult.push(doc)
       }
     }
@@ -199,8 +196,7 @@ organizationusersHook.setOrganizationStructuresUsers = async (context) => {
   }
 
   for(let doc of context.result.data) {
-    let organizationId = doc.organization._id
-    doc.positions = getPositionsByOrganizationId(organizationId)
+    doc.positions = getPositionsByOrganizationUsersId(doc._id)
   }
 }
 
