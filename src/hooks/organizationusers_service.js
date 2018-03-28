@@ -156,18 +156,15 @@ organizationusersHook.publish = async (context) => {
       await organizationUsers.create(docOrganizationUsersDraft)
     endif
   */
-  console.log('docOrganizationUsersDraft', docOrganizationUsersDraft)
   
   const whereOrganizationUsers = {
-    user: docOrganizationUsersDraft.user,
-    organization: docOrganizationUsersDraft.organization,
-    endDate: null
+    query: {
+      user: docOrganizationUsersDraft.user,
+      organization: docOrganizationUsersDraft.organization,
+      endDate: null
+    }
   }
-  
-  console.log('where?', whereOrganizationUsers)
- 
   const docs = await organizationUsers.find(whereOrganizationUsers)
-  console.log('docs', docs)
   const isOrganizationUsersExist = Boolean(docs.total)
   if(!isOrganizationUsersExist) {
     await organizationUsersManagement.create(docOrganizationUsersDraft)
