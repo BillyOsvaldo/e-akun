@@ -9,7 +9,7 @@ module.exports = class AdministratorsManagement {
   async find(params) {
     // return only if users has permissions AND not admin organization
     params.query.$where = 'this.permissions.length > 0'
-    params.query.profile = { $type: 'objectId' }
+    params.query.profile = { $not: { $type: 'objectId' } }
     return await this.app.service('users').find(params)
   }
 
