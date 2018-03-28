@@ -4,8 +4,15 @@ module.exports = class MenusManagement {
   }
 
   async find(params) {
-    params.fromServiceMenuManagement = true
-    return await this.app.service('menus').find(params)
+    //params.fromServiceMenuManagement = true
+    params.paginate = false
+    const docs = await this.app.service('menus').find(params)
+    return {
+      "total": docs.length,
+      "limit": docs.length,
+      "skip": 0,
+      "data": docs
+    }
   }
 
   async get(id) {
