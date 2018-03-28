@@ -174,4 +174,33 @@ organizationusersHook.publish = async (context) => {
   context.result = docOrganizationUsersDraft
 }
 
+organizationusersHook.setOrganizationStructuresUsers = async (context) => {
+  const userId = context.params.query.user
+  const params = {
+    query: { user: userId },
+    paginate: false
+  }
+
+  const docsOrganizationStructuresUsers = await context.app.service('organizationstructuresusersmanagement').find(params)
+  const getPositionsByOrganizationId = (organizationId) => {
+    var positionsResult = []
+
+    for(let doc of docsOrganizationStructuresUsers) {
+      if(!doc.organizationstructure || !doc.organizationstructure.organization) continue
+
+      let currentDocOrganizationId = doc.organizationstructure.organization._id.toString()
+      if(currentDocOrganizationId == organizationId.toString()) {
+        positionsResult.push(doc)
+      }
+    }
+
+    return positionsResult
+  }
+
+  for(let doc of context.result.data) {
+    let organizationId = doc.organization._id
+    doc.positions = getPositionsByOrganizationId(organizationId)
+  }
+}
+
 module.exports = organizationusersHook

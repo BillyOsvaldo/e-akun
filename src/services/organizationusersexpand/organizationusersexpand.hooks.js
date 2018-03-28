@@ -13,7 +13,7 @@ module.exports = {
 
   after: {
     all: [],
-    find: [ organizationUsersHooks.populate ],
+    find: [ organizationUsersHooks.populate, organizationUsersHooks.setOrganizationStructuresUsers ],
     get: [ organizationUsersHooks.populate ],
     create: [ organizationUsersHooks.populate ],
     update: [],
