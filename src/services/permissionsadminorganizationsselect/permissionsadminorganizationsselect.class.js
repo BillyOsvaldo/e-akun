@@ -7,7 +7,6 @@ module.exports = class {
     }
 
     params.administrators = await getAdministratorId()
-    console.log('params.administrators', params.administrators)
     const docs = await this.app.service('permissions').find(params)
     return {
       "total": docs.length,
