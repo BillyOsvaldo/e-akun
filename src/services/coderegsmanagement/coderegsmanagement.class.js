@@ -17,7 +17,7 @@ format:
 module.exports = class CoderegsManagement {
   async create(data, params) {
     const validate = () => {
-      const requiredFields = [ 'email', 'organization', 'organizationstructure', 'organizationUsersStartDate', 'organizationStructuresUsersStartDate' ]
+      const requiredFields = [ 'email', 'organization', 'organizationUsersStartDate' ]
       for(let field of requiredFields) {
         if(!data[field]) throw new errors.BadRequest('Field ' + field + ' must be exist')
       }
@@ -38,7 +38,10 @@ module.exports = class CoderegsManagement {
       delete data.organizationUsersStartDate
     }
 
+    // optional
     const handleOrganizationStructuresUsersDraft = async (coderegId) => {
+      if(!data.organizationstructure || !data.organizationStructuresUsersStartDate) return
+
       const dataInner = {
         user: coderegId,
         organizationstructure: data.organizationstructure,
