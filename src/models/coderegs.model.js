@@ -3,7 +3,6 @@ const coderegsModel = function(app) {
   const { Schema } = mongooseClient;
   const coderegs = new Schema({
     email: { type: String, required: true },
-    organization: { type: mongooseClient.Schema.Types.ObjectId, required: true },
     code: { type: String, required: true },
     status: { type: Boolean, required: true, default: false },
   }, {

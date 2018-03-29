@@ -55,14 +55,8 @@ module.exports = class UsersManagement {
         throw new errors.BadRequest('Kode salah')
       }
 
-      const ret = { codeRegId: doc._id, organization: doc.organization, email: doc.email }
+      const ret = { codeRegId: doc._id, email: doc.email }
       return ret
-    }
-
-    const resolveorganization = async (organizationId) => {
-      const organizations = this.app.service('organizations').Model
-      const doc = await organizations.findOne({ _id: organizationId })
-      return doc
     }
 
     const useCodeReg = (id) => {
@@ -137,8 +131,7 @@ module.exports = class UsersManagement {
     // try to check insert user and profile, if there is error, revert all inserted data
     await validate()
 
-    const { codeRegId, organization, email } = await getCodeReg()
-    data.organization = await resolveorganization(organization) // used for insertUser
+    const { codeRegId, email } = await getCodeReg()
     data.email = email // used for insertUser
 
     //await setDefaultRole()
