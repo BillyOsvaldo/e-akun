@@ -1,4 +1,4 @@
-const administratorsManagementHook = require('../../hooks/administratorsmanagement_service')
+const usersManagementHook = require('../../hooks/usersmanagement_service')
 
 module.exports = {
   before: {
@@ -13,9 +13,9 @@ module.exports = {
 
   after: {
     all: [],
-    find: [ administratorsManagementHook.populate ],
-    get: [],
-    create: [ administratorsManagementHook.populate ],
+    find: [ usersManagementHook.populate ],
+    get: [ usersManagementHook.populate ],
+    create: [ usersManagementHook.populate ],
     update: [],
     patch: [],
     remove: []
