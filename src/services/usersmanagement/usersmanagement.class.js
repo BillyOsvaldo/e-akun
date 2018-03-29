@@ -166,11 +166,12 @@ module.exports = class UsersManagement {
     const aggregateData = []
 
     // add filter by users.organizationusers.organization
-    const organizationId = params.query['$organizationusers.organization']
+    const organizationId = params.query['organizationusers.organization']
     if(organizationId) {
       aggregateData.push({ $lookup: { from: 'organizationusers', localField: 'organizationuser', foreignField: '_id', as: 'organizationuser'} })
       aggregateData.push({ $unwind: { path: '$organizationuser', preserveNullAndEmptyArrays: true } })
       aggregateData.push({ $match: { 'organizationuser.organization': mongoose.Types.ObjectId(organizationId) } })
+      delete params.query['organizationusers.organization']
     }
 
     // match user
