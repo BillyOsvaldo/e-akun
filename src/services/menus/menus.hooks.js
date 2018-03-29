@@ -7,7 +7,7 @@ module.exports = {
     all: [ authenticate('jwt') ],
     find: [ orderByOrderAsc, menusHook.paginationBefore ],
     get: [],
-    create: [],
+    create: [ menusHook.generateOrder ],
     update: [],
     patch: [],
     remove: []
