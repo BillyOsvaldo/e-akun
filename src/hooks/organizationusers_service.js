@@ -98,14 +98,14 @@ organizationusersHook.updateOrganization = async (context) => {
   const docOrganizationUsers = (await context.app.service('organizationusers').find(params)).data[0]
   const newOrganization = docOrganizationUsers.organization
   const user = context.data.user
-  const users = context.app.service('users')
+  const users = context.app.service('usersmanagement')
   await users.patch(user, { organization: newOrganization })
   context.data.newOrganizationUsers = docOrganizationUsers._id
 }
 
 organizationusersHook.updateOrganizationUsers = async (context) => {
   const user = context.data.user
-  const users = context.app.service('users')
+  const users = context.app.service('usersmanagement')
   await users.patch(user, { organizationuser: context.data.newOrganizationUsers })
 }
 

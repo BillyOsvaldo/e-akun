@@ -71,7 +71,7 @@ organizationstructuresusersHook.populate = async (context) => {
 organizationstructuresusersHook.fillEndDate = async (context) => {
   const OrganizationStructuresUsers = context.app.service('organizationstructuresusers').Model
   const organizationStructuresUsers = context.app.service('organizationstructuresusers')
-  const users = context.app.service('users')
+  const users = context.app.service('usersmanagement')
   const ObjectId = context.app.get('mongooseClient').Types.ObjectId
 
   const fillEndDateToCurrent = async () => {
@@ -121,7 +121,7 @@ organizationstructuresusersHook.updateRole = async (context) => {
   const docOrganizationstructure = await context.app.service('organizationstructures').get(idOrganizationStructureUsers)
   const role = docOrganizationstructure.role
   const user = context.data.user
-  const users = context.app.service('users')
+  const users = context.app.service('usersmanagement')
   await users.patch(user, { role: role })
   context.data.idOrganizationStructureUsers = idOrganizationStructureUsers
 }
@@ -130,7 +130,7 @@ organizationstructuresusersHook.updatePosition = async (context) => {
   if(!context.data.user) return
 
   const user = context.data.user
-  const users = context.app.service('users')
+  const users = context.app.service('usersmanagement')
   await users.patch(user, { position: context.data.idOrganizationStructureUsers })
   delete context.data.idOrganizationStructureUsers
 }

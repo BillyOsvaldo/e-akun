@@ -289,6 +289,8 @@ module.exports = class UsersManagement {
       await this.app.service('profiles').patch(profile_id, data, params)
       const _user = await this.app.service('users').get(id)
       return _user
+    } else {
+      return await this.app.service('users').patch(id, data)
     }
   }
 
