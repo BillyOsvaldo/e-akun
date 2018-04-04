@@ -50,6 +50,7 @@ const organizationstructuresusersdraft = require('./organizationstructuresusersd
 const organizationstructuresusersdraftmanagement = require('./organizationstructuresusersdraftmanagement/organizationstructuresusersdraftmanagement.service.js')
 const administratorsorganizationsmanagement = require('./administratorsorganizationsmanagement/administratorsorganizationsmanagement.service.js')
 const permissionsadminorganizationsselect = require('./permissionsadminorganizationsselect/permissionsadminorganizationsselect.service.js')
+const organizationusersbyuser = require('./organizationusersbyuser/organizationusersbyuser.service.js')
 
 module.exports = function () {
   const app = this
@@ -105,4 +106,5 @@ module.exports = function () {
   app.configure(organizationstructuresusersdraftmanagement)
   app.configure(administratorsorganizationsmanagement)
   app.configure(permissionsadminorganizationsselect)
+  app.configure(organizationusersbyuser)
 }
