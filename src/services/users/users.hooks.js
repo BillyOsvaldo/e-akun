@@ -12,7 +12,7 @@ module.exports = {
     get: [ permissions.restrict ],
     create: [ hashPassword() ],
     update: [ hashPassword() ],
-    patch: [ hashPassword(), permissions.restrict ],
+    patch: [ hashPassword() ],
     remove: [ permissions.restrict ]
   },
 
