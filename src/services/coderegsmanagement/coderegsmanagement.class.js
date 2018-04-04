@@ -87,7 +87,11 @@ module.exports = class CoderegsManagement {
 
     // optional
     const handleOrganizationStructuresUsersDraft = async (userId) => {
-      if(!data.organizationstructure || !data.organizationStructuresUsersStartDate) return
+      if(!data.organizationstructure || !data.organizationStructuresUsersStartDate) {
+        const OrganizationStructuresUsersDraft = this.app.service('organizationstructuresusersdraft').Model
+        await OrganizationStructuresUsersDraft.remove({ user: userId })
+        return
+      }
 
       var dataInner = {
         organizationstructure: data.organizationstructure,
