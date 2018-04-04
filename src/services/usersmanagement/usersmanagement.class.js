@@ -63,7 +63,7 @@ module.exports = class UsersManagement {
     }
 
     const useCodeReg = (id) => {
-      const coderegs = this.app.service('coderegs')
+      const coderegs = this.app.service('coderegsmanagement')
       return coderegs.patch(id, { status: true })
     }
 
