@@ -75,24 +75,16 @@ userappHook.populate = async (context) => {
             childField: '_id'
           },
           {
-            service: 'organizationstructuresusers',
             nameAs: 'inside',
             parentField: 'inside',
+            service: 'organizationstructures',
             childField: '_id',
             include: [
               {
-                service: 'organizationstructures',
-                nameAs: 'organizationstructure',
-                parentField: 'organizationstructure',
-                childField: '_id',
-                include: [
-                  {
-                    service: 'structures',
-                    nameAs: 'structure',
-                    parentField: 'structure',
-                    childField: '_id'
-                  }
-                ]
+                nameAs: 'structure',
+                parentField: 'structure',
+                service: 'structures',
+                childField: '_id'
               }
             ]
           }
