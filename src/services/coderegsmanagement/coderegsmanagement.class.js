@@ -89,7 +89,7 @@ module.exports = class CoderegsManagement {
     const handleOrganizationStructuresUsersDraft = async (userId) => {
       if(!data.organizationstructure || !data.organizationStructuresUsersStartDate) return
 
-      const dataInner = {
+      var dataInner = {
         organizationstructure: data.organizationstructure,
         startDate: data.organizationStructuresUsersStartDate
       }
@@ -98,8 +98,15 @@ module.exports = class CoderegsManagement {
       const OrganizationStructuresUsersDraft = this.app.service('organizationstructuresusersdraft').Model
 
       const doc = await OrganizationStructuresUsersDraft.findOne({ user: userId })
-      const docId = doc._id
-      await organizationStructuresUsersDraft.patch(docId, dataInner)
+
+      // if doc is not found then create, else do patch
+      if(doc) {
+        const docId = doc._id
+        await organizationStructuresUsersDraft.patch(docId, dataInner)
+      } else {
+        dataInner.user = userId
+        await organizationStructuresUsersDraft.create(dataInner)
+      }
     }
 
     const userId = id
