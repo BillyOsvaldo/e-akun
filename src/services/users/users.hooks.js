@@ -9,11 +9,11 @@ module.exports = {
   before: {
     all: [ authenticate('jwt') ],
     find: [],
-    get: [ permissions.restrict ],
+    get: [],
     create: [ hashPassword() ],
     update: [ hashPassword() ],
     patch: [ hashPassword() ],
-    remove: [ permissions.restrict ]
+    remove: []
   },
 
   after: {
