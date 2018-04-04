@@ -5,6 +5,9 @@ const mongoose = require('mongoose')
 
 module.exports = class UsersManagement {
   async create(data, params) {
+
+    const ObjectId = this.app.get('mongooseClient').Types.ObjectId
+
     // to prevent validation error
     const setup = async () => {
       data.email = 'default@gmail.com'
@@ -120,11 +123,30 @@ module.exports = class UsersManagement {
       data.role = doc
     }*/
 
-    const insertUser = async () => {
+    const insertUser = async (codeRegId) => {
+      data._id = codeRegId
       const users = await this.app.service('users')
       const newUser = await users.create(data)
       data._id = newUser._id
       return newUser
+    }
+
+    const publishOrganizationUsersAndOrganizationStructuresUsers = async () => {
+      // setup
+      const organizationUsersDraft = this.app.service('organizationusersdraft')
+      const organizationUsersDraftManagement = this.app.service('organizationusersdraftmanagement')
+      const organizationStructuresUsersDraft = this.app.service('organizationstructuresusersdraft')
+      const organizationStructuresUsersDraftManagement = this.app.service('organizationstructuresusersdraftmanagement')
+
+      // publish organizationusers
+      const organizationUsersId = (await organizationUsersDraft.Model.findOne({ user: ObjectId(codeRegId) }))._id
+      await organizationUsersDraftManagement.remove('publish_' + organizationUsersId) 
+
+      // publish organizationstructuresusers
+      const docOrganizationStructuresUsers = await organizationStructuresUsersDraft.Model.findOne({ user: ObjectId(codeRegId) })
+      if(docOrganizationStructuresUsers) {
+        await organizationStructuresUsersDraftManagement.remove('publish_' + docOrganizationStructuresUsers._id) 
+      }
     }
 
     setup()
@@ -137,8 +159,9 @@ module.exports = class UsersManagement {
     //await setDefaultRole()
     await buildUsername()
     await insertProfile()
-    await insertUser()
+    await insertUser(codeRegId)
     await useCodeReg(codeRegId)
+    await publishOrganizationUsersAndOrganizationStructuresUsers()
 
     return data
   }
