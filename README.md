@@ -1,9 +1,62 @@
-
-
-
-
-
 # e-akun
+
+## List Services
+
+- addresses
+- administratorpermissionsmanagement
+- administrators
+- administratorsmanagement
+- administratorsorganizationsmanagement
+- administratorsselect
+- apps
+- appsmanagement
+- appsselect
+- checkcode
+- checkemail
+- checkuser
+- checkusername
+- coderegs
+- coderegsmanagement
+- menuapp
+- menus
+- menusmanagement
+- organizations
+- organizationsmanagement
+- organizationsselect
+- organizationstructures
+- organizationstructuresmanagement
+- organizationstructuresselect
+- organizationstructuresusers
+- organizationstructuresusersbyuser
+- organizationstructuresusersdraft
+- organizationstructuresusersdraftmanagement
+- organizationstructuresusersmanagement
+- organizationusers
+- organizationusersbyuser
+- organizationusersdraft
+- organizationusersdraftmanagement
+- organizationusersexpand
+- organizationusersmanagement
+- permissions
+- permissionsadminorganizationsselect
+- permissionsmanagement
+- permissionsselect
+- positions
+- positionsmanagement
+- postcodes
+- profiles
+- resend_email
+- roles
+- rolesmanagement
+- rolesselect
+- structureparentselect
+- structures
+- structuresmanagement
+- structuresselect
+- users
+- usersmanagement
+- usersselect
+
 
 ## API Resources
 
