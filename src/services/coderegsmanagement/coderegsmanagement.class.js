@@ -70,6 +70,10 @@ module.exports = class CoderegsManagement {
   }
 
   async patch(id, data, params) {
+    if(data.status) {
+      return await this.app.service('coderegs').patch(id, data)
+    }
+
     const handleOrganizationUsersDraft = async (userId) => {
       const dataInner = {
         organization: data.organization,
