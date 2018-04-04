@@ -1,7 +1,7 @@
 module.exports = class addresses {
   async find (params) {
     params.paginate = false
-    const docs = await this.app.service('organizationusersdraft').find(params)
+    const docs = await this.app.service('organizationstructuresusersdraft').find(params)
     return {
       "total": docs.length,
       "limit": docs.length,
