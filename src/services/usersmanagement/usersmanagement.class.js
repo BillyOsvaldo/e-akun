@@ -120,11 +120,28 @@ module.exports = class UsersManagement {
       data.role = doc
     }*/
 
-    const insertUser = async () => {
+    const insertUser = async (codeRegId) => {
+      data._id = codeRegId
       const users = await this.app.service('users')
       const newUser = await users.create(data)
       data._id = newUser._id
       return newUser
+    }
+
+    const publishOrganizationUsersAndOrganizationStructuresUsers = () => {
+      // setup
+      const organizationUsersDraft = context.app.service('organizationusersdraft')
+      const organizationStructuresUsersDraft = context.app.service('organizationstructuresusersdraft')
+
+      // publish organizationusers
+      const organizationUsersId = (await organizationUsersDraft.Model.findOne({ user: codeRegId }))._id
+      await organizationUsersDraft.remove('publish_' + organizationUsersId) 
+
+      // publish organizationstructuresusers
+      const docOrganizationStructuresUsers = await organizationStructuresUsersDraft.Model.findOne({ user: codeRegId })
+      if(docOrganizationStructuresUsers) {
+        await organizationStructuresUsersDraft.remove('publish_' + docOrganizationStructuresUsers._id) 
+      }
     }
 
     setup()
@@ -137,8 +154,9 @@ module.exports = class UsersManagement {
     //await setDefaultRole()
     await buildUsername()
     await insertProfile()
-    await insertUser()
+    await insertUser(codeRegId)
     await useCodeReg(codeRegId)
+    await publishOrganizationUsersAndOrganizationStructuresUsers()
 
     return data
   }
