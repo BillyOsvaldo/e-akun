@@ -70,7 +70,42 @@ module.exports = class CoderegsManagement {
   }
 
   async patch(id, data, params) {
-    return await this.app.service('coderegs').patch(id, data, params)
+    const handleOrganizationUsersDraft = async (userId) => {
+      const dataInner = {
+        organization: data.organization,
+        inside: data.inside,
+        startDate: data.organizationUsersStartDate
+      }
+
+      const organizationUsersDraft = this.app.service('organizationusersdraftmanagement')
+      const OrganizationUsersDraft = this.app.service('organizationusersdraft').Model
+
+      const doc = await OrganizationUsersDraft.findOne({ user: userId })
+      const docId = doc._id
+      await organizationUsersDraft.patch(docId, dataInner)
+    }
+
+    // optional
+    const handleOrganizationStructuresUsersDraft = async (userId) => {
+      if(!data.organizationstructure || !data.organizationStructuresUsersStartDate) return
+
+      const dataInner = {
+        organizationstructure: data.organizationstructure,
+        startDate: data.organizationStructuresUsersStartDate
+      }
+
+      const organizationStructuresUsersDraft = this.app.service('organizationstructuresusersdraftmanagement')
+      const OrganizationStructuresUsersDraft = this.app.service('organizationstructuresusersdraft').Model
+
+      const doc = await OrganizationStructuresUsersDraft.findOne({ user: userId })
+      const docId = doc._id
+      await organizationStructuresUsersDraft.patch(docId, dataInner)
+    }
+
+    const userId = id
+    await handleOrganizationUsersDraft(userId)
+    await handleOrganizationStructuresUsersDraft(userId)
+    return await this.get(userId)
   }
 
   async remove(id, params) {
