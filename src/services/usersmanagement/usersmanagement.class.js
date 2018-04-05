@@ -229,9 +229,12 @@ module.exports = class UsersManagement {
 
     const getTotal = async () => {
       const where = {
-        $and: [
-          { profile: { "$nin": [ null ] } },
-          { profile: { $exists: true } }
+        "$and": [
+          { "profile": { "$nin": [ null ] } },
+          { "profile": { "$exists": true } },
+          { "organizationuser": { "$nin": [ null ] } },
+          { "organizationuser": { "$exists": true } },
+          { "permissions": [] }
         ]
       }
       return await Users.count(where)
