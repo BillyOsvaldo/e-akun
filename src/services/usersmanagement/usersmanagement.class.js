@@ -229,7 +229,7 @@ module.exports = class UsersManagement {
 
     const getTotal = async () => {
       const where = {
-        $or: [
+        $and: [
           { profile: { "$nin": [ null ] } },
           { profile: { $exists: true } }
         ]
