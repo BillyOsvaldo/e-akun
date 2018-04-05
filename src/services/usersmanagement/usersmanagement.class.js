@@ -227,9 +227,19 @@ module.exports = class UsersManagement {
     aggregateData.push({ $skip: skip })
     aggregateData.push({ $limit: limit })
 
+    const getTotal = async () => {
+      const where = {
+        $or: [
+          { profile: { "$nin": [ null ] } },
+          { profile: { $exists: true } }
+        ]
+      }
+      return await Users.count(where)
+    }
+
     const docs = await Users.aggregate(aggregateData)
     return {
-      "total": docs.length,
+      "total": await getTotal(),
       "limit": limit,
       "skip": skip,
       "data": docs
