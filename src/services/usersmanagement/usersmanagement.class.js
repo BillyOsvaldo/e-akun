@@ -131,24 +131,6 @@ module.exports = class UsersManagement {
       return newUser
     }
 
-    const publishOrganizationUsersAndOrganizationStructuresUsers = async () => {
-      // setup
-      const organizationUsersDraft = this.app.service('organizationusersdraft')
-      const organizationUsersDraftManagement = this.app.service('organizationusersdraftmanagement')
-      const organizationStructuresUsersDraft = this.app.service('organizationstructuresusersdraft')
-      const organizationStructuresUsersDraftManagement = this.app.service('organizationstructuresusersdraftmanagement')
-
-      // publish organizationusers
-      const organizationUsersId = (await organizationUsersDraft.Model.findOne({ user: ObjectId(codeRegId) }))._id
-      await organizationUsersDraftManagement.remove('publish_' + organizationUsersId) 
-
-      // publish organizationstructuresusers
-      const docOrganizationStructuresUsers = await organizationStructuresUsersDraft.Model.findOne({ user: ObjectId(codeRegId) })
-      if(docOrganizationStructuresUsers) {
-        await organizationStructuresUsersDraftManagement.remove('publish_' + docOrganizationStructuresUsers._id) 
-      }
-    }
-
     setup()
     // try to check insert user and profile, if there is error, revert all inserted data
     await validate()
@@ -161,7 +143,6 @@ module.exports = class UsersManagement {
     await insertProfile()
     await insertUser(codeRegId)
     await useCodeReg(codeRegId)
-    await publishOrganizationUsersAndOrganizationStructuresUsers()
 
     return data
   }
