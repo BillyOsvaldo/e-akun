@@ -241,9 +241,6 @@ module.exports = class UsersManagement {
 
     const docs = await Users.aggregate(aggregateData)
 
-    console.log('params.query', params.query)
-    console.log('await getTotal()', await getTotal())
-
     return {
       "total": await getTotal(),
       "limit": limit,
