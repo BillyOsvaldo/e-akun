@@ -230,17 +230,20 @@ module.exports = class UsersManagement {
     const getTotal = async () => {
       const where = {
         "$and": [
-          { "profile": { "$nin": [ null ] } },
-          { "profile": { "$exists": true } },
-          { "organizationuser": { "$nin": [ null ] } },
-          { "organizationuser": { "$exists": true } },
-          { "permissions": [] }
+          { "profile": { $ne: null } },
+          { "profile": { $exists: true } },
+          { "organizationuser": { $ne: null } },
+          { "organizationuser": { $exists: true } }
         ]
       }
       return await Users.count(where)
     }
 
     const docs = await Users.aggregate(aggregateData)
+
+    console.log('params.query', params.query)
+    console.log('await getTotal()', await getTotal())
+
     return {
       "total": await getTotal(),
       "limit": limit,

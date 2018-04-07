@@ -1060,7 +1060,6 @@ To publish draft:
   all:
     - administrators
 
-
 - apps
 
 - appsmanagement
@@ -1092,41 +1091,83 @@ To publish draft:
   no dep
 
 - coderegsmanagement
-  - organizationusersdraftmanagement
-  - organizationstructuresusersdraftmanagement
-  - coderegs
-  - organizationusersdraft
-  - organizationstructuresusersdraft
-
-
-
-
-
-
-
-
-
-
-
+  create, patch:
+    - organizationusersdraftmanagement
+    - organizationstructuresusersdraftmanagement
+    - coderegs
+    - organizationusersdraft
+    - organizationstructuresusersdraft
 
 - menuapp
+  find:
+    - menus
+
 - menus
+  no dep
+
 - menusmanagement
+  all:
+    - menu
+
 - organizations
+  no dep
+
 - organizationsmanagement
+  all:
+    - organizations
+
 - organizationsselect
+  all:
+    organizations
+
 - organizationstructures
+  no dep
+
 - organizationstructuresmanagement
+  all: organizationstructures
+
 - organizationstructuresselect
+  all: organizationstructuresmanagement
+
 - organizationstructuresusers
+  no dep
+
 - organizationstructuresusersbyuser
+  find:
+    - organizationstructuresusersdraft
+
 - organizationstructuresusersdraft
+  no dep
+
 - organizationstructuresusersdraftmanagement
+  all:
+    - organizationstructuresusersdraft
+    - organizationstructuresusersmanagement
+
 - organizationstructuresusersmanagement
+  all
+    - organizationstructuresusers
+    - usersselect
+
 - organizationusers
+  no dep
+
 - organizationusersbyuser
+  find:
+    - organizationusersdraft
+
 - organizationusersdraft
+  no dep
+
 - organizationusersdraftmanagement
+  all:
+    - organizationstructuresusersdraft
+    - organizationusersdraft
+    - organizationusers
+    - organizationusersmanagement
+    - organizationstructuresusersdraftmanagement
+    - organizationstructuresusersmanagement
+
 - organizationusersexpand
 - organizationusersmanagement
 - permissions
