@@ -2,6 +2,10 @@ const bcrypt = require('bcryptjs')
 const errors = require('@feathersjs/errors')
 const moment = require('moment')
 const mongoose = require('mongoose')
+const validator = require('validator')
+const nodemailer = require('nodemailer')
+const pug = require('pug')
+const { resolve } = require('path')
 
 module.exports = class UsersManagement {
   async create(data, params) {
@@ -131,6 +135,35 @@ module.exports = class UsersManagement {
       return newUser
     }
 
+    const sendEmailPostRegistration = async () => {
+      const getTemplate = () => {
+        emailData = {
+          link: `${ this.app.get('hostname') }/signin`,
+          logo: this.app.get('logo'),
+          year: (new Date()).getFullYear()
+        }
+
+        const templateSrc = resolve(__dirname, '../../../views/email_post_registration.pug')
+        return pug.compileFile(templateSrc)(emailData)
+      }
+
+      const sendEmail = (body) => {
+        const transportConfig = this.app.get('nodemailer_transport')
+        var transporter = nodemailer.createTransport(transportConfig)
+
+        const mailOptions = {
+          to: data.email,
+          subject: 'Akun e-Akun Berhasil Dibuat',
+          html: body
+        }
+
+        transporter.sendMail(mailOptions)
+      }
+
+      const body = getTemplate()
+      await sendEmail(body)
+    }
+
     setup()
     // try to check insert user and profile, if there is error, revert all inserted data
     await validate()
@@ -143,6 +176,7 @@ module.exports = class UsersManagement {
     await insertProfile()
     await insertUser(codeRegId)
     await useCodeReg(codeRegId)
+    await sendEmailPostRegistration()
 
     return data
   }
