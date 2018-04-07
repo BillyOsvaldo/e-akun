@@ -1169,24 +1169,100 @@ To publish draft:
     - organizationstructuresusersmanagement
 
 - organizationusersexpand
+  find:
+    - organizationusers
+    - organizationstructuresusersmanagement
+
 - organizationusersmanagement
+  find:
+    - usersmanagement
+  rest:
+    - organizationusers
+    - usersmanagement
+    - organizationusersdraft
+    - organizationusersmanagement
+    - organizationstructuresusersdraftmanagement
+    - organizationstructuresusersmanagement
+    - usersselect
+
+
 - permissions
+  no dep
+
 - permissionsadminorganizationsselect
+  all:
+    - permissions
+
 - permissionsmanagement
+  all:
+    - permissions
+
 - permissionsselect
+  all:
+    - permissions
+
 - positions
+  no dep
+
 - positionsmanagement
+  all:
+    - positions
+
 - postcodes
+  no dep
+
 - profiles
+  no dep
+
 - resend_email
+  - coderegs
+
 - roles
+  no dep
+
 - rolesmanagement
+  all:
+    - roles
+
 - rolesselect
+  all:
+    - roles
+
 - structureparentselect
+  all:
+    - organizationstructures
+
 - structures
+  no dep
+
 - structuresmanagement
+  all:
+    - structures
+
 - structuresselect
+  all:
+    - structures
+
 - userRegistration
+  all:
+    - coderegs
+    - organizationusersdraft
+    - organizationusersdraftmanagement
+    - organizationstructuresusersdraft
+    - organizationstructuresusersdraftmanagement
+    - usersmanagement
+
 - users
+  no dep
+
 - usersmanagement
+  all:
+    - users
+    - profiles
+    - coderegs
+    - coderegsmanagement
+    - roles
+
 - usersselect
+  all:
+    - usersmanagement
