@@ -53,6 +53,7 @@
 - structures
 - structuresmanagement
 - structuresselect
+- userRegistration
 - users
 - usersmanagement
 - usersselect
@@ -1032,3 +1033,119 @@ Note: all method (create, find, get, patch) is same as service `organizationstru
 To publish draft:
   Method: DELETE
   URL: /organizationstructuresusersdraftmanagement/publish_{ObjectId}
+
+---------------------------------------------------------------------
+
+## Related Services
+
+- addresses
+  all:
+    - postcodes
+
+- administratorpermissionsmanagement
+  all:
+    - administrators
+
+- administrators
+
+- administratorsmanagement
+  all:
+    - users
+
+- administratorsorganizationsmanagement
+  all:
+    - users  
+
+- administratorsselect
+  all:
+    - administrators
+
+
+- apps
+
+- appsmanagement
+  all:
+    - apps
+
+- appsselect
+  all:
+    - apps
+
+- checkcode
+  find:
+    - coderegs
+
+- checkemail
+  find:
+    - users
+
+- checkuser
+  find:
+    - users
+    - permissions
+
+- checkusername
+  find:
+    - users
+
+- coderegs
+  no dep
+
+- coderegsmanagement
+  - organizationusersdraftmanagement
+  - organizationstructuresusersdraftmanagement
+  - coderegs
+  - organizationusersdraft
+  - organizationstructuresusersdraft
+
+
+
+
+
+
+
+
+
+
+
+
+- menuapp
+- menus
+- menusmanagement
+- organizations
+- organizationsmanagement
+- organizationsselect
+- organizationstructures
+- organizationstructuresmanagement
+- organizationstructuresselect
+- organizationstructuresusers
+- organizationstructuresusersbyuser
+- organizationstructuresusersdraft
+- organizationstructuresusersdraftmanagement
+- organizationstructuresusersmanagement
+- organizationusers
+- organizationusersbyuser
+- organizationusersdraft
+- organizationusersdraftmanagement
+- organizationusersexpand
+- organizationusersmanagement
+- permissions
+- permissionsadminorganizationsselect
+- permissionsmanagement
+- permissionsselect
+- positions
+- positionsmanagement
+- postcodes
+- profiles
+- resend_email
+- roles
+- rolesmanagement
+- rolesselect
+- structureparentselect
+- structures
+- structuresmanagement
+- structuresselect
+- userRegistration
+- users
+- usersmanagement
+- usersselect

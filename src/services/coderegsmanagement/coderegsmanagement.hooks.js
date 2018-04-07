@@ -1,3 +1,5 @@
+const coderegsHook = require('../../hooks/coderegs_service')
+
 module.exports = {
   before: {
     all: [],
@@ -11,11 +13,11 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
-    get: [],
-    create: [],
-    update: [],
-    patch: [],
+    find: [ coderegsHook.populate ],
+    get: [ coderegsHook.populate ],
+    create: [ coderegsHook.populate ],
+    update: [ coderegsHook.populate ],
+    patch: [ coderegsHook.populate ],
     remove: []
   },
 
