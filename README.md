@@ -1290,137 +1290,137 @@ To publish draft:
 
 ## Restriction
 - administrators
-  find: no-restrict
-  get: no-restrict
-  create: admin-only
-  update: disabled
-  patch: admin-only
-  remove: disabled
+    find: no-restrict
+    get: no-restrict
+    create: admin-only
+    update: disabled
+    patch: admin-only
+    remove: disabled
 
 - apps
-  find: no-restrict
-  get: no-restrict
-  create: admin-only
-  update: disabled
-  patch: admin-only
-  remove: admin-only
+    find: no-restrict
+    get: no-restrict
+    create: admin-only
+    update: disabled
+    patch: admin-only
+    remove: admin-only
 
 - coderegs
-  find: no-restrict
-  get: no-restrict
-  create: admin-only
-  update: disabled
-  patch: admin-only
-  remove: admin-only
+    find: no-restrict
+    get: no-restrict
+    create: admin-only
+    update: disabled
+    patch: admin-only
+    remove: admin-only
 
 - menus
-  find: no-restrict
-  get: no-restrict
-  create: admin-only
-  update: disabled
-  patch: admin-only
-  remove: admin-only
+    find: no-restrict
+    get: no-restrict
+    create: admin-only
+    update: disabled
+    patch: admin-only
+    remove: admin-only
 
 - organizations
-  find: no-restrict
-  get: no-restrict
-  create: admin-only
-  update: disabled
-  patch: admin-only
-  remove: admin-only
+    find: no-restrict
+    get: no-restrict
+    create: admin-only
+    update: disabled
+    patch: admin-only
+    remove: admin-only
 
 - organizationstructures
-  find: no-restrict
-  get: no-restrict
-  create: admin-only
-  update: disabled
-  patch: admin-only
-  remove: admin-only
+    find: no-restrict
+    get: no-restrict
+    create: admin-only
+    update: disabled
+    patch: admin-only
+    remove: admin-only
 
 - organizationstructuresusers
-  find: no-restrict
-  get: no-restrict
-  create: restrict-to-owner
-  update: disabled
-  patch: restrict-to-owner
-  remove: admin-only
+    find: no-restrict
+    get: no-restrict
+    create: restrict-to-owner
+    update: disabled
+    patch: restrict-to-owner
+    remove: admin-only
 
 - organizationstructuresusersdrafts
-  find: no-restrict
-  get: no-restrict
-  create: restrict-to-owner
-  update: disabled
-  patch: restrict-to-owner
-  remove: admin-only
+    find: no-restrict
+    get: no-restrict
+    create: restrict-to-owner
+    update: disabled
+    patch: restrict-to-owner
+    remove: admin-only
 
 - organizationusers
-  find: no-restrict
-  get: no-restrict
-  create: restrict-to-owner
-  update: disabled
-  patch: restrict-to-owner
-  remove: admin-only
+    find: no-restrict
+    get: no-restrict
+    create: restrict-to-owner
+    update: disabled
+    patch: restrict-to-owner
+    remove: admin-only
 
 - organizationusersdrafts
-  find: no-restrict
-  get: no-restrict
-  create: restrict-to-owner
-  update: disabled
-  patch: restrict-to-owner
-  remove: admin-only
+    find: no-restrict
+    get: no-restrict
+    create: restrict-to-owner
+    update: disabled
+    patch: restrict-to-owner
+    remove: admin-only
 
 - permissions
-  find: no-restrict
-  get: no-restrict
-  create: admin-only
-  update: disabled
-  patch: admin-only
-  remove: admin-only
+    find: no-restrict
+    get: no-restrict
+    create: admin-only
+    update: disabled
+    patch: admin-only
+    remove: admin-only
 
 - positions
-  find: no-restrict
-  get: no-restrict
-  create: admin-only
-  update: disabled
-  patch: admin-only
-  remove: admin-only
+    find: no-restrict
+    get: no-restrict
+    create: admin-only
+    update: disabled
+    patch: admin-only
+    remove: admin-only
 
 - postcodes
-  find: no-restrict
-  get: no-restrict
-  create: admin-only
-  update: disabled
-  patch: admin-only
-  remove: admin-only
+    find: no-restrict
+    get: no-restrict
+    create: admin-only
+    update: disabled
+    patch: admin-only
+    remove: admin-only
 
 - profiles
-  find: no-restrict
-  get: no-restrict
-  create: restrict-to-owner
-  update: disabled
-  patch: restrict-to-owner
-  remove: admin-only
+    find: no-restrict
+    get: no-restrict
+    create: restrict-to-owner
+    update: disabled
+    patch: restrict-to-owner
+    remove: admin-only
 
 - roles
-  find: no-restrict
-  get: no-restrict
-  create: admin-only
-  update: disabled
-  patch: admin-only
-  remove: admin-only
+    find: no-restrict
+    get: no-restrict
+    create: admin-only
+    update: disabled
+    patch: admin-only
+    remove: admin-only
 
 - structures
-  find: no-restrict
-  get: no-restrict
-  create: admin-only
-  update: disabled
-  patch: admin-only
-  remove: admin-only
+    find: no-restrict
+    get: no-restrict
+    create: admin-only
+    update: disabled
+    patch: admin-only
+    remove: admin-only
 
 - users
-  find: no-restrict
-  get: no-restrict
-  create: restrict-to-owner
-  update: disabled
-  patch: restrict-to-owner
-  remove: disabled
+    find: no-restrict
+    get: no-restrict
+    create: restrict-to-owner
+    update: disabled
+    patch: restrict-to-owner
+    remove: disabled
