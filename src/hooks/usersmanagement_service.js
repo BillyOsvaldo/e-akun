@@ -47,7 +47,14 @@ userappHook.populate = async (context) => {
         parentField: 'permissions',
         childField: '_id',
         asArray: true,
-        select: (hook) => ({ app: hook.app.get('appid') }),
+        select: (hook, parentItem) => {
+          const user = parentItem
+          if(user.permissions.length && !user.profile) {
+            return { app: hook.app.get('appid') }
+          } else {
+            return {}
+          }
+        },
         include: [
           {
             service: 'apps',
@@ -108,6 +115,8 @@ userappHook.populate = async (context) => {
       }
     ]
   })
+
+
 
   await populate({ schema: populateSchema })(context)
 }
