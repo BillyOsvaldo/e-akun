@@ -46,6 +46,7 @@ userappHook.populate = async (context) => {
         nameAs: 'permissions',
         parentField: 'permissions',
         childField: '_id',
+        asArray: true,
         select: (hook) => ({ app: hook.app.get('appid') }),
         include: [
           {
