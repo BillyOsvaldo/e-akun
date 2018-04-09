@@ -23,8 +23,7 @@ module.exports = {
     create: [ usersManagementHooks.checkPns ],
     update: [ authenticate('jwt') ],
     patch: [
-      authenticate('jwt'),
-      permissions.restrict
+      authenticate('jwt')
     ],
     remove: [ authenticate('jwt') ]
   },
