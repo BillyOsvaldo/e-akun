@@ -55,26 +55,32 @@ permissions.set = async (context) => {
   Permission admin aplikasi allowed to edit everything in this service as long as current application is same as his
   Permission user only allowed to edit his doc
 */
-permissions.restrict = async (context) => {
-  var restricted = true
-  const isAdmin = await permissions.set(context)
+permissions.restrict = async (ownerField = '_id') => {
+  return async (context) => {
+    console.log('ownerField', ownerField)
 
-  if(isAdmin) {
-    for(let permission of context.params.user.permissions) {
-      if(permission.administrator.tag == 'super_admin') {
-        restricted = false
-      } else if(permission.administrator.tag == 'admin_organization') {
-        restricted = false
-      } else if(permission.administrator.tag == 'kepala_daerah') {
-        restricted = false
-      } else if(permission.administrator.tag == 'admin_application' && permission.app._id == context.app.get('appid')) {
-        restricted = false
+    var restricted = true
+    const isAdmin = await permissions.set(context)
+
+    if(isAdmin) {
+      for(let permission of context.params.user.permissions) {
+        if(permission.administrator.tag == 'super_admin') {
+          restricted = false
+        } else if(permission.administrator.tag == 'admin_organization') {
+          restricted = false
+        } else if(permission.administrator.tag == 'kepala_daerah') {
+          restricted = false
+        } else if(permission.administrator.tag == 'admin_application' && permission.app._id == context.app.get('appid')) {
+          restricted = false
+        }
       }
     }
-  }
 
-  if(restricted) {
-    await restrictToOwner({ idField: '_id', ownerField: '_id' })(context)
+    console.log('isAdmin', isAdmin)
+
+    if(restricted) {
+      await restrictToOwner({ idField: '_id', ownerField: '_id' })(context)
+    }
   }
 }
 
