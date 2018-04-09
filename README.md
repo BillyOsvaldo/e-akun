@@ -1047,6 +1047,7 @@ To publish draft:
     - administrators
 
 - administrators
+  no dep
 
 - administratorsmanagement
   all:
@@ -1266,3 +1267,24 @@ To publish draft:
 - usersselect
   all:
     - usersmanagement
+
+## Collection
+- administrators
+- apps
+- coderegs
+- drafts
+- menus
+- organizations
+- organizationstructures
+- organizationstructuresusers
+- organizationstructuresusersdrafts
+- organizationusers
+- organizationusersdrafts
+- permissions
+- positions
+- postcodes
+- profiles
+- roles
+- structurepositions
+- structures
+- users
