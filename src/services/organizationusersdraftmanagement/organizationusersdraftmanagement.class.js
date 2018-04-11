@@ -145,6 +145,23 @@ module.exports = class {
   }
 
   async patch(id, data, params) {
+    const organizationStructuresUsersDraft = this.app.service('organizationstructuresusersdraft')
+    const organizationUsersDraft = this.app.service('organizationusersdraft')
+
+    // if context.data.organizationStructure is not empty then create organizationstructuresusers
+    if(Boolean(data.organizationStructure && data.organizationStructureStartDate)) {
+      const dataOrganizationstructuresusers = {
+        organizationstructure: data.organizationStructure,
+        startDate: data.organizationStructureStartDate
+      }
+
+      const docOrgStructUser = await organizationStructuresUsersDraft.Model.findOne({ user: data.user })
+
+      if(docOrgStructUser) {
+        await organizationStructuresUsersDraft.patch(docOrgStructUser._id, dataOrganizationstructuresusers, {})
+      }
+    }
+
     return await this.app.service('organizationusersdraft').patch(id, data, params)
   }
 
