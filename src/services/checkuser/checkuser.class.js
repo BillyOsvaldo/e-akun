@@ -18,6 +18,7 @@ to check if email is already registered
 
 module.exports = class checkUser {
   async find(params) {
+    const ObjectId = this.app.get('mongooseClient').Types.ObjectId
     const queryUsername = params.query.username
     const queryEmail = params.query.email
 
@@ -39,9 +40,9 @@ module.exports = class checkUser {
 
         const getAdminName = async (docUsers) => {
           const Permissions = this.app.service('permissions').Model
-          const docPermissions = await Permissions.findOne({ _id: docUsers.permissions[0] }).populate('administrator').populate('app')
+          const docPermissions = await Permissions.findOne({ _id: ObjectId(docUsers.permissions[0]) }).populate('administrator').populate('app')
           if(!docPermissions) {
-            return errors.BadRequest('Tidak ada data permissions')
+            throw new errors.BadRequest('Tidak ada data permissions')
           }
 
           const docApp = JSON.parse(JSON.stringify(docPermissions.app))

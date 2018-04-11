@@ -1,26 +1,27 @@
-const { authenticate } = require('feathers-authentication').hooks;
+const { authenticate } = require('feathers-authentication').hooks
+const permissions = require('../../hooks/permissions')
+const common = require('feathers-hooks-common')
+
 const hooks = require('feathers-hooks')
-const commonHooks = require('feathers-hooks-common');
 const { restrictToOwner } = require('feathers-authentication-hooks');
 const { hashPassword } = require('feathers-authentication-local').hooks;
-const permissions = require('../../hooks/permissions')
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ],
+    all: [],
     find: [],
     get: [],
     create: [ hashPassword() ],
-    update: [ hashPassword() ],
-    patch: [ hashPassword() ],
-    remove: []
+    update: [ common.disallow(), hashPassword() ],
+    patch: [ permissions.restrict(), hashPassword() ],
+    remove: [ common.disallow() ]
   },
 
   after: {
     all: [
-      commonHooks.when(
+      common.when(
         hook => hook.params.provider,
-        commonHooks.discard('password')
+        common.discard('password')
       )
     ],
     find: [],

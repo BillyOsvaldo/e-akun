@@ -1,4 +1,7 @@
-const { authenticate } = require('feathers-authentication').hooks;
+const { authenticate } = require('feathers-authentication').hooks
+const permissions = require('../../hooks/permissions')
+const common = require('feathers-hooks-common')
+
 const permissionsManagementHook = require('../../hooks/permissionsmanagement_service')
 
 module.exports = {
@@ -6,10 +9,10 @@ module.exports = {
     all: [ authenticate('jwt') ],
     find: [],
     get: [],
-    create: [ permissionsManagementHook.ensureUnique ],
-    update: [],
-    patch: [],
-    remove: []
+    create: [ permissions.adminOnly(), permissionsManagementHook.ensureUnique ],
+    update: [ common.disallow() ],
+    patch: [ permissions.adminOnly() ],
+    remove: [ permissions.adminOnly() ]
   },
 
   after: {

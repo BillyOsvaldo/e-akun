@@ -21,7 +21,8 @@ permissions.set = async (context) => {
     isAdmin = false
     return isAdmin
   }
-  if(context.params.user.permissions == [] || context.params.user.permissions == null) {
+
+  if(context.params.user.permissions == null || !context.params.user.permissions.length) {
     isAdmin = false
     return isAdmin
   }
@@ -50,12 +51,21 @@ permissions.set = async (context) => {
   return isAdmin
 }
 
+permissions.adminOnly = () => {
+  return async (context) => {
+    const isAdmin = await permissions.set(context)
+    console.log('isAdmin', isAdmin)
+
+    if(!isAdmin) throw new errors.BadRequest('Admin only')
+  }
+}
+
 /*
   Permission admin organization allowed to edit everything in this service
   Permission admin aplikasi allowed to edit everything in this service as long as current application is same as his
   Permission user only allowed to edit his doc
 */
-permissions.restrict = async (ownerField = '_id') => {
+permissions.restrict = (ownerField = '_id') => {
   return async (context) => {
     console.log('ownerField', ownerField)
 
@@ -64,22 +74,25 @@ permissions.restrict = async (ownerField = '_id') => {
 
     if(isAdmin) {
       for(let permission of context.params.user.permissions) {
-        if(permission.administrator.tag == 'super_admin') {
+        // admin_application is special, they have to be in this app
+        // they only got access if only curent app is equal as his app
+        /*
+        // TODO: restrict by admin application
+        let isAdminApp = permission.administrator.tag == 'admin_application'
+        if(!isAdminApp) {
           restricted = false
-        } else if(permission.administrator.tag == 'admin_organization') {
-          restricted = false
-        } else if(permission.administrator.tag == 'kepala_daerah') {
-          restricted = false
-        } else if(permission.administrator.tag == 'admin_application' && permission.app._id == context.app.get('appid')) {
-          restricted = false
-        }
+        } else {
+          if(permission.app._id == context.app.get('appid'))
+            restricted = false
+        }*/
+        restricted = false
       }
     }
 
     console.log('isAdmin', isAdmin)
 
     if(restricted) {
-      await restrictToOwner({ idField: '_id', ownerField: '_id' })(context)
+      await restrictToOwner({ idField: '_id', ownerField: ownerField })(context)
     }
   }
 }

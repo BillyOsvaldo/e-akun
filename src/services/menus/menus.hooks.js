@@ -1,4 +1,7 @@
-const { authenticate } = require('feathers-authentication').hooks;
+const { authenticate } = require('feathers-authentication').hooks
+const permissions = require('../../hooks/permissions')
+const common = require('feathers-hooks-common')
+
 const orderByOrderAsc = require('../../hooks/order_by_order_asc')
 const menusHook = require('../../hooks/menus_service')
 
@@ -7,10 +10,10 @@ module.exports = {
     all: [ authenticate('jwt') ],
     find: [ orderByOrderAsc, menusHook.paginationBefore ],
     get: [],
-    create: [ menusHook.generateOrder ],
-    update: [],
-    patch: [],
-    remove: []
+    create: [ permissions.adminOnly(), menusHook.generateOrder ],
+    update: [ common.disallow() ],
+    patch: [ permissions.adminOnly() ],
+    remove: [ permissions.adminOnly() ]
   },
 
   after: {

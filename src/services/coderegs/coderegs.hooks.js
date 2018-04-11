@@ -1,4 +1,7 @@
-const { authenticate } = require('feathers-authentication').hooks;
+const { authenticate } = require('feathers-authentication').hooks
+const permissions = require('../../hooks/permissions')
+const common = require('feathers-hooks-common')
+
 const generateCode = require('../../hooks/generate_codereg')
 const sendEmailCodeReg = require('../../hooks/send_email_codereg')
 const orderByCreatedAtDesc = require('../../hooks/order_by_created_at_desc')
@@ -9,10 +12,10 @@ module.exports = {
     all: [],
     find: [ orderByCreatedAtDesc ],
     get: [],
-    create: [ generateCode, sendEmailCodeReg ],
-    update: [ sendEmailCodeReg ],
+    create: [ permissions.adminOnly(), generateCode, sendEmailCodeReg ],
+    update: [ common.disallow(), sendEmailCodeReg ],
     patch: [ sendEmailCodeReg ],
-    remove: []
+    remove: [ permissions.adminOnly() ]
   },
 
   after: {

@@ -1,4 +1,6 @@
-const { authenticate } = require('feathers-authentication').hooks;
+const { authenticate } = require('feathers-authentication').hooks
+const permissions = require('../../hooks/permissions')
+const common = require('feathers-hooks-common')
 
 module.exports = {
   before: {
@@ -6,9 +8,9 @@ module.exports = {
     find: [],
     get: [],
     create: [],
-    update: [],
-    patch: [],
-    remove: []
+    update: [ common.disallow() ],
+    patch: [ permissions.restrict('user') ],
+    remove: [ permissions.adminOnly() ]
   },
 
   after: {
