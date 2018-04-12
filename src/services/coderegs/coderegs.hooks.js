@@ -9,7 +9,7 @@ const addTimestamp = require('../../hooks/add_timestamp')
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ],
+    all: [],
     find: [ orderByCreatedAtDesc ],
     get: [],
     create: [ permissions.adminOnly(), generateCode, sendEmailCodeReg ],
