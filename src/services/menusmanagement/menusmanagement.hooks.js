@@ -15,7 +15,7 @@ module.exports = {
     all: [],
     find: [ menusManagementHook.populate ],
     get: [ menusManagementHook.populate ],
-    create: [],
+    create: [ menusManagementHook.populate ],
     update: [],
     patch: [ menusManagementHook.populate ],
     remove: []

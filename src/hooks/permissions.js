@@ -68,9 +68,8 @@ permissions.adminOnly = () => {
   Permission admin aplikasi allowed to edit everything in this service as long as current application is same as his
   Permission user only allowed to edit his doc
 */
-permissions.restrict = (ownerField = '_id') => {
+permissions.restrict = (ownerField = '_id', idField = '_id') => {
   return async (context) => {
-    console.log('ownerField', ownerField)
 
     var restricted = true
     const isAdmin = await permissions.set(context)
@@ -92,10 +91,8 @@ permissions.restrict = (ownerField = '_id') => {
       }
     }
 
-    console.log('isAdmin', isAdmin)
-
     if(restricted) {
-      await restrictToOwner({ idField: '_id', ownerField: ownerField })(context)
+      await restrictToOwner({ idField: idField, ownerField: ownerField })(context)
     }
   }
 }

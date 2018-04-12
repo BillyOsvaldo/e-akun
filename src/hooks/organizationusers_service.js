@@ -83,7 +83,7 @@ organizationusersHook.fillEndDate = async (context) => {
     const firstDoc = docs[0]
     var startDateObj = new Date(context.data.startDate)
     startDateObj.setDate(startDateObj.getDate() - 1) // current date - 1
-    organizationUsers.patch(firstDoc._id, { endDate: startDateObj })
+    organizationUsers.patch(firstDoc._id, { endDate: startDateObj }, context.params)
   }
 }
 
@@ -99,14 +99,14 @@ organizationusersHook.updateOrganization = async (context) => {
   const newOrganization = docOrganizationUsers.organization
   const user = context.data.user
   const users = context.app.service('usersmanagement')
-  await users.patch(user, { organization: newOrganization })
+  await users.patch(user, { organization: newOrganization }, context.params)
   context.data.newOrganizationUsers = docOrganizationUsers._id
 }
 
 organizationusersHook.updateOrganizationUsers = async (context) => {
   const user = context.data.user
   const users = context.app.service('usersmanagement')
-  await users.patch(user, { organizationuser: context.data.newOrganizationUsers })
+  await users.patch(user, { organizationuser: context.data.newOrganizationUsers }, context.params)
 }
 
 organizationusersHook.publish = async (context) => {
@@ -155,7 +155,7 @@ organizationusersHook.publish = async (context) => {
   const isOrganizationUsersExist = Boolean(docs.total)
   var organizationUsersId
   if(!isOrganizationUsersExist) {
-    var docOrgUsers = await organizationUsersManagement.create(docOrganizationUsersDraft)
+    var docOrgUsers = await organizationUsersManagement.create(docOrganizationUsersDraft, context.params)
     organizationUsersId = docOrgUsers._id
   } else {
     organizationUsersId = docs.data[0]._id
@@ -168,7 +168,7 @@ organizationusersHook.publish = async (context) => {
   if(isOrganizationStructuresUsersIdExist) {
     const organizationStructuresUsersId = mergedId[1]
     await organizationStructuresUsersDraft.remove('publish_' + organizationStructuresUsersId) 
-    await organizationStructuresUsers.patch(organizationStructuresUsersId, { organizationuser: organizationUsersId })
+    await organizationStructuresUsers.patch(organizationStructuresUsersId, { organizationuser: organizationUsersId }, context.params)
   }
 
   context.result = docOrganizationUsersDraft

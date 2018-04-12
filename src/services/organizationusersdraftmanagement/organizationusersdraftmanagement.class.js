@@ -162,7 +162,7 @@ module.exports = class {
       const docOrgStructUser = await organizationStructuresUsersDraft.Model.findOne({ user: data.user })
 
       if(docOrgStructUser) {
-        await organizationStructuresUsersDraft.patch(docOrgStructUser._id, dataOrganizationstructuresusers, {})
+        await organizationStructuresUsersDraft.patch(docOrgStructUser._id, dataOrganizationstructuresusers, params)
       }
     }
 
