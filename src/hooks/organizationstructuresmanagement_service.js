@@ -73,7 +73,7 @@ organizationstructuresHook.pushToParent = async (context) => {
   const newChildren = [...new Set(newChildrenString)]
   const updateData = { children: newChildren }
 
-  await organizationstructures.patch(context.data.parent, updateData)
+  await organizationstructures.patch(context.data.parent, updateData, context.params)
 }
 
 organizationstructuresHook.removeChildrenArrOfParent = async (context) => {
@@ -89,7 +89,7 @@ organizationstructuresHook.removeChildrenArrOfParent = async (context) => {
     var docOldParent = await organizationstructures.get(docSelf.parent)
     docOldParent.children = docOldParent.children.filter((child) => (child != context.id))
     var updateData = { children: docOldParent.children }
-    await organizationstructures.patch(docOldParent._id, updateData)
+    await organizationstructures.patch(docOldParent._id, updateData, context.params)
   }
 }
 
@@ -106,7 +106,7 @@ organizationstructuresHook.decideDescendantsOrder = async (context) => {
     let order = { order: childOrder }
 
     for(let childId of childrenId) {
-      let childDoc = await organizationstructures.patch(childId, order)
+      let childDoc = await organizationstructures.patch(childId, order, context.params)
       grandChildrenId = grandChildrenId.concat(childDoc.children)
     }
 

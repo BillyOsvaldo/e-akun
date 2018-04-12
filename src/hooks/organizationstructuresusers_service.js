@@ -84,8 +84,8 @@ organizationstructuresusersHook.fillEndDate = async (context) => {
       const firstDoc = docs[0]
       var startDateObj = new Date(context.data.startDate)
       startDateObj.setDate(startDateObj.getDate() - 1) // current date - 1
-      await organizationStructuresUsers.patch(firstDoc._id, { endDate: startDateObj })
-      await users.patch(firstDoc.user, { position: null, role: null })
+      await organizationStructuresUsers.patch(firstDoc._id, { endDate: startDateObj }, context.params)
+      await users.patch(firstDoc.user, { position: null, role: null }, context.params)
     }
   }
 
@@ -98,7 +98,7 @@ organizationstructuresusersHook.fillEndDate = async (context) => {
       const firstDoc = docs[0]
       var startDateObj = new Date(context.data.startDate)
       startDateObj.setDate(startDateObj.getDate() - 1) // current date - 1
-      await organizationStructuresUsers.patch(firstDoc._id, { endDate: startDateObj })
+      await organizationStructuresUsers.patch(firstDoc._id, { endDate: startDateObj }, context.params)
     }
   }
 
@@ -122,7 +122,7 @@ organizationstructuresusersHook.updateRole = async (context) => {
   const role = docOrganizationstructure.role
   const user = context.data.user
   const users = context.app.service('usersmanagement')
-  await users.patch(user, { role: role })
+  await users.patch(user, { role: role }, context.params)
   context.data.idOrganizationStructureUsers = idOrganizationStructureUsers
 }
 
@@ -131,7 +131,7 @@ organizationstructuresusersHook.updatePosition = async (context) => {
 
   const user = context.data.user
   const users = context.app.service('usersmanagement')
-  await users.patch(user, { position: context.data.idOrganizationStructureUsers })
+  await users.patch(user, { position: context.data.idOrganizationStructureUsers }, context.params)
   delete context.data.idOrganizationStructureUsers
 }
 
@@ -147,7 +147,7 @@ organizationstructuresusersHook.publish = async (context) => {
     throw new errors.BadRequest('Doc not found')
   }
 
-  await organizationStructuresUsers.create(docOrganizationStructuresUsersDraft)
+  await organizationStructuresUsers.create(docOrganizationStructuresUsersDraft, context.params)
   await organizationStructuresUsersDraft.remove(docOrganizationStructuresUsersDraft._id)
   context.result = docOrganizationStructuresUsersDraft
 }

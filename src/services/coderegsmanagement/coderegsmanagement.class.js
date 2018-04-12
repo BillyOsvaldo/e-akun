@@ -120,6 +120,7 @@ module.exports = class CoderegsManagement {
     const userId = id
     await handleOrganizationUsersDraft(userId)
     await handleOrganizationStructuresUsersDraft(userId)
+    await this.app.service('coderegs').patch(id, data, params)
     return await this.get(userId)
   }
 

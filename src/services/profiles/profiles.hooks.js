@@ -4,12 +4,12 @@ const common = require('feathers-hooks-common')
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ],
+    all: [],
     find: [],
     get: [],
     create: [],
     update: [ common.disallow() ],
-    patch: [ permissions.restrict() ],
+    patch: [ permissions.restrict('_id', 'profile') ],
     remove: [ permissions.adminOnly() ]
   },
 

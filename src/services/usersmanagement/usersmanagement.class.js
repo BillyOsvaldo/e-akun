@@ -67,13 +67,13 @@ module.exports = class UsersManagement {
     }
 
     const useCodeReg = (id) => {
-      const coderegs = this.app.service('coderegsmanagement')
-      return coderegs.patch(id, { status: true })
+      const Coderegs = this.app.service('coderegs').Model
+      return Coderegs.update({ _id: id }, { status: true })
     }
 
     const insertProfile = async () => {
       const profiles = this.app.service('profiles')
-      const newProfile = await profiles.create(data)
+      const newProfile = await profiles.create(data, params)
       data.profile = newProfile
     }
 
@@ -130,14 +130,14 @@ module.exports = class UsersManagement {
     const insertUser = async (codeRegId) => {
       data._id = codeRegId
       const users = await this.app.service('users')
-      const newUser = await users.create(data)
+      const newUser = await users.create(data, params)
       data._id = newUser._id
       return newUser
     }
 
     const sendEmailPostRegistration = async () => {
       const getTemplate = () => {
-        emailData = {
+        const emailData = {
           link: `${ this.app.get('hostname') }/signin`,
           logo: this.app.get('logo'),
           year: (new Date()).getFullYear()
@@ -318,7 +318,7 @@ module.exports = class UsersManagement {
       const _user = await this.app.service('users').get(id)
       return _user
     } else {
-      return await this.app.service('users').patch(id, data)
+      return await this.app.service('users').patch(id, data, params)
     }
   }
 

@@ -17,7 +17,7 @@ module.exports = {
     get: [],
     create: [ administratorsManagementHook.populate ],
     update: [],
-    patch: [],
+    patch: [ administratorsManagementHook.populate ],
     remove: []
   },
 
