@@ -57,6 +57,10 @@ module.exports = class {
       match = { organization: ObjectId(params.query.organization) }
     }
 
+    if(params.query.orgUserDraftId) {
+      match = { _id: ObjectId(params.query.orgUserDraftId) }
+    }
+
     const aggregates = [
       { $match: match },
       // organizationstructuresusers
@@ -162,7 +166,15 @@ module.exports = class {
       }
     }
 
-    return await this.app.service('organizationusersdraft').patch(id, data, params)
+    const doc = await this.app.service('organizationusersdraft').patch(id, data, params)
+
+    const params2 = { query: { orgUserDraftId: doc._id } }
+    const docs = await this.find(params2)
+    if(docs.data.length) {
+      return docs.data[0]
+    } else {
+      return {}
+    }
   }
 
   async remove(id, params) {
