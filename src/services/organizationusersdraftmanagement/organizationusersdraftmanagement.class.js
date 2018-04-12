@@ -179,7 +179,10 @@ module.exports = class {
 
   async remove(id, params) {
     const organizationStructuresUsersDraft = this.app.service('organizationstructuresusersdraft')
-    const docOrgStructUser = await organizationStructuresUsersDraft.Model.findOne({ user: data.user })
+    const organizationUsersDraft = this.app.service('organizationusersdraft')
+
+    const docOrgUser = await organizationUsersDraft.get(id)
+    const docOrgStructUser = await organizationStructuresUsersDraft.Model.findOne({ user: docOrgUser.user })
 
     if(docOrgStructUser) {
       await organizationStructuresUsersDraft.remove(docOrgStructUser._id, {})    
