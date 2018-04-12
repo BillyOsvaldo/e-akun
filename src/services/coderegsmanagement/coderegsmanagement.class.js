@@ -31,7 +31,7 @@ module.exports = class CoderegsManagement {
         startDate: data.organizationUsersStartDate
       }
 
-      await this.app.service('organizationusersdraftmanagement').create(dataInner)
+      await this.app.service('organizationusersdraftmanagement').create(dataInner, params)
 
       delete data.organization
       delete data.inside
@@ -48,7 +48,7 @@ module.exports = class CoderegsManagement {
         startDate: data.organizationStructuresUsersStartDate
       }
 
-      await this.app.service('organizationstructuresusersdraftmanagement').create(dataInner)
+      await this.app.service('organizationstructuresusersdraftmanagement').create(dataInner, params)
 
       delete data.organizationstructure
       delete data.organizationStructuresUsersStartDate
@@ -71,7 +71,7 @@ module.exports = class CoderegsManagement {
 
   async patch(id, data, params) {
     if(data.status) {
-      return await this.app.service('coderegs').patch(id, data)
+      return await this.app.service('coderegs').patch(id, data, params)
     }
 
     const handleOrganizationUsersDraft = async (userId) => {
@@ -86,7 +86,7 @@ module.exports = class CoderegsManagement {
 
       const doc = await OrganizationUsersDraft.findOne({ user: userId })
       const docId = doc._id
-      await organizationUsersDraft.patch(docId, dataInner)
+      await organizationUsersDraft.patch(docId, dataInner, params)
     }
 
     // optional
@@ -110,10 +110,10 @@ module.exports = class CoderegsManagement {
       // if doc is not found then create, else do patch
       if(doc) {
         const docId = doc._id
-        await organizationStructuresUsersDraft.patch(docId, dataInner)
+        await organizationStructuresUsersDraft.patch(docId, dataInner, params)
       } else {
         dataInner.user = userId
-        await organizationStructuresUsersDraft.create(dataInner)
+        await organizationStructuresUsersDraft.create(dataInner, params)
       }
     }
 
