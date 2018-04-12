@@ -1,3 +1,4 @@
+const { authenticate } = require('feathers-authentication').hooks
 const { populate } = require('feathers-hooks-common')
 const { restrictToOwner } = require('feathers-authentication-hooks');
 const bcrypt = require('bcryptjs')
@@ -16,6 +17,8 @@ permissions.isAdmin = (context) => {
   @return is_admin Boolean
 */
 permissions.set = async (context) => {
+  await authenticate('jwt')(context)
+
   var isAdmin
   if(!context.params.user) {
     isAdmin = false
