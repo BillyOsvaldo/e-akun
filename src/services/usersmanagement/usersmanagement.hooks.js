@@ -1,7 +1,7 @@
-const { authenticate } = require('feathers-authentication').hooks;
+const { authenticate } = require('@feathersjs/authentication').hooks;
 const commonHooks = require('feathers-hooks-common');
 const { restrictToOwner } = require('feathers-authentication-hooks');
-const { hashPassword } = require('feathers-authentication-local').hooks;
+const { hashPassword } = require('@feathersjs/authentication-local').hooks;
 const addTimestamp = require('../../hooks/add_timestamp')
 const usersManagementHooks = require('../../hooks/usersmanagement_service')
 const permissions = require('../../hooks/permissions')

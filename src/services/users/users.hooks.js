@@ -1,10 +1,9 @@
-const { authenticate } = require('feathers-authentication').hooks
+const { authenticate } = require('@feathersjs/authentication').hooks
 const permissions = require('../../hooks/permissions')
 const common = require('feathers-hooks-common')
 
-const hooks = require('feathers-hooks')
 const { restrictToOwner } = require('feathers-authentication-hooks');
-const { hashPassword } = require('feathers-authentication-local').hooks;
+const { hashPassword } = require('@feathersjs/authentication-local').hooks;
 
 module.exports = {
   before: {
