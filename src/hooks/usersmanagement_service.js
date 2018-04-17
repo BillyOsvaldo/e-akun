@@ -56,7 +56,8 @@ userappHook.populate = async (context) => {
               appId = hook.params.query.$appid
             else
               appId = hook.app.get('appid')
-            return { app: appId }
+
+            return { $or: [ { app: appId }, { app: null } ] }
           } else {
             return {}
           }
