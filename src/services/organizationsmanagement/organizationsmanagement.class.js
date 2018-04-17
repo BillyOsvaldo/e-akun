@@ -7,8 +7,8 @@ module.exports = class OrganizationsManagement {
     return await this.app.service('organizations').find(params)
   }
 
-  async get(id) {
-    return await this.app.service('organizations').get(id)
+  async get(id, params) {
+    return await this.app.service('organizations').get(id, params)
   }
 
   async patch(id, data, params) {

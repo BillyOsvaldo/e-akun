@@ -13,8 +13,8 @@ module.exports = class AdministratorsManagement {
     return await this.app.service('users').find(params)
   }
 
-  async get(id) {
-    return await this.app.service('users').get(id)
+  async get(id, params) {
+    return await this.app.service('users').get(id, params)
   }
 
   async patch(id, data, params) {

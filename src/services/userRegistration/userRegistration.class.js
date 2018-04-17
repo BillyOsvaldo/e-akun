@@ -47,8 +47,8 @@ module.exports = class {
     return await this.app.service('usersmanagement').find(params)
   }
 
-  async get(id) {
-    return await this.app.service('usersmanagement').get(id)
+  async get(id, params) {
+    return await this.app.service('usersmanagement').get(id, params)
   }
 
   async patch(id, data, params) {

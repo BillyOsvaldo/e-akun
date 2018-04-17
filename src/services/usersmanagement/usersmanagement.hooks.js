@@ -17,7 +17,12 @@ const restrict = [
 module.exports = {
   before: {
     all: [],
-    find: [ authenticate('jwt') ],
+    find: [/*
+      (context) => {
+        console.log('context.params', context.params)
+      },*/
+      authenticate('jwt')
+    ],
     //find: [ authenticate('jwt'), usersManagementHooks.populate ],
     get: [ ...restrict ],
     create: [ usersManagementHooks.checkPns ],

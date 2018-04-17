@@ -142,7 +142,7 @@ organizationstructuresusersHook.publish = async (context) => {
   const organizationStructuresUsersDraft = context.app.service('organizationstructuresusersdraft')
   const organizationStructuresUsers = context.app.service('organizationstructuresusersmanagement')
 
-  const docOrganizationStructuresUsersDraft = await organizationStructuresUsersDraft.get(id)
+  const docOrganizationStructuresUsersDraft = await organizationStructuresUsersDraft.get(id, context.params)
   if(!docOrganizationStructuresUsersDraft) {
     throw new errors.BadRequest('Doc not found')
   }

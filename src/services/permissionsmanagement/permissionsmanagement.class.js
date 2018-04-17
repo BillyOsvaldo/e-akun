@@ -7,8 +7,8 @@ module.exports = class PermissionsManagement {
     return await this.app.service('permissions').find(params)
   }
 
-  async get(id) {
-    return await this.app.service('permissions').get(id)
+  async get(id, params) {
+    return await this.app.service('permissions').get(id, params)
   }
 
   async patch(id, data, params) {

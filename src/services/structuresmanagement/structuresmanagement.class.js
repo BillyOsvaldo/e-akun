@@ -7,8 +7,8 @@ module.exports = class StructuresManagement {
     return await this.app.service('structures').find(params)
   }
 
-  async get(id) {
-    return await this.app.service('structures').get(id)
+  async get(id, params) {
+    return await this.app.service('structures').get(id, params)
   }
 
   async patch(id, data, params) {

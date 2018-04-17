@@ -144,8 +144,8 @@ module.exports = class {
     }
   }
 
-  async get(id) {
-    return await this.app.service('organizationusersdraft').get(id)
+  async get(id, params) {
+    return await this.app.service('organizationusersdraft').get(id, params)
   }
 
   async patch(id, data, params) {
@@ -181,7 +181,7 @@ module.exports = class {
     const organizationStructuresUsersDraft = this.app.service('organizationstructuresusersdraft')
     const organizationUsersDraft = this.app.service('organizationusersdraft')
 
-    const docOrgUser = await organizationUsersDraft.get(id)
+    const docOrgUser = await organizationUsersDraft.get(id, params)
     const docOrgStructUser = await organizationStructuresUsersDraft.Model.findOne({ user: docOrgUser.user })
 
     if(docOrgStructUser) {
