@@ -65,8 +65,8 @@ module.exports = class CoderegsManagement {
     return await this.app.service('coderegs').find(params)
   }
 
-  async get(id) {
-    return await this.app.service('coderegs').get(id)
+  async get(id, params) {
+    return await this.app.service('coderegs').get(id, params)
   }
 
   async patch(id, data, params) {

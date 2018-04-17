@@ -7,8 +7,8 @@ module.exports = class RolesManagement {
     return await this.app.service('roles').find(params)
   }
 
-  async get(id) {
-    return await this.app.service('roles').get(id)
+  async get(id, params) {
+    return await this.app.service('roles').get(id, params)
   }
 
   async patch(id, data, params) {

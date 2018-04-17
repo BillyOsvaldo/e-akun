@@ -57,7 +57,6 @@
 - users
 - usersmanagement
 - usersselect
-- usersauthentication
 
 
 ## API Resources

@@ -7,8 +7,8 @@ module.exports = class MenusManagement {
     return await this.app.service('menus').find(params)
   }
 
-  async get(id) {
-    return await this.app.service('menus').get(id)
+  async get(id, params) {
+    return await this.app.service('menus').get(id, params)
   }
 
   async patch(id, data, params) {

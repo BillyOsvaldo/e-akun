@@ -7,8 +7,8 @@ module.exports = class PositionsManagement {
     return await this.app.service('positions').find(params)
   }
 
-  async get(id) {
-    return await this.app.service('positions').get(id)
+  async get(id, params) {
+    return await this.app.service('positions').get(id, params)
   }
 
   async patch(id, data, params) {

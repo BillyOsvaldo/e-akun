@@ -298,7 +298,7 @@ module.exports = class UsersManagement {
       if(!data.comparepassword)
         throw new errors.BadRequest('Password wajib diisi')
 
-      let current = await this.app.service('users').get(id)
+      let current = await this.app.service('users').get(id, params)
       let compare = await bcrypt.compareSync(data.comparepassword, current.password)
       if (!compare) {
         throw new errors.BadRequest('Kata Sandi Salah.')
@@ -315,7 +315,7 @@ module.exports = class UsersManagement {
       delete data.id
       delete data.update
       await this.app.service('profiles').patch(profile_id, data, params)
-      const _user = await this.app.service('users').get(id)
+      const _user = await this.app.service('users').get(id, params)
       return _user
     } else {
       return await this.app.service('users').patch(id, data, params)
@@ -326,7 +326,7 @@ module.exports = class UsersManagement {
     const users = this.app.service('users')
     const profiles = this.app.service('profiles')
 
-    const docUser = await users.get(id)
+    const docUser = await users.get(id, params)
 
     users.remove(id)
     profiles.remove(docUser.profile)
