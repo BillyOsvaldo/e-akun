@@ -39,7 +39,8 @@ userappHook.populate = async (context) => {
         service: 'roles',
         nameAs: 'role',
         parentField: 'role',
-        childField: '_id'
+        childField: '_id',
+        asArray: true
       },
       {
         service: 'permissions',
