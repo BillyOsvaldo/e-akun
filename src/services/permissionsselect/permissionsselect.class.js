@@ -1,5 +1,14 @@
 module.exports = class addresses {
   async find (params) {
+
+    if(params.query.$or) {
+      params.query.$or = params.query.$or.map(q => {
+        if(q.app == '') q.app = null
+
+        return q
+      })
+    }
+
     params.paginate = false
     const docs = await this.app.service('permissions').find(params)
     return {
