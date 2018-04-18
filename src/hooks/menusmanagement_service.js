@@ -9,13 +9,15 @@ menusManagementHook.populate = async (context) => {
         service: 'roles',
         nameAs: 'roles',
         parentField: 'roles',
-        childField: '_id'
+        childField: '_id',
+        asArray: true
       },
       {
         service: 'permissions',
         nameAs: 'permissions',
         parentField: 'permissions',
         childField: '_id',
+        asArray: true,
         include: [
           {
             service: 'apps',
