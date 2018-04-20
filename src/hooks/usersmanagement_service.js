@@ -59,6 +59,15 @@ userappHook.populate = async (context) => {
               appId = hook.app.get('appid')
 
             return { $or: [ { app: appId }, { app: null } ] }
+          } else if (user.permissions.length && !user.profile) {
+            var appId
+            console.log('hook.params.query.$appid', hook.params.query.$appid)
+            if(hook.params.query.$appid)
+              appId = hook.params.query.$appid
+            else
+              appId = hook.app.get('appid')
+
+            return { app: appId }
           } else {
             return {}
           }
