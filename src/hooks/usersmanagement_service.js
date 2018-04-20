@@ -52,16 +52,16 @@ userappHook.populate = async (context) => {
           const user = parentItem
           if(user.permissions.length && !user.profile) {
             var appId
-            console.log('hook.params.query.$appid', hook.params.query.$appid)
+            console.log('hook.params.query.$appid #1', hook.params.query.$appid)
             if(hook.params.query.$appid)
               appId = hook.params.query.$appid
             else
               appId = hook.app.get('appid')
 
             return { $or: [ { app: appId }, { app: null } ] }
-          } else if (user.permissions.length && !user.profile) {
+          } else if (user.permissions.length && user.profile) {
             var appId
-            console.log('hook.params.query.$appid', hook.params.query.$appid)
+            console.log('hook.params.query.$appid #2', hook.params.query.$appid)
             if(hook.params.query.$appid)
               appId = hook.params.query.$appid
             else
