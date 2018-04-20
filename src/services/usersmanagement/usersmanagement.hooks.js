@@ -24,7 +24,7 @@ module.exports = {
       authenticate('jwt')
     ],
     //find: [ authenticate('jwt'), usersManagementHooks.populate ],
-    get: [ ...restrict ],
+    get: [ permissions.restrict() ],
     create: [ usersManagementHooks.checkPns ],
     update: [ authenticate('jwt') ],
     patch: [
