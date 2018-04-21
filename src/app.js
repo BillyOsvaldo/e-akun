@@ -17,6 +17,7 @@ const notFound = require('feathers-errors/not-found');
 const middleware = require('./middleware');
 const services = require('./services');
 const appHooks = require('./app.hooks');
+const channels = require('./channels');
 
 const mongoose = require('./mongoose');
 
@@ -47,6 +48,8 @@ app.configure(middleware);
 app.configure(authentication);
 // Set up our services (see `services/index.js`)
 app.configure(services);
+// Set up event channels (see channels.js)
+app.configure(channels);
 // Configure a middleware for 404s and the error handler
 app.use(notFound());
 app.use(handler());
