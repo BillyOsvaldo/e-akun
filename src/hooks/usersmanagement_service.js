@@ -49,6 +49,13 @@ userappHook.populate = async (context) => {
         childField: '_id',
         asArray: true,
         select: (hook, parentItem) => {
+
+          // if current service is administratorsorganizationsmanagement then no need to filter app
+          if(hook.params.$administratorsorganizationsmanagement) {
+            delete hook.params.$administratorsorganizationsmanagement
+            return {}
+          }
+
           const user = parentItem
           if(user.permissions.length && !user.profile) {
             var appId
