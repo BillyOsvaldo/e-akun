@@ -1,11 +1,12 @@
 // Application hooks that run for every service
 const logger = require('./hooks/logger');
 const { authenticate } = require('@feathersjs/authentication').hooks
+const noPaginateHandler = require('./hooks/no_paginate_handler')
 
 module.exports = {
   before: {
     all: [],
-    find: [],
+    find: [ noPaginateHandler ],
     get: [],
     create: [],
     update: [],
