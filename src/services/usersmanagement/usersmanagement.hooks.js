@@ -6,24 +6,10 @@ const addTimestamp = require('../../hooks/add_timestamp')
 const usersManagementHooks = require('../../hooks/usersmanagement_service')
 const permissions = require('../../hooks/permissions')
 
-const restrict = [
-  authenticate('jwt'),
-  restrictToOwner({
-    idField: '_id',
-    ownerField: '_id'
-  })
-]
-
 module.exports = {
   before: {
     all: [],
-    find: [/*
-      (context) => {
-        console.log('context.params', context.params)
-      },*/
-      authenticate('jwt')
-    ],
-    //find: [ authenticate('jwt'), usersManagementHooks.populate ],
+    find: [ permissions.apiOrJWT ],
     get: [ permissions.restrict() ],
     create: [ usersManagementHooks.checkPns ],
     update: [ authenticate('jwt') ],

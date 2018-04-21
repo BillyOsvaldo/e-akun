@@ -3,6 +3,7 @@ const { populate } = require('feathers-hooks-common')
 const { restrictToOwner } = require('feathers-authentication-hooks');
 const bcrypt = require('bcryptjs')
 const errors = require('@feathersjs/errors')
+const commonHooks = require('feathers-hooks-common');
 
 const permissions = {}
 
@@ -95,6 +96,17 @@ permissions.restrict = (ownerField = '_id', idField = '_id') => {
       await restrictToOwner({ idField: idField, ownerField: ownerField })(context)
     }
   }
+}
+
+permissions.apiOrJWT = (context) => {
+  commonHooks.iffElse(
+    // if the specific header is included
+    ctx => ctx.params.headers['x-api-key'],
+    // authentication with this strategy
+    authenticate('apiKey'),
+    // else fallback on the jwt strategy
+    authenticate(['jwt'])
+  )(context)
 }
 
 module.exports = permissions
