@@ -50,10 +50,8 @@ userappHook.populate = async (context) => {
         asArray: true,
         select: (hook, parentItem) => {
           const user = parentItem
-          console.log('user.profile', user.profile)
           if(user.permissions.length && !user.profile) {
             var appId
-            console.log('hook.params.query.$appid #1', hook.params.query.$appid)
             if(hook.params.query.$appid)
               appId = hook.params.query.$appid
             else
@@ -62,7 +60,6 @@ userappHook.populate = async (context) => {
             return { $or: [ { app: appId }, { app: null } ] }
           } else if (user.permissions.length && user.profile) {
             var appId
-            console.log('hook.params.query.$appid #2', hook.params.query.$appid)
             if(hook.params.query.$appid)
               appId = hook.params.query.$appid
             else
