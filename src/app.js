@@ -23,6 +23,8 @@ const mongoose = require('./mongoose');
 
 const authentication = require('./authentication');
 
+const apiKey = require('./authentication_api');
+
 const app = express(feathers());
 
 // Load app configuration
@@ -55,5 +57,14 @@ app.use(notFound());
 app.use(handler());
 
 app.hooks(appHooks);
+
+app.configure(
+  apiKey({
+    // which header to look at
+    header: 'x-api-key',
+    // which keys are allowed
+    allowedKeys: ['opensesame']
+  })
+);
 
 module.exports = app;

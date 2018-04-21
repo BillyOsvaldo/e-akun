@@ -24,7 +24,7 @@
   "scripts": {
     "test": "npm run eslint && npm run mocha",
     "eslint": "eslint src/. test/. --config .eslintrc.json",
-    "start": "node src/",
+    "start": "PORT=3030 HOST=0.0.0.0 nodemon src/",
     "mocha": "mocha test/ --recursive --exit"
   },
   "dependencies": {
@@ -46,6 +46,7 @@
     "moment": "^2.20.1",
     "mongoose": "^5.0.1",
     "nodemailer": "^4.4.2",
+    "passport-custom": "^1.0.5",
     "pug": "^2.0.0-rc.4",
     "serve-favicon": "^2.4.5",
     "sift": "^5.0.0",
