@@ -63,7 +63,7 @@ app.configure(
     // which header to look at
     header: 'x-api-key',
     // which keys are allowed
-    allowedKeys: ['opensesame']
+    allowedKeys: configuration()().api_key
   })
 );
 

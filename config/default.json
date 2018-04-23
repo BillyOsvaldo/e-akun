@@ -49,5 +49,6 @@
     }
   },
   "hostname": "http://purbalinggakab.go.id:8002",
-  "logo": "https://purbalinggakab.go.id/logo/logo_purbalingga.png"
+  "logo": "https://purbalinggakab.go.id/logo/logo_purbalingga.png",
+  "api_key": ["lf093i2jgjksop44"]
 }

@@ -8,7 +8,7 @@ const { hashPassword } = require('@feathersjs/authentication-local').hooks;
 module.exports = {
   before: {
     all: [],
-    find: [],
+    find: [ permissions.apiOrJWT ],
     get: [],
     create: [ hashPassword() ],
     update: [ common.disallow(), hashPassword() ],
