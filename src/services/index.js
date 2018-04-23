@@ -54,6 +54,7 @@ const organizationusersbyuser = require('./organizationusersbyuser/organizationu
 const organizationstructuresusersbyuser = require('./organizationstructuresusersbyuser/organizationstructuresusersbyuser.service.js')
 const userRegistration = require('./userRegistration/userRegistration.service.js')
 const allorganizationusersdraft = require('./allorganizationusersdraft/allorganizationusersdraft.service.js')
+const usersForMachinesUsers = require('./usersformachinesusers/usersformachinesusers.service.js');
 
 module.exports = function () {
   const app = this
@@ -113,4 +114,5 @@ module.exports = function () {
   app.configure(organizationstructuresusersbyuser)
   app.configure(userRegistration)
   app.configure(allorganizationusersdraft)
+  app.configure(usersForMachinesUsers);
 }
