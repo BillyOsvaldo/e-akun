@@ -102,7 +102,7 @@ module.exports = class UsersManagement {
 
       const getSuffix = async () => {
         const countPlusOne = (await countSameGenderAndBirthDay()) + 1
-        const suffix = countPlusOne.toString().padStart(3, '0')
+        const suffix = countPlusOne.toString().padStart(2, '0')
         return suffix
       }
 
